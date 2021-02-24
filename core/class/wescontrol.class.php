@@ -24,8 +24,8 @@ class wescontrol extends eqLogic {
 	private function getListeCommandes() {
 		$commands = array(
 			"teleinfo"=>array(
-				"ADCO"=>array("name"=>__("Numéro compteur", __FILE__), "type"=>"info", "subtype"=> "numeric", "dashboard"=>"line", "mobile"=>"line", "xpath"=>"//tic#id#/ADCO", "order"=>1),
-				"OPTARIF"=>array("name"=>__("Option tarif", __FILE__), "type"=>"info", "subtype"=> "string", "xpath"=>"//tic#id#/OPTARIF", "order"=>2),
+				"ADCO"=>array("name"=>__("Numéro compteur", __FILE__), "type"=>"info", "subtype"=> "numeric", "xpath"=>"//tic#id#/ADCO", "visible"=>0, "dashboard"=>"line", "mobile"=>"line", "order"=>1),
+				"OPTARIF"=>array("name"=>__("Option tarif", __FILE__), "type"=>"info", "subtype"=> "string", "xpath"=>"//tic#id#/OPTARIF", "visible"=>0, "order"=>2),
 				"ISOUSC"=>array("name"=>__("Intensité souscrite", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"A", "dashboard"=>"line", "mobile"=>"line", "xpath"=>"//tic#id#/ISOUSC", "order"=>3),
 				"PTEC"=>array("name"=>__("Tarif en cours", __FILE__), "type"=>"info", "subtype"=> "string", "xpath"=>"//tic#id#/PTEC", "order"=>4),
 				"PAP"=>array("name"=>__("Puissance Apparente", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"VA", "xpath"=>"//tic#id#/PAP", "dashboard"=>"tile", "mobile"=>"tile", "order"=>5),
@@ -383,7 +383,6 @@ class wescontrol extends eqLogic {
 								->setConfiguration('ip', $this->getConfiguration('ip'))
 								->setConfiguration('username', $this->getConfiguration('username'))
 								->setConfiguration('password', $this->getConfiguration('password'))
-								->setConfiguration('port', $this->getConfiguration('port', ''))
 								->save();
 							}
 						}
