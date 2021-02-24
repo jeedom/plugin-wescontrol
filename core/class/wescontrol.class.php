@@ -182,10 +182,9 @@ class wescontrol extends eqLogic {
 
 	public static function deamon_stop() {
 		$cron = cron::byClassAndFunction(__CLASS__, 'daemon');
-		if (!is_object($cron)) {
-			throw new Exception(__('Tache cron introuvable', __FILE__));
+		if (is_object($cron)) {
+			$cron->halt();
 		}
-		$cron->halt();
 	}
 
 	public static function daemon() {
