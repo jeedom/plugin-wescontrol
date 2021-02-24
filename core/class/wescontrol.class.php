@@ -65,8 +65,8 @@ class wescontrol extends eqLogic {
 				"serverversion"=>array("name"=>__("Version Serveur", __FILE__), "type"=>"info", "subtype"=>"string", "xpath"=>"//info/serverversion", "filter"=>["usecustomcgx"=>1], "order"=>2),
 				"status"=>array("name"=>__("Statut", __FILE__), "type"=>"info", "subtype"=>"binary", "order"=>3),
 				"alarme"=>array("name"=>__("Alarme", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=> 0, "xpath"=>"//info/alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1], "order"=>4),
-				"alarmeon"=>array("name"=>__("Alarme On", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1], "order"=>5),
-				"alarmeoff"=>array("name"=>__("Alarme Off", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1], "order"=>6),
+				"alarmeon"=>array("name"=>__("Alarme On", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1], "order"=>5, "url"=>'AJAX.cgx?alarme=ON'),
+				"alarmeoff"=>array("name"=>__("Alarme Off", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1], "order"=>6 , "url"=>'AJAX.cgx?alarme=OFF'),
 				"spaceleft"=>array("name"=>__("Espace libre", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"Go", "xpath"=>"//info/spaceleft", "filter"=>["usecustomcgx"=>1], "order"=>7),
 				"tension"=>array("name"=>__("Tension", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"V", "minValue"=>200, "maxValue"=>260, "xpath"=>"//pince/V", "order"=>8)
 			),
@@ -108,9 +108,9 @@ class wescontrol extends eqLogic {
 			),
 			"relai"=>array(
 				"state"=>array("name"=>__("Etat", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=>0, "xpath"=>"//relais/RELAIS#id#", "xpathcond"=>"//relais1W/RELAIS#id#", "cond"=>"#id#>=10", "dashboard"=>"prise", "mobile"=>"prise", "order"=>1),
-				"btn_on"=>array("name"=>"On", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"prise", "mobile"=>"prise", "order"=>2),
-				"btn_off"=>array("name"=>"Off", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"prise", "mobile"=>"prise", "order"=>3),
-				"commute"=>array("name"=>"Toggle", "type"=>"action", "subtype"=>"other", "order"=>4)
+				"btn_on"=>array("name"=>"On", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"prise", "mobile"=>"prise", "order"=>2, "url" => 'RL.cgi?rl#typeId#=ON'),
+				"btn_off"=>array("name"=>"Off", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"prise", "mobile"=>"prise", "order"=>3, "url" => 'RL.cgi?rl#typeId#=OFF'),
+				"commute"=>array("name"=>"Toggle", "type"=>"action", "subtype"=>"other", "order"=>4, "url" => 'RL.cgi?frl=#typeId#')
 			),
 			"switch"=>array(
 				"state"=>array("name"=>__("Etat", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=>0, "xpath"=>"//switch_virtuel/SWITCH#id#","dashboard"=>"circle", "mobile"=>"circle", "order"=>1),
@@ -146,6 +146,15 @@ class wescontrol extends eqLogic {
 			"variable"=>array("name"=>__("Variables", __FILE__), "logical"=>"_V", "HTM"=>"", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//variables/VARIABLE#id#", "maxnumber"=>8, "type"=>__("Variable", __FILE__)),
 		);
 		return $types;
+	}
+	
+	public function actions() {
+		$actions = array(
+			"alarmeon"=>array("url"=>'AJAX.cgx?alarme=ON'),
+			"alarmeoff"=>array("url"=>'AJAX.cgx?alarme=OFF'),
+			"compteur"=>array("name"=>__("Compteurs impulsions", __FILE__), "logical"=>"_C", "HTM"=>"PULSES.HTM", "width"=>"272px", "height"=>"332px", "category"=>"energy", "xpath"=>"//impulsion/INDEX#id#", "maxnumber"=>6, "type"=>__("Compteur", __FILE__)),
+		);
+		return $actions;
 	}
 
 	public static function deamon_info() {
@@ -237,30 +246,33 @@ class wescontrol extends eqLogic {
 		return $url;
 	}
 
-	public function execUrl($_path='') {
-		$url = 'http://';
-		$url .= $this->getConfiguration('ip');
-		if ( $this->getConfiguration('port') != '' )
-		{
+	public function execUrl($_logical, $_type, $_typeId ='') {
+		$url = 'http://' . $this->getConfiguration('ip');
+		if ( $this->getConfiguration('port') != '' ) {
 			$url .= ':'.$this->getConfiguration('port');
 		}
-		$process = curl_init();
-		curl_setopt($process, CURLOPT_URL, $url);
-		curl_setopt($process, CURLOPT_USERPWD, $this->getConfiguration('username') . ":" . $this->getConfiguration('password'));
-		curl_setopt($process, CURLOPT_TIMEOUT, 30);
-		curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
-		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Appel de l\'url : ', __FILE__).$url.'/'.$file);
-		if ( $_path != "" ) {
-			log::add(__CLASS__,'debug','Post '.$_path);
-			curl_setopt($process, CURLOPT_POST, 1);
-			curl_setopt($process, CURLOPT_POSTFIELDS, $_path);
+		$path = '';
+		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Recherche de la commande pour : ', __FILE__).$this->getConfiguration('type') . '-' . $_logical . '-' . $_typeId);
+		if (isset($this->getListeCommandes()[$_type]) && isset($this->getListeCommandes()[$_type][$_logical])) {
+			$cmdArray = $this->getListeCommandes()[$_type][$_logical];
+			if (isset($cmdArray['url'])) {
+				$path = str_replace('#typeId#',$_typeId,$cmdArray['url']);
+			}
 		}
-		$return = curl_exec($process);
-		curl_close($process);
+		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Appel de l\'url : ', __FILE__).$url.'/'.$path);
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url.'/'.$path);
+		curl_setopt($curl, CURLOPT_USERPWD, $this->getConfiguration('username') . ":" . $this->getConfiguration('password'));
+		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Exécution de l\'Appel de l\'url : ', __FILE__).$url.'/'.$path);
+		$return = curl_exec($curl);
+		curl_close($curl);
 		if ( $return === false ){
 			throw new Exception(__('Le serveur Wes n\'est pas joignable.',__FILE__));
 		}
 		usleep (50);
+		$this->pull();
 		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Url : ', __FILE__).$url);
 		return;
 	}
@@ -467,53 +479,11 @@ class wescontrolCmd extends cmd {
 		$wesEqLogic = eqLogic::byId(substr ($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")));
 		$typeId = substr($eqLogic->getLogicalId(), strpos($eqLogic->getLogicalId(), "_")+2);
 		if ($eqLogic->getConfiguration('type') == 'general') {
-			if ( $this->getLogicalId() == 'alarmeon') {
-				$file = 'AJAX.cgx?alarme=ON';
-				$alarm = 1;
-			} else if ( $this->getLogicalId() == 'alarmeoff' ){
-				$file = 'AJAX.cgx?alarme=OFF';
-				$alarm = 0;
-			} else {
-				return false;
-			}
-			$eqLogic->execUrl($file);
-			$eqLogic->checkAndUpdateCmd('alarme', $alarm);
-			return;
+			$eqLogic->execUrl($this->getLogicalId(), 'general', $typeId);
+		} else {
+			$wesEqLogic->execUrl($this->getLogicalId(),$eqLogic->getConfiguration('type'), $typeId);
 		}
-		else if ($eqLogic->getConfiguration('type') == "relai") {
-			if ( $this->getLogicalId() == 'btn_on' ){
-				$file .= 'RL.cgi?rl'.$typeId.'=ON';
-				$state = 1;
-			} else if ( $this->getLogicalId() == 'btn_off' ){
-				$file .= 'RL.cgi?rl'.$typeId.'=OFF';
-				$state = 0;
-			} else if ( $this->getLogicalId() == 'commute' ){
-				$file .= 'RL.cgi?frl='.$typeId;
-				$state = ($eqLogic->getCmd('info', 'state')->execCmd() == 1) ? 0 : 1;
-			} else {
-				return false;
-			}
-			$wesEqLogic->execUrl($file);
-			$eqLogic->checkAndUpdateCmd('state', $state);
-			return;
-		}
-		else if ($eqLogic->getConfiguration('type') == "switch") {
-			if ( $this->getLogicalId() == 'btn_on' ){
-				$file .= 'AJAX.cgx?vs'.$typeId.'=ON';
-				$state = 1;
-			} else if ( $this->getLogicalId() == 'btn_off' ){
-				$file .= 'AJAX.cgx?vs'.$typeId.'=OFF';
-				$state = 0;
-			}else if ( $this->getLogicalId() == 'commute' ){
-				$file .= 'AJAX.cgx?fvs='.$typeId;
-				$state = ($eqLogic->getCmd('info', 'state')->execCmd() == 1) ? 0 : 1;
-			} else {
-				return false;
-			}
-			$wesEqLogic->execUrl($file);
-			$eqLogic->checkAndUpdateCmd('state', $state);
-			return;
-		}
+		return;
 	}
 }
 ?>
