@@ -221,7 +221,23 @@ class wescontrol extends eqLogic {
 		return true;
 	}
 
-	public function getUrl($file, $postarg = "") {
+	public function getReadUrl() {
+		$url = 'http://'.$this->getConfiguration('username') . ":" . $this->getConfiguration('password').'@';
+		$url .= $this->getConfiguration('ip');
+		if ( $this->getConfiguration('port') != '' )
+		{
+			$url .= ':'.$this->getConfiguration('port');
+		}
+		$file = 'data.cgx';
+		if ($this->getConfiguration('usecustomcgx',0) == 1) {
+			$file = 'data_jeedom.cgx';
+		}
+		$url .= '/'.$file;
+		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Url : ', __FILE__).$url);
+		return $url;
+	}
+	
+	public function execUrl($_path='') {
 		$url = 'http://';
 		$url .= $this->getConfiguration('ip');
 		if ( $this->getConfiguration('port') != '' )
@@ -229,22 +245,24 @@ class wescontrol extends eqLogic {
 			$url .= ':'.$this->getConfiguration('port');
 		}
 		$process = curl_init();
-		curl_setopt($process, CURLOPT_URL, $url.'/'.$file);
+		curl_setopt($process, CURLOPT_URL, $url);
 		curl_setopt($process, CURLOPT_USERPWD, $this->getConfiguration('username') . ":" . $this->getConfiguration('password'));
 		curl_setopt($process, CURLOPT_TIMEOUT, 30);
 		curl_setopt($process, CURLOPT_RETURNTRANSFER, TRUE);
 		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Appel de l\'url : ', __FILE__).$url.'/'.$file);
-		if ( $postarg != "" ) {
-			log::add(__CLASS__,'debug','Post '.$postarg);
+		if ( $_path != "" ) {
+			log::add(__CLASS__,'debug','Post '.$_path);
 			curl_setopt($process, CURLOPT_POST, 1);
-			curl_setopt($process, CURLOPT_POSTFIELDS, $postarg);
+			curl_setopt($process, CURLOPT_POSTFIELDS, $_path);
 		}
 		$return = curl_exec($process);
 		curl_close($process);
-		if ( $return === false )
-		throw new Exception(__('Le serveur wescontrol n\'est pas joignable.',__FILE__));
+		if ( $return === false ){
+			throw new Exception(__('Le serveur Wes n\'est pas joignable.',__FILE__));
+		}
 		usleep (50);
-		return $return;
+		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Url : ', __FILE__).$url);
+		return;
 	}
 
 	public function preInsert() {
@@ -391,21 +409,18 @@ class wescontrol extends eqLogic {
 
 	public function pull() {
 		if ( $this->getIsEnable() && $this->getConfiguration('type') == "general") {
-			$file = 'data.cgx';
-			if ($this->getConfiguration('usecustomcgx',0) == 1) {
-				$file = 'data_jeedom.cgx';
-			}
-			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Interrogation du serveur wescontrol', __FILE__));
-			$this->xmlstatus = simplexml_load_string($this->getUrl($file));
+			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Interrogation du serveur Wes', __FILE__));
+			$url = $this->getReadUrl();
+			$xml = simpleXML_load_file($url); 
 			$count = 0;
-			while ( $this->xmlstatus === false && $count < 3) {
-				log::add(__CLASS__, 'warning', $this->getHumanName() . __(' Tentative échouée, nouvelle interrogation du serveur wescontrol', __FILE__));
-				$this->xmlstatus = simplexml_load_string($this->getUrl($file));
+			while ($xml === false && $count < 3) {
+				log::add(__CLASS__, 'warning', $this->getHumanName() . __(' Tentative échouée, nouvelle interrogation du serveur Wes', __FILE__));
+				$xml = simpleXML_load_file($url);
 				$count++;
 			}
-			if ( $this->xmlstatus === false ) {
+			if ( $xml === false ) {
 				$this->checkAndUpdateCmd('status', 0);
-				log::add(__CLASS__, 'error', $this->getHumanName() . __('Le serveur wescontrol n\'est pas joignable sur ', __FILE__) . $file);
+				log::add(__CLASS__, 'error', $this->getHumanName() . __('Le serveur Wes n\'est pas joignable sur ', __FILE__) . $url);
 				return false;
 			}
 			$this->checkAndUpdateCmd('status', 1);
@@ -423,7 +438,7 @@ class wescontrol extends eqLogic {
 								}
 							}
 							$xpathModele = str_replace('#id#',$typeId,$xpath);
-							$status = $this->xmlstatus->xpath($xpathModele);
+							$status = $xml->xpath($xpathModele);
 							$value = (string) $status[0];
 							if (count($status) != 0){
 								if ($eqLogic->getConfiguration('type','') == 'relai' && $logical == 'state'){
@@ -461,7 +476,7 @@ class wescontrolCmd extends cmd {
 			} else {
 				return false;
 			}
-			$eqLogic->getUrl($file);
+			$eqLogic->execUrl($file);
 			$eqLogic->checkAndUpdateCmd('alarme', $alarm);
 			return;
 		}
@@ -478,7 +493,7 @@ class wescontrolCmd extends cmd {
 			} else {
 				return false;
 			}
-			$wescontrolEqLogic->getUrl($file);
+			$wescontrolEqLogic->execUrl($file);
 			$eqLogic->checkAndUpdateCmd('state', $state);
 			return;
 		}
@@ -495,62 +510,9 @@ class wescontrolCmd extends cmd {
 			} else {
 				return false;
 			}
-			$wescontrolEqLogic->getUrl($file);
+			$wescontrolEqLogic->execUrl($file);
 			$eqLogic->checkAndUpdateCmd('state', $state);
 			return;
-		}
-		else if ($eqLogic->getConfiguration('type') == "analogique") {
-			if ($this->getLogicalId() == 'reel') {
-				try {
-					$calcul = $this->getConfiguration('calcul');
-					if ( preg_match("/#brut#/", $calcul) ) {
-						$brut = $eqLogic->getCmd(null, 'brut');
-						$calcul = preg_replace("/#brut#/", "#".$brut->getId()."#", $calcul);
-					}
-					$calcul = scenarioExpression::setTags($calcul);
-					$result = jeedom::evaluateExpression($calcul);
-					if (is_numeric($result)) {
-						$result = number_format($result, 2);
-					} else {
-						$result = str_replace('"', '', $result);
-					}
-					if ($this->getSubType() == 'numeric') {
-						if (strpos($result, '.') !== false) {
-							$result = str_replace(',', '', $result);
-						} else {
-							$result = str_replace(',', '.', $result);
-						}
-					}
-					return $result;
-				} catch (Exception $e) {
-					log::add('wescontrol', 'error', $eqLogic->getName()." error in ".$this->getConfiguration('calcul')." : ".$e->getMessage());
-					return scenarioExpression::setTags(str_replace('"', '', cmd::cmdToValue($this->getConfiguration('calcul'))));
-				}
-			}
-			else {
-				return $this->getConfiguration('value');
-			}
-		}
-		else if ($eqLogic->getConfiguration('type') == "bouton") {
-			$url = $wescontrolEqLogic->getUrl();
-			if ( $this->getLogicalId() == 'btn_on' )
-			$url .= 'leds.cgi?set='.$typeId;
-			else if ( $this->getLogicalId() == 'btn_off' )
-			$url .= 'leds.cgi?clear='.$typeId;
-			else
-			return false;
-
-			$result = @file_get_contents($url);
-			log::add('wescontrol','debug',"get ".preg_replace("/:[^:]*@/", ":XXXX@", $url));
-			$count = 0;
-			while ( $result === false && $count < 3 ) {
-				$result = @file_get_contents($url);
-				$count++;
-			}
-			if ( $result === false ) {
-				throw new Exception(__('Le serveur wescontrol n\'est pas joignable.', __FILE__)." ".$wescontrolEqLogic->getName());
-			}
-			return false;
 		}
 	}
 }
