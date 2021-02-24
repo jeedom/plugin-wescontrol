@@ -28,7 +28,7 @@ Le plugin ne nécessite pas de configuration particulière mais propose un champ
 
 Pour accéder aux différents équipements **Wes Control**, dirigez-vous vers le menu **Plugins → Energie → Wes Control**.    
 
-![Accueil du plugin](../images/wescontrol_screenshot1.png)
+![Accueil du plugin](../images/wescontrol_navigate.png)
 
 >**INFORMATION**
 >    
@@ -66,7 +66,7 @@ Chaque **case cochée** aura pour conséquence la **création automatique de l'�
 
 De retour sur la page générale du plugin **Wes Control**, les équipements activés précédemment sont regroupés par serveur et triés dans des menus déroulants classés par type de fonctionnalité.    
 
-![Navigation dans les équipements](../images/wescontrol_navigate.png)
+![Navigation dans les équipements](../images/wescontrol_screenshot1.png)
 
 Comme à l'habitude, le clic sur un équipement vous amène sur sa page de configuration permettant de renseigner les informations générales et de visualiser la liste des commandes.
 
