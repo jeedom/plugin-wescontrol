@@ -148,15 +148,6 @@ class wescontrol extends eqLogic {
 		return $types;
 	}
 	
-	public function actions() {
-		$actions = array(
-			"alarmeon"=>array("url"=>'AJAX.cgx?alarme=ON'),
-			"alarmeoff"=>array("url"=>'AJAX.cgx?alarme=OFF'),
-			"compteur"=>array("name"=>__("Compteurs impulsions", __FILE__), "logical"=>"_C", "HTM"=>"PULSES.HTM", "width"=>"272px", "height"=>"332px", "category"=>"energy", "xpath"=>"//impulsion/INDEX#id#", "maxnumber"=>6, "type"=>__("Compteur", __FILE__)),
-		);
-		return $actions;
-	}
-
 	public static function deamon_info() {
 		$return = array();
 		$return['log'] = '';
