@@ -284,8 +284,7 @@ class wescontrol extends eqLogic {
 			if (isset($details['filter'])) {
 				foreach ($details['filter'] as $param=>$value) {
 					if ($param == 'usecustomcgx' && $type != 'general') {
-						$generalId = explode('_', $this->getLogicalId());
-						if (eqLogic::byId($generalId[0])->getConfiguration($param) != $value) {
+						if (eqLogic::byId(substr($this->getLogicalId(), 0, strpos($this->getLogicalId(),"_")))->getConfiguration($param) != $value) {
 							continue 2;
 						}
 					}
