@@ -50,7 +50,7 @@ Le plugin **Wes Control** intègre un fichier spécialement conçu pour Jeedom e
 - **Fichier CGX Jeedom** : cocher la case pour utiliser le fichier CGX Jeedom.
 - **Envoyer fichier CGX** : Une fois les informations de connexion FTP renseignées, cliquez sur ce bouton pour transférer immédiatement le fichier sur le Wes.
 
->**informations**
+>**INFORMATION**
 >
 >Les informations de connexion au serveur Wes sont consultables depuis l'interface internet du Wes dans le menu **Configuration → Accès sécurisé**.
 
