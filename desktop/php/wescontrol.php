@@ -28,10 +28,10 @@ sendVarToJS('typeid', $typeid);
 				<span>{{Configuration}}</span>
 			</div>
 		</div>
-		<legend><i class="fas fa-digital-tachograph"></i> {{Mes serveurs wescontrol}}</legend>
+		<legend><i class="fas fa-digital-tachograph"></i> {{Mes serveurs Wes}}</legend>
 		<?php
 		if (count($eqLogics) == 0) {
-			echo "<br/><br/><div class=\"text-center\" style='color:#767676;font-size:1.2em;font-weight: bold;'>{{Aucun serveur wescontrol n'est paramétré, cliquer sur \"Ajouter\" pour commencer}}</div>";
+			echo "<br/><br/><div class=\"text-center\" style='color:#767676;font-size:1.2em;font-weight: bold;'>{{Aucun serveur Wes n'est paramétré, cliquer sur \"Ajouter\" pour commencer}}</div>";
 		} else {
 			echo '<div class="input-group" style="margin-bottom:5px;">';
 			echo '<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchwescontrol"/>';
@@ -117,7 +117,7 @@ sendVarToJS('typeid', $typeid);
 	<div class="col-lg-12 eqLogic" style="display: none;">
 		<div class="input-group pull-right" style="display:inline-flex">
 			<span class="input-group-btn">
-				<a class="btn btn-primary btn-sm eqLogicAction roundedLeft" id="bt_goCarte"><i class="far fa-window-restore"></i> {{Interface wescontrol}}
+				<a class="btn btn-primary btn-sm eqLogicAction roundedLeft" id="bt_goCarte"><i class="far fa-window-restore"></i> {{Interface Wes}}
 				</a><a class="btn btn-default btn-sm eqLogicAction" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}
 				</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i> {{Dupliquer}}
 				</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}
@@ -182,16 +182,16 @@ sendVarToJS('typeid', $typeid);
 
 							<legend class="showgeneral" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
 							<div class="form-group showgeneral" style="display: none;">
-								<label class="col-sm-3 control-label">{{IP du wescontrol}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Adresse ip sur laquelle le serveur wescontrol est joignable}}"></i></sup>
+								<label class="col-sm-3 control-label">{{IP du Wes}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Adresse ip sur laquelle le serveur Wes est joignable}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ip"/>
 								</div>
 							</div>
 							<div class="form-group showgeneral" style="display: none;">
-								<label class="col-sm-3 control-label">{{Port du wescontrol}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Port de communication sur lequel le serveur wescontrol est joignable. (facultatif - 80 par défaut)}}"></i></sup>
+								<label class="col-sm-3 control-label">{{Port du Wes}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Port de communication sur lequel le serveur Wes est joignable. (facultatif - 80 par défaut)}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="port" placeholder="80"/>
@@ -199,7 +199,7 @@ sendVarToJS('typeid', $typeid);
 							</div>
 							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{Identifiant HTTP}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès HTTP. Permet de communiquer avec le serveur wescontrol}}"></i></sup>
+									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès HTTP. Permet de communiquer avec le serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="username"/>
@@ -207,7 +207,7 @@ sendVarToJS('typeid', $typeid);
 							</div>
 							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{Mot de passe HTTP}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès HTTP. Permet de communiquer avec le serveur wescontrol}}"></i></sup>
+									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès HTTP. Permet de communiquer avec le serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="password" style="text-security:disc;-webkit-text-security:disc;-mox-text-security:disc;"/>
@@ -215,7 +215,7 @@ sendVarToJS('typeid', $typeid);
 							</div>
 							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{Identifiant FTP}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur wescontrol}}"></i></sup>
+									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ftpusername"/>
@@ -223,7 +223,7 @@ sendVarToJS('typeid', $typeid);
 							</div>
 							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{Mot de passe FTP}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur wescontrol}}"></i></sup>
+									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ftppassword" style="text-security:disc;-webkit-text-security:disc;-mox-text-security:disc;"/>
@@ -235,7 +235,7 @@ sendVarToJS('typeid', $typeid);
 								</label>
 								<div class="col-sm-7">
 									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Activer}}" data-l1key="configuration" data-l2key="usecustomcgx"/>
-									<a class="btn btn-primary btn-sm eqLogicAction tooltips" data-action="sendCGX" title="{{Cliquer sur le bouton pour envoyer le fichier CGX sur le serveur wescontrol}}"><i class="fas fa-file-export"></i> {{Envoyer fichier CGX}}</a>
+									<a class="btn btn-primary btn-sm eqLogicAction tooltips" data-action="sendCGX" title="{{Cliquer sur le bouton pour envoyer le fichier CGX sur le serveur Wes}}"><i class="fas fa-file-export"></i> {{Envoyer fichier CGX}}</a>
 								</div>
 							</div>
 							<div class="form-group showteleinfo" style="display: none;">
