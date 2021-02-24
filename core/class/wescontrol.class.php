@@ -168,16 +168,14 @@ class wescontrol extends eqLogic {
 		}
 		$cron = cron::byClassAndFunction(__CLASS__, 'daemon');
 		if (!is_object($cron)) {
-			if (!is_object($cron)) {
-				$cron = new cron();
-				$cron->setClass(__CLASS__);
-				$cron->setFunction('daemon');
-				$cron->setEnable(1);
-				$cron->setDeamon(1);
-				$cron->setTimeout(1440);
-				$cron->setSchedule('* * * * *');
-				$cron->save();
-			}
+			$cron = new cron();
+			$cron->setClass(__CLASS__);
+			$cron->setFunction('daemon');
+			$cron->setEnable(1);
+			$cron->setDeamon(1);
+			$cron->setTimeout(1440);
+			$cron->setSchedule('* * * * *');
+			$cron->save();
 		}
 		$cron->run();
 	}
