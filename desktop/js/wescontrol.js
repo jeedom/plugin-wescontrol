@@ -81,7 +81,7 @@ $('#bt_goCarte').on('click', function() {
     window.open('http://'+username+':'+password+'@'+ip+port+'/'+typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()])
   }
   else {
-    $('#div_alert').showAlert({message: '{{Veuillez renseigner les informations de connexion HTTP pour accéder à l\'interface du serveur wescontrol.}}', level: 'danger'});
+    $('#div_alert').showAlert({message: '{{Veuillez renseigner les informations de connexion HTTP pour accéder à l\'interface du serveur Wes.}}', level: 'danger'});
   }
 });
 

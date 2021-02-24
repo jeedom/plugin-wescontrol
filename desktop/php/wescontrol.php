@@ -31,7 +31,7 @@ sendVarToJS('typeid', $typeid);
 		<legend><i class="fas fa-digital-tachograph"></i> {{Mes serveurs Wes}}</legend>
 		<?php
 		if (count($eqLogics) == 0) {
-			echo "<br/><br/><div class=\"text-center\" style='color:#767676;font-size:1.2em;font-weight: bold;'>{{Aucun serveur Wes n'est paramétré, cliquer sur \"Ajouter\" pour commencer}}</div>";
+			echo "<br/><div class=\"text-center\" style='font-size:1.2em;font-weight: bold;'>{{Aucun serveur Wes n'est paramétré, cliquer sur \"Ajouter\" pour commencer}}</div>";
 		} else {
 			echo '<div class="input-group" style="margin-bottom:5px;">';
 			echo '<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchwescontrol"/>';

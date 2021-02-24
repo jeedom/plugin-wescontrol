@@ -13,8 +13,8 @@
     "require": "4.1",
     "category": "energy",
     "hasOwnDeamon": true,
-    "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/automation protocol\/wes\/changelog",
-    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/automation protocol\/wes\/",
+    "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/energy\/wescontrol\/changelog",
+    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/energy\/wescontrol\/",
     "language": [
         "fr_FR",
         "en_US",

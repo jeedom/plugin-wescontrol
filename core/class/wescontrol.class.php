@@ -135,15 +135,15 @@ class wescontrol extends eqLogic {
 	public function getTypes() {
 		$types = array(
 			"general"=>array("name"=>__("Serveur wescontrol", __FILE__), "width"=>"192px", "height"=>"212px", "HTM"=>"", "ignoreCreation"=>1),
-			"analogique"=>array("name"=>__("Capteurs", __FILE__), "logical"=>"_N", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"152px", "xpath"=>"//analogique/AD#id#", "maxnumber"=>4, "type"=>__("Tension", __FILE__)),
+			"analogique"=>array("name"=>__("Capteurs", __FILE__), "logical"=>"_N", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//analogique/AD#id#", "maxnumber"=>4, "type"=>__("Tension", __FILE__)),
 			"compteur"=>array("name"=>__("Compteurs impulsions", __FILE__), "logical"=>"_C", "HTM"=>"PULSES.HTM", "width"=>"272px", "height"=>"332px", "category"=>"energy", "xpath"=>"//impulsion/INDEX#id#", "maxnumber"=>6, "type"=>__("Compteur", __FILE__)),
-			"bouton"=>array("name"=>__("Entrées", __FILE__), "logical"=>"_B", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"152px", "xpath"=>"//entree/ENTREE#id#", "maxnumber"=>2, "type"=>__("Entrée", __FILE__)),
+			"bouton"=>array("name"=>__("Entrées", __FILE__), "logical"=>"_B", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//entree/ENTREE#id#", "maxnumber"=>2, "type"=>__("Entrée", __FILE__)),
 			"pince"=>array("name"=>__("Pinces ampèremétriques", __FILE__), "logical"=>"_P", "HTM"=>"PCEVAL.HTM", "width"=>"392px", "height"=>"272px", "category"=>"energy", "xpath"=>"//pince/I#id#","maxnumber"=>4, "type"=>__("Pince", __FILE__)),
-			"relai"=>array("name"=>__("Relais", __FILE__), "logical"=>"_R", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"152px", "xpath"=>"//relais/RELAIS#id#","maxnumber"=>2, "type"=>__("Relais", __FILE__)),
-			"switch"=>array("name"=>__("Switchs virtuels", __FILE__), "logical"=>"_S", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"152px", "xpath"=>"//switch_virtuel/SWITCH#id#", "maxnumber"=>24, "type"=>__("Switch", __FILE__)),
+			"relai"=>array("name"=>__("Relais", __FILE__), "logical"=>"_R", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//relais/RELAIS#id#","maxnumber"=>2, "type"=>__("Relais", __FILE__)),
+			"switch"=>array("name"=>__("Switchs virtuels", __FILE__), "logical"=>"_S", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//switch_virtuel/SWITCH#id#", "maxnumber"=>24, "type"=>__("Switch", __FILE__)),
 			"teleinfo"=>array("name"=>__("Téléinfo", __FILE__), "logical"=>"_T", "HTM"=>"TICVAL.HTM", "width"=>"272px", "height"=>"492px", "category"=>"energy", "xpath"=>"//tic#id#/ADCO", "maxnumber"=>3, "type"=>__("TIC", __FILE__)),
-			"temperature"=>array("name"=>__("Températures", __FILE__), "logical"=>"_A", "HTM"=>"TMP.HTM", "category"=>"heating", "width"=>"112px", "height"=>"152px", "xpath"=>"//temp/SONDE#id#", "maxnumber"=>30, "type"=>__("Sonde", __FILE__)),
-			"variable"=>array("name"=>__("Variables", __FILE__), "logical"=>"_V", "HTM"=>"", "category"=>"automatism", "width"=>"112px", "height"=>"152px", "xpath"=>"//variables/VARIABLE#id#", "maxnumber"=>8, "type"=>__("Variable", __FILE__)),
+			"temperature"=>array("name"=>__("Températures", __FILE__), "logical"=>"_A", "HTM"=>"TMP.HTM", "category"=>"heating", "width"=>"112px", "height"=>"172px", "xpath"=>"//temp/SONDE#id#", "maxnumber"=>30, "type"=>__("Sonde", __FILE__)),
+			"variable"=>array("name"=>__("Variables", __FILE__), "logical"=>"_V", "HTM"=>"", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//variables/VARIABLE#id#", "maxnumber"=>8, "type"=>__("Variable", __FILE__)),
 		);
 		return $types;
 	}
@@ -152,7 +152,7 @@ class wescontrol extends eqLogic {
 		$return = array();
 		$return['log'] = '';
 		$return['state'] = 'nok';
-		$cron = cron::byClassAndFunction('wescontrol', 'daemon');
+		$cron = cron::byClassAndFunction(__CLASS__, 'daemon');
 		if (is_object($cron) && $cron->running()) {
 			$return['state'] = 'ok';
 		}
@@ -166,7 +166,7 @@ class wescontrol extends eqLogic {
 		if ($deamon_info['launchable'] != 'ok') {
 			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
 		}
-		$cron = cron::byClassAndFunction('wescontrol', 'daemon');
+		$cron = cron::byClassAndFunction(__CLASS__, 'daemon');
 		if (!is_object($cron)) {
 			throw new Exception(__('Tache cron introuvable', __FILE__));
 		}
@@ -174,7 +174,7 @@ class wescontrol extends eqLogic {
 	}
 
 	public static function deamon_stop() {
-		$cron = cron::byClassAndFunction('wescontrol', 'daemon');
+		$cron = cron::byClassAndFunction(__CLASS__, 'daemon');
 		if (!is_object($cron)) {
 			throw new Exception(__('Tache cron introuvable', __FILE__));
 		}
@@ -191,29 +191,29 @@ class wescontrol extends eqLogic {
 		}
 		log::add(__CLASS__,'debug','cron stop');
 		$endtime = microtime (true);
-		if ($endtime - $starttime < config::byKey('temporisation_lecture', 'wescontrol', 60, true)) {
-			usleep(floor((config::byKey('temporisation_lecture', 'wescontrol') + $starttime - $endtime)*1000000));
+		if ($endtime - $starttime < config::byKey('temporisation_lecture', __CLASS__, 60, true)) {
+			usleep(floor((config::byKey('temporisation_lecture', __CLASS__) + $starttime - $endtime)*1000000));
 		}
 	}
 
 	public function sendFtp($ftpIp, $ftpUser, $ftpPass) {
-		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Envoi du fichier CGX personnalisé au serveur wescontrol', __FILE__));
+		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Envoi du fichier CGX personnalisé au serveur Wes', __FILE__));
 		$local_file = dirname(__FILE__) . '/../../resources/DATA_JEEDOM.CGX';
 		$connection = ftp_connect($ftpIp);
 		if (@ftp_login($connection, $ftpUser, $ftpPass)){
-			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Connecté au serveur wescontrol en FTP', __FILE__));
+			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Connecté au serveur Wes en FTP', __FILE__));
 		}
 		else{
 			ftp_close($connection);
-			log::add(__CLASS__, 'error', $this->getHumanName() . __(' Échec de la connexion au serveur wescontrol en FTP', __FILE__));
+			log::add(__CLASS__, 'error', $this->getHumanName() . __(' Échec de connexion au serveur Wes en FTP', __FILE__));
 			return false;
 		}
 		ftp_pasv($connection, true);
 		if (ftp_put($connection, '/DATA_JEEDOM.CGX',  $local_file, FTP_BINARY)) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Fichier CGX correctement transmis au serveur wescontrol', __FILE__));
+			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Fichier CGX correctement transmis au serveur Wes', __FILE__));
 		}
 		else {
-			log::add(__CLASS__, 'error', $this->getHumanName() . __(' Erreur lors de la transmission du fichier CGX au serveur wescontrol', __FILE__));
+			log::add(__CLASS__, 'error', $this->getHumanName() . __(' Erreur lors de la transmission du fichier CGX au serveur Wes', __FILE__));
 			ftp_close($connection);
 			return false;
 		}
@@ -236,7 +236,7 @@ class wescontrol extends eqLogic {
 		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Url : ', __FILE__).$url);
 		return $url;
 	}
-	
+
 	public function execUrl($_path='') {
 		$url = 'http://';
 		$url .= $this->getConfiguration('ip');
@@ -351,16 +351,16 @@ class wescontrol extends eqLogic {
 	public function postUpdate() {
 		if ($this->getConfiguration('type') == "general") {
 			if ($this->getConfiguration('ip', '') == '' || $this->getConfiguration('username', '') == '' || $this->getConfiguration('password', '') == '') {
-				throw new Exception(__('Veuillez renseigner les informations de connexion HTTP pour accéder au serveur wescontrol.',__FILE__));
+				throw new Exception(__('Veuillez renseigner les informations de connexion HTTP pour accéder au serveur Wes.',__FILE__));
 			}
 			foreach (self::getTypes() as $type=>$data){
 				if (!isset($data['ignoreCreation'])) {
 					$id = 1;
 					while ($id <= $data['maxnumber']) {
-						if (!is_object(self::byLogicalId($this->getId().$data['logical'].$id, 'wescontrol')) && $this->getConfiguration($type.$id, 1) == 1) {
+						if (!is_object(self::byLogicalId($this->getId().$data['logical'].$id, __CLASS__)) && $this->getConfiguration($type.$id, 1) == 1) {
 							log::add(__CLASS__,'debug', $this->getHumanName() . __(' Création de l\'équipement ', __FILE__) . $data['type'] . ' ' . $id . ' : ' . $this->getId() . $data['logical'] . $id);
 							$eqLogic = (new wescontrol)
-							->setEqType_name('wescontrol')
+							->setEqType_name(__CLASS__)
 							->setLogicalId($this->getId().$data['logical'].$id)
 							->setName($data['type'] . ' ' . $id . ' (' . $this->getName() . ')')
 							->setConfiguration('type', $type)
@@ -373,14 +373,14 @@ class wescontrol extends eqLogic {
 							$eqLogic->setDisplay('height', $data['height']);
 							$eqLogic->save();
 						}
-						else if (is_object(self::byLogicalId($this->getId().$data['logical'].$id, 'wescontrol'))) {
+						else if (is_object(self::byLogicalId($this->getId().$data['logical'].$id, __CLASS__))) {
 							if ($this->getConfiguration($type.$id, 1) == 0) {
-								$toRemove = self::byLogicalId($this->getId().$data['logical'].$id, 'wescontrol');
+								$toRemove = self::byLogicalId($this->getId().$data['logical'].$id, __CLASS__);
 								log::add(__CLASS__,'debug', $this->getHumanName() . __(' Suppression automatique de l\'équipement : ', __FILE__) . $toRemove->getName() . ' ' . $toRemove->getLogicalId());
 								$toRemove->remove();
 							}
 							else {
-								self::byLogicalId($this->getId().$data['logical'].$id, 'wescontrol')->save();
+								self::byLogicalId($this->getId().$data['logical'].$id, __CLASS__)->save();
 							}
 						}
 						$id ++;
@@ -392,7 +392,7 @@ class wescontrol extends eqLogic {
 
 	public function preRemove() {
 		if ($this->getConfiguration('type') == "general") {
-			log::add(__CLASS__,'debug', $this->getHumanName() . __(' Suppression du serveur wescontrol', __FILE__));
+			log::add(__CLASS__,'debug', $this->getHumanName() . __(' Suppression du serveur Wes', __FILE__));
 			foreach (self::byType(__CLASS__) as $eqLogic) {
 				if ($eqLogic->getConfiguration('type') != "general" && substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")) == $this->getId() ) {
 					log::add(__CLASS__,'debug', $this->getHumanName() . __(' Suppression automatique de l\'équipement : ', __FILE__) . $eqLogic->getName() . ' '  . $eqLogic->getLogicalId());
@@ -411,7 +411,7 @@ class wescontrol extends eqLogic {
 		if ( $this->getIsEnable() && $this->getConfiguration('type') == "general") {
 			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Interrogation du serveur Wes', __FILE__));
 			$url = $this->getReadUrl();
-			$xml = simpleXML_load_file($url); 
+			$xml = simpleXML_load_file($url);
 			$count = 0;
 			while ($xml === false && $count < 3) {
 				log::add(__CLASS__, 'warning', $this->getHumanName() . __(' Tentative échouée, nouvelle interrogation du serveur Wes', __FILE__));
@@ -450,7 +450,7 @@ class wescontrol extends eqLogic {
 					}
 				}
 			}
-			log::add(__CLASS__,'debug', $this->getHumanName() . __(' Fin d\'interrogation du serveur wescontrol', __FILE__));
+			log::add(__CLASS__,'debug', $this->getHumanName() . __(' Fin d\'interrogation du serveur Wes', __FILE__));
 		}
 	}
 
@@ -463,8 +463,8 @@ class wescontrolCmd extends cmd {
 		if (!is_object($eqLogic) || $eqLogic->getIsEnable() != 1) {
 			throw new Exception(__('Équipement désactivé, impossible d\'exécuter la commande : ', __FILE__) . $this->getHumaName());
 		}
-		log::add('wescontrol', 'debug', $eqLogic->getHumanName() . __(' Exécution de la commande ', __FILE) . $this->getName() . ' : ' . print_r($_options, true));
-		$wescontrolEqLogic = eqLogic::byId(substr ($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")));
+		log::add('wescontrol', 'debug', $eqLogic->getHumanName() . __(' Exécution de la commande ', __FILE) . $this->getName());
+		$wesEqLogic = eqLogic::byId(substr ($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")));
 		$typeId = substr($eqLogic->getLogicalId(), strpos($eqLogic->getLogicalId(), "_")+2);
 		if ($eqLogic->getConfiguration('type') == 'general') {
 			if ( $this->getLogicalId() == 'alarmeon') {
@@ -493,7 +493,7 @@ class wescontrolCmd extends cmd {
 			} else {
 				return false;
 			}
-			$wescontrolEqLogic->execUrl($file);
+			$wesEqLogic->execUrl($file);
 			$eqLogic->checkAndUpdateCmd('state', $state);
 			return;
 		}
@@ -510,7 +510,7 @@ class wescontrolCmd extends cmd {
 			} else {
 				return false;
 			}
-			$wescontrolEqLogic->execUrl($file);
+			$wesEqLogic->execUrl($file);
 			$eqLogic->checkAndUpdateCmd('state', $state);
 			return;
 		}
