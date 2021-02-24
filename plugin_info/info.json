@@ -2,12 +2,13 @@
     "id": "wescontrol",
     "name": "Wes Control",
     "description": {
-        "fr_FR": "Ce plugin va vous permettre d'intégrer un wes de CartElectronics",
+        "fr_FR": "Prenez le contrôle de votre serveur d'énergie Cartelectronic Wes depuis Jeedom et vous serez en mesure d'en décupler les fonctionnalités. Le plugin offre la possibilité d'utiliser un fichier CGX spécialement conçu pour Jeedom et permettant de lire davantage de données que celles disponibles par défaut (nécessite un accès FTP au serveur Wes).",
         "en_US": "This plugin will allow you to integrate a CartElectronics wes",
         "es_ES": "Este complemento le permitirá integrar un wes de CartElectronics",
         "de_DE": "Mit diesem Plugin können Sie eine CartElectronics wes integrieren",
         "pt_PT": "Este plugin permitirá que você integre um dispositivo CartElectronics"
     },
+    "utilization": "Ajoutez un équipement serveur Wes à partir duquel vous pourrez gérer les différents équipements enfants un par un (pinces ampèremétriques, compteurs à impulsions, relais, TIC, etc...).",
     "licence": "AGPL",
     "author": "Jeedom SAS",
     "require": "4.1",

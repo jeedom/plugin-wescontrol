@@ -24,8 +24,8 @@ class wescontrol extends eqLogic {
 	private function getListeCommandes() {
 		$commands = array(
 			"teleinfo"=>array(
-				"ADCO"=>array("name"=>__("Numéro compteur", __FILE__), "type"=>"info", "subtype"=> "numeric", "dashboard"=>"line", "mobile"=>"line", "xpath"=>"//tic#id#/ADCO", "order"=>1),
-				"OPTARIF"=>array("name"=>__("Option tarif", __FILE__), "type"=>"info", "subtype"=> "string", "xpath"=>"//tic#id#/OPTARIF", "order"=>2),
+				"ADCO"=>array("name"=>__("Numéro compteur", __FILE__), "type"=>"info", "subtype"=> "numeric", "xpath"=>"//tic#id#/ADCO", "visible"=>0, "dashboard"=>"line", "mobile"=>"line", "order"=>1),
+				"OPTARIF"=>array("name"=>__("Option tarif", __FILE__), "type"=>"info", "subtype"=> "string", "xpath"=>"//tic#id#/OPTARIF", "visible"=>0, "order"=>2),
 				"ISOUSC"=>array("name"=>__("Intensité souscrite", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"A", "dashboard"=>"line", "mobile"=>"line", "xpath"=>"//tic#id#/ISOUSC", "order"=>3),
 				"PTEC"=>array("name"=>__("Tarif en cours", __FILE__), "type"=>"info", "subtype"=> "string", "xpath"=>"//tic#id#/PTEC", "order"=>4),
 				"PAP"=>array("name"=>__("Puissance Apparente", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"VA", "xpath"=>"//tic#id#/PAP", "dashboard"=>"tile", "mobile"=>"tile", "order"=>5),
@@ -134,20 +134,20 @@ class wescontrol extends eqLogic {
 
 	public function getTypes() {
 		$types = array(
-			"general"=>array("name"=>__("Serveur wescontrol", __FILE__), "width"=>"192px", "height"=>"212px", "HTM"=>"", "ignoreCreation"=>1),
+			"general"=>array("name"=>__("Serveur wescontrol", __FILE__), "width"=>"232px", "height"=>"212px", "HTM"=>"", "ignoreCreation"=>1),
 			"analogique"=>array("name"=>__("Capteurs", __FILE__), "logical"=>"_N", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//analogique/AD#id#", "maxnumber"=>4, "type"=>__("Tension", __FILE__)),
 			"compteur"=>array("name"=>__("Compteurs impulsions", __FILE__), "logical"=>"_C", "HTM"=>"PULSES.HTM", "width"=>"272px", "height"=>"332px", "category"=>"energy", "xpath"=>"//impulsion/INDEX#id#", "maxnumber"=>6, "type"=>__("Compteur", __FILE__)),
 			"bouton"=>array("name"=>__("Entrées", __FILE__), "logical"=>"_B", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//entree/ENTREE#id#", "maxnumber"=>2, "type"=>__("Entrée", __FILE__)),
 			"pince"=>array("name"=>__("Pinces ampèremétriques", __FILE__), "logical"=>"_P", "HTM"=>"PCEVAL.HTM", "width"=>"392px", "height"=>"272px", "category"=>"energy", "xpath"=>"//pince/I#id#","maxnumber"=>4, "type"=>__("Pince", __FILE__)),
 			"relai"=>array("name"=>__("Relais", __FILE__), "logical"=>"_R", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//relais/RELAIS#id#","maxnumber"=>2, "type"=>__("Relais", __FILE__)),
 			"switch"=>array("name"=>__("Switchs virtuels", __FILE__), "logical"=>"_S", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//switch_virtuel/SWITCH#id#", "maxnumber"=>24, "type"=>__("Switch", __FILE__)),
-			"teleinfo"=>array("name"=>__("Téléinfo", __FILE__), "logical"=>"_T", "HTM"=>"TICVAL.HTM", "width"=>"272px", "height"=>"492px", "category"=>"energy", "xpath"=>"//tic#id#/ADCO", "maxnumber"=>3, "type"=>__("TIC", __FILE__)),
+			"teleinfo"=>array("name"=>__("Téléinfo", __FILE__), "logical"=>"_T", "HTM"=>"TICVAL.HTM", "width"=>"312px", "height"=>"492px", "category"=>"energy", "xpath"=>"//tic#id#/ADCO", "maxnumber"=>3, "type"=>__("TIC", __FILE__)),
 			"temperature"=>array("name"=>__("Températures", __FILE__), "logical"=>"_A", "HTM"=>"TMP.HTM", "category"=>"heating", "width"=>"112px", "height"=>"172px", "xpath"=>"//temp/SONDE#id#", "maxnumber"=>30, "type"=>__("Sonde", __FILE__)),
 			"variable"=>array("name"=>__("Variables", __FILE__), "logical"=>"_V", "HTM"=>"", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//variables/VARIABLE#id#", "maxnumber"=>8, "type"=>__("Variable", __FILE__)),
 		);
 		return $types;
 	}
-	
+
 	public static function deamon_info() {
 		$return = array();
 		$return['log'] = '';
@@ -233,8 +233,7 @@ class wescontrol extends eqLogic {
 	public function getReadUrl() {
 		$url = 'http://'.$this->getConfiguration('username') . ":" . $this->getConfiguration('password').'@';
 		$url .= $this->getConfiguration('ip');
-		if ( $this->getConfiguration('port') != '' )
-		{
+		if ($this->getConfiguration('port') != '') {
 			$url .= ':'.$this->getConfiguration('port');
 		}
 		$file = 'data.cgx';
@@ -242,7 +241,7 @@ class wescontrol extends eqLogic {
 			$file = 'data_jeedom.cgx';
 		}
 		$url .= '/'.$file;
-		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Url : ', __FILE__).$url);
+		log::add(__CLASS__, 'debug', $this->getHumanName() . ' http://'  . substr($url, strpos($url,"@")+1));
 		return $url;
 	}
 
@@ -252,20 +251,18 @@ class wescontrol extends eqLogic {
 			$url .= ':'.$this->getConfiguration('port');
 		}
 		$path = '';
-		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Recherche de la commande pour : ', __FILE__).$this->getConfiguration('type') . '-' . $_logical . '-' . $_typeId);
 		if (isset($this->getListeCommandes()[$_type]) && isset($this->getListeCommandes()[$_type][$_logical])) {
 			$cmdArray = $this->getListeCommandes()[$_type][$_logical];
 			if (isset($cmdArray['url'])) {
 				$path = str_replace('#typeId#',$_typeId,$cmdArray['url']);
 			}
 		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Appel de l\'url : ', __FILE__).$url.'/'.$path);
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url.'/'.$path);
 		curl_setopt($curl, CURLOPT_USERPWD, $this->getConfiguration('username') . ":" . $this->getConfiguration('password'));
 		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Exécution de l\'Appel de l\'url : ', __FILE__).$url.'/'.$path);
+		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . $url . '/' . $path);
 		$return = curl_exec($curl);
 		curl_close($curl);
 		if ( $return === false ){
@@ -273,7 +270,6 @@ class wescontrol extends eqLogic {
 		}
 		usleep (50);
 		$this->pull();
-		log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Url : ', __FILE__).$url);
 		return;
 	}
 
@@ -392,7 +388,11 @@ class wescontrol extends eqLogic {
 								$toRemove->remove();
 							}
 							else {
-								self::byLogicalId($this->getId().$data['logical'].$id, __CLASS__)->save();
+								self::byLogicalId($this->getId().$data['logical'].$id, __CLASS__)
+								->setConfiguration('ip', $this->getConfiguration('ip'))
+								->setConfiguration('username', $this->getConfiguration('username'))
+								->setConfiguration('password', $this->getConfiguration('password'))
+								->save();
 							}
 						}
 						$id ++;
