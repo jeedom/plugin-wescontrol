@@ -18,19 +18,47 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
-// Fonction exécutée automatiquement après l'installation du plugin
-  function template_install() {
+function wescontrol_install() {
+	$cron = cron::byClassAndFunction('wescontrol', 'daemon');
+	if (!is_object($cron)) {
+		$cron = new cron();
+		$cron->setClass('wescontrol');
+		$cron->setFunction('daemon');
+		$cron->setEnable(1);
+		$cron->setDeamon(1);
+		$cron->setTimeout(1440);
+		$cron->setSchedule('* * * * *');
+		$cron->save();
+	}
+	config::save('temporisation_lecture', 30, 'wescontrol');
+	$cron->start();
+}
 
-  }
+function wescontrol_update() {
+	$cron = cron::byClassAndFunction('wescontrol', 'daemon');
+	if (!is_object($cron)) {
+		$cron = new cron();
+		$cron->setClass('wescontrol');
+		$cron->setFunction('daemon');
+		$cron->setEnable(1);
+		$cron->setDeamon(1);
+		$cron->setDeamonSleepTime(1);
+		$cron->setSchedule('* * * * *');
+		$cron->setTimeout(1440);
+		$cron->save();
+	}
+	foreach (eqLogic::byType('wescontrol') as $wescontrol) {
+		$wescontrol->save();
+	}
+	if (config::byKey('temporisation_lecture', 'wescontrol','') == '') {
+		config::save('temporisation_lecture', 30, 'wescontrol');
+	}
+}
 
-// Fonction exécutée automatiquement après la mise à jour du plugin
-  function template_update() {
-
-  }
-
-// Fonction exécutée automatiquement après la suppression du plugin
-  function template_remove() {
-
-  }
-
+function wescontrol_remove() {
+	$cron = cron::byClassAndFunction('wescontrol', 'daemon');
+	if (is_object($cron)) {
+		$cron->remove();
+	}
+}
 ?>

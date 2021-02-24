@@ -1,32 +1,34 @@
 {
-	"id" : "template",
-	"name" : "Template",
-	 "specialAttributes" : {
-	    "object" : {
-	      "toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "input"},
-	      "toto2" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial number"},"type" : "number"}
-	    },
-	    "user" : {
-	      "toto" : {"name" : {"fr_FR" : "Plop je suis un attribut spécial"},"type" : "select","values" : [{"value" : "1", "name" : "valeur 1"},{"value" : "plop", "name" : "valeur plop"}]}
-	    }
-	  },
-	"description" : {
-		"fr_FR": "Template servant de base à la création de plugins Jeedom",
-		"en_US": "Template plugin"
-	},
-	"licence" : "AGPL",
-	"author" : "Jeedom SAS",
-	"require" : "3.3.39",
-	"category" : "programming",
-	"hasDependency" : false,
-	"hasOwnDeamon" : false,
-	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://jeedom.github.io/plugin-template/#language#/changelog",
-	"documentation" : "https://jeedom.github.io/plugin-template/#language#/",
-	"link" : {
-		"forum":"Lien vers le forum",
-		"video" : "Lien vers une video"
-	},
-	"language" : ["fr_FR","en_US","de_DE","sp_SP"],
-	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
+    "id": "wescontrol",
+    "name": "Wes Control",
+    "description": {
+        "fr_FR": "Ce plugin va vous permettre d'intégrer un wes de CartElectronics",
+        "en_US": "This plugin will allow you to integrate a CartElectronics wes",
+        "es_ES": "Este complemento le permitirá integrar un wes de CartElectronics",
+        "de_DE": "Mit diesem Plugin können Sie eine CartElectronics wes integrieren",
+        "pt_PT": "Este plugin permitirá que você integre um dispositivo CartElectronics"
+    },
+    "licence": "AGPL",
+    "author": "Jeedom SAS",
+    "require": "4.1",
+    "category": "energy",
+    "hasOwnDeamon": true,
+    "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/automation protocol\/wes\/changelog",
+    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/automation protocol\/wes\/",
+    "language": [
+        "fr_FR",
+        "en_US",
+        "es_ES",
+        "de_DE",
+        "pt_PT"
+    ],
+    "compatibility": [
+        "miniplus",
+        "smart",
+        "rpi",
+        "docker",
+        "diy",
+        "mobile",
+        "v4"
+    ]
 }
