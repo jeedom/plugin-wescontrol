@@ -210,7 +210,7 @@ sendVarToJS('typeid', $typeid);
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès HTTP. Permet de communiquer avec le serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
-									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="password" style="text-security:disc;-webkit-text-security:disc;-mox-text-security:disc;"/>
+									<input type="text" class="eqLogicAttr form-control inputPassword" data-l1key="configuration" data-l2key="password"/>
 								</div>
 							</div>
 							<div class="form-group showgeneral" style="display: none;">
@@ -226,7 +226,7 @@ sendVarToJS('typeid', $typeid);
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
-									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ftppassword" style="text-security:disc;-webkit-text-security:disc;-mox-text-security:disc;"/>
+									<input type="text" class="eqLogicAttr form-control inputPassword" data-l1key="configuration" data-l2key="ftppassword"/>
 								</div>
 							</div>
 							<div class="form-group showgeneral" style="display: none;">
