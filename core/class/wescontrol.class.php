@@ -141,9 +141,9 @@ class wescontrol extends eqLogic {
 			"bouton"=>array("name"=>__("Entrées", __FILE__), "logical"=>"_B", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//entree/ENTREE#id#", "maxnumber"=>2, "type"=>__("Entrée", __FILE__)),
 			"pince"=>array("name"=>__("Pinces ampèremétriques", __FILE__), "logical"=>"_P", "HTM"=>"PCEVAL.HTM", "width"=>"392px", "height"=>"272px", "category"=>"energy", "xpath"=>"//pince/I#id#","maxnumber"=>4, "type"=>__("Pince", __FILE__), "alternateimg"=>["type"=>"select", "value"=>"typepince"]),
 			"relais"=>array("name"=>__("Relais", __FILE__), "logical"=>"_R", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//relais/RELAIS#id#","maxnumber"=>2, "type"=>__("Relais", __FILE__)),
+			"sonde"=>array("name"=>__("Sondes", __FILE__), "logical"=>"_A", "HTM"=>"TMP.HTM", "category"=>"heating", "width"=>"112px", "height"=>"172px", "xpath"=>"//temp/SONDE#id#", "maxnumber"=>30, "type"=>__("Sonde", __FILE__)),
 			"switch"=>array("name"=>__("Switchs virtuels", __FILE__), "logical"=>"_S", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//switch_virtuel/SWITCH#id#", "maxnumber"=>24, "type"=>__("Switch", __FILE__)),
 			"teleinfo"=>array("name"=>__("Téléinfo", __FILE__), "logical"=>"_T", "HTM"=>"TICVAL.HTM", "width"=>"312px", "height"=>"492px", "category"=>"energy", "xpath"=>"//tic#id#/ADCO", "maxnumber"=>3, "type"=>__("TIC", __FILE__), "alternateimg"=>["type"=>"select", "value"=>"typetic"]),
-			"sonde"=>array("name"=>__("Sondes", __FILE__), "logical"=>"_A", "HTM"=>"TMP.HTM", "category"=>"heating", "width"=>"112px", "height"=>"172px", "xpath"=>"//temp/SONDE#id#", "maxnumber"=>30, "type"=>__("Sonde", __FILE__)),
 			"variable"=>array("name"=>__("Variables", __FILE__), "logical"=>"_V", "HTM"=>"", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//variables/VARIABLE#id#", "maxnumber"=>8, "type"=>__("Variable", __FILE__)),
 		);
 		return $types;
