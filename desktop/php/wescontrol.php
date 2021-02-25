@@ -73,6 +73,11 @@ sendVarToJS('typeid', $typeid);
 				if (file_exists(dirname(__FILE__) . '/../../core/config/general.png')) {
 					$img = 'plugins/wescontrol/core/config/general.png';
 				}
+				if ($generalEqLogic->getConfiguration('screen',0) == 1) {
+					if (file_exists(dirname(__FILE__) . '/../../core/config/general_screen.png')) {
+						$img = 'plugins/wescontrol/core/config/general_screen.png';
+					}
+				}
 				echo '<img src="' . $img . '"/>';
 				echo '<span class="name">' . $generalEqLogic->getHumanName(true, true) . '</span>';
 				echo '</div>';
@@ -97,6 +102,23 @@ sendVarToJS('typeid', $typeid);
 					foreach ($childEqLogic as $eqLogic) {
 						$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
 						echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
+						if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'.png')) {
+							$img = 'plugins/wescontrol/core/config/'.$type.'.png';
+						}
+						if (isset(wescontrol::getTypes()[$type]['alternateimg'])) {
+							$alternate = wescontrol::getTypes()[$type]['alternateimg'];
+							if ($alternate['type'] == 'binary') {
+								if ($eqLogic->getConfiguration($alternate['value'],0) == 1) {
+									if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$alternate['value'].'.png')) {
+										$img = 'plugins/wescontrol/core/config/'.$type.'_'.$alternate['value'].'.png';
+									}
+								}
+							} else if ($alternate['type'] == 'select'){
+									if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png')) {
+										$img = 'plugins/wescontrol/core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png';
+									}
+							}
+						}
 						echo '<img src="' . $img . '"/>';
 						echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
 						echo '</div>';
@@ -179,7 +201,6 @@ sendVarToJS('typeid', $typeid);
 								</div>
 							</div>
 							<br>
-
 							<legend class="showgeneral" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
 							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{IP du Wes}}
@@ -238,6 +259,15 @@ sendVarToJS('typeid', $typeid);
 									<a class="btn btn-primary btn-sm eqLogicAction tooltips" data-action="sendCGX" title="{{Cliquer sur le bouton pour envoyer le fichier CGX sur le serveur Wes}}"><i class="fas fa-file-export"></i> {{Envoyer fichier CGX}}</a>
 								</div>
 							</div>
+							<div class="form-group showgeneral" style="display: none;">
+								<label class="col-sm-3 control-label">{{Options Wes}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher les options que vous possédez}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Ecran}}" data-l1key="configuration" data-l2key="screen"/>Ecran</label>
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Alimentation 9V}}" data-l1key="configuration" data-l2key="9v"/>Alimentation 9V</label>
+								</div>
+							</div>
 							<div class="form-group showteleinfo" style="display: none;">
 								<label class="col-sm-3 control-label">{{Tarification}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer la formule de tarification de votre abonnement}}"></i></sup>
@@ -252,6 +282,18 @@ sendVarToJS('typeid', $typeid);
 									</select>
 								</div>
 							</div>
+							<div class="form-group showteleinfo" style="display: none;">
+								<label class="col-sm-3 control-label">{{Type de pince}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur TIC. Uniquement utilisé pour l'image}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typetic">
+										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="linky">{{Linky}}</option>
+										<option value="other">{{Autre}}</option>
+									</select>
+								</div>
+							</div>
 							<div class="form-group showpince" style="display: none;">
 								<label class="col-sm-3 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
@@ -261,6 +303,30 @@ sendVarToJS('typeid', $typeid);
 										<option value="" disabled>*** {{A renseigner}} ***</option>
 										<option value="consumption">{{Consommation}}</option>
 										<option value="production">{{Production}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group showcompteur" style="display: none;">
+								<label class="col-sm-3 control-label">{{Type de compteur}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur. Uniquement utilisé pour l'image}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typecompt">
+										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="gaz">{{Gaz}}</option>
+										<option value="eau">{{Eau}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group showpince" style="display: none;">
+								<label class="col-sm-3 control-label">{{Type de pince}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de pince. Uniquement utilisé pour l'image}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typepince">
+										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="100a">{{100A}}</option>
+										<option value="20a">{{20A}}</option>
 									</select>
 								</div>
 							</div>
