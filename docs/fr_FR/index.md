@@ -64,7 +64,7 @@ Chaque **case cochée** aura pour conséquence la **création automatique de l'�
 
 # Configuration des équipements/fonctionnalités
 
-De retour sur la page générale du plugin **Wes Control**, les équipements activés précédemment sont regroupés par serveur et triés dans des menus déroulants classés par type de fonctionnalité.    
+De retour sur la page générale du plugin **Wes Control**, les équipements activés précédemment sont regroupés par serveur et triés dans des menus accordéons classés par type de fonctionnalité.    
 
 ![Navigation dans les équipements](../images/wescontrol_screenshot1.png)
 
