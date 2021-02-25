@@ -105,17 +105,16 @@ sendVarToJS('typeid', $typeid);
 						if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'.png')) {
 							$img = 'plugins/wescontrol/core/config/'.$type.'.png';
 						}
-						if (isset(wescontrol::getTypes()[$type]['alternateimg'])) {
-							$alternate = wescontrol::getTypes()[$type]['alternateimg'];
-							if ($alternate['type'] == 'binary') {
-								if ($eqLogic->getConfiguration($alternate['value'],0) == 1) {
-									if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$alternate['value'].'.png')) {
-										$img = 'plugins/wescontrol/core/config/'.$type.'_'.$alternate['value'].'.png';
+						if (isset($typeArray[$type]['alternateimg'])) {
+							if ($typeArray[$type]['alternateimg']['type'] == 'binary') {
+								if ($eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'], 0) == 1) {
+									if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$typeArray[$type]['alternateimg']['value'].'.png')) {
+										$img = 'plugins/wescontrol/core/config/'.$type.'_'.$typeArray[$type]['alternateimg']['value'].'.png';
 									}
 								}
-							} else if ($alternate['type'] == 'select'){
-								if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png')) {
-									$img = 'plugins/wescontrol/core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png';
+							} else if ($typeArray[$type]['alternateimg']['type'] == 'select'){
+								if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'],'').'.png')) {
+									$img = 'plugins/wescontrol/core/config/'.$type.'_'.$eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'],'').'.png';
 								}
 							}
 						}
