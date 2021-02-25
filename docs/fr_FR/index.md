@@ -84,6 +84,6 @@ D'autres peuvent concerner la sélection d'un type de matériel spécifique afin
 
 ## Interface du WES
 
-Sur chaque page d'équipement (y compris l'équipement serveur Wes) se trouve un bouton bleu en haut à droite permettant d'ouvrir l'interface internet du serveur Wes dans un nouvel onglet de votre navigateur.
+Sur chaque page d'équipement (y compris l'équipement serveur Wes) se trouve, en haut à droite, un bouton bleu nommé **Interface Wes** qui permet d'ouvrir l'interface internet du serveur Wes dans un nouvel onglet de votre navigateur.
 
 En fonction du type d'équipement sur lequel vous vous trouvez, vous serez automatiquement redirigé vers la page d'interface correspondant à cette fonctionnalité.
