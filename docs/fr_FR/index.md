@@ -6,7 +6,7 @@ Ce plugin va vous permettre de prendre le contrôle de votre [**serveur d'énerg
 
 ![Visuel Wes](../../core/config/general.png)
 
-# Configuration
+# Configuration générale
 
 ## Configuration du plugin
 
