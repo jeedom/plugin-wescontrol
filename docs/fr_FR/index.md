@@ -64,15 +64,17 @@ Chaque **case cochée** aura pour conséquence la **création automatique de l'�
 
 # Configuration des équipements/fonctionnalités
 
-De retour sur la page générale du plugin **Wes Control**, les équipements activés précédemment sont regroupés par serveur et triés dans des menus accordéons classés par type de fonctionnalité.    
+De retour sur la page générale du plugin **Wes Control**, les équipements activés précédemment sont regroupés par serveur et triés dans des menus accordéons classés par type de fonctionnalité.   
+
+Le champ de recherche permet la visualisation immédiate de l'équipement recherché. Sur la droite, l'icône en forme de croix annule la recherche, le dossier ouvert déplie tous les menus et le dossier fermé replie l'ensemble.
 
 ![Navigation dans les équipements](../images/wescontrol_screenshot1.png)
 
-Comme à l'habitude, le clic sur un équipement vous amène sur sa page de configuration permettant de renseigner les informations générales et de visualiser la liste des commandes.
-
 >**ASTUCE**
 >
->Le champ de recherche permet la visualisation immédiate de l'équipement recherché. Sur la droite, l'icône en forme de croix annule la recherche, le dossier ouvert déplie tous les menus et le dossier fermé replie l'ensemble.
+>Il est possible de réorganiser chaque menu dans la liste en restant cliqué dessus le temps de le positionner à l'endroit voulu.
+
+Comme à l'habitude, le clic sur un équipement vous amène sur sa page de configuration permettant de renseigner les informations générales et de visualiser la liste des commandes.
 
 ## Paramètres optionnels des équipements
 

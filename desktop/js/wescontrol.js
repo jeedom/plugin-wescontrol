@@ -117,6 +117,8 @@ $('#bt_resetwescontrolSearch').off('click').on('click', function() {
   $('#in_searchwescontrol').val('').keyup()
 })
 
+$(".wesSortableMenu").sortable({axis: "y", cursor: "move", items: ".panel", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
 function addCmdToTable(_cmd) {
