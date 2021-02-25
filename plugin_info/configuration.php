@@ -26,7 +26,7 @@ if (!isConnect('admin')) {
 	<fieldset>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">{{Temps entre deux lectures}} <sub>(s.)</sub>
-				<sup><i class="fas fa-question-circle tooltips" title="{{Délai en secondes entre 2 interrogations du serveur Wes.}}"></i></sup>
+				<sup><i class="fas fa-question-circle tooltips" title="{{Délai en secondes entre 2 interrogations du serveur Wes. 30 par défaut}}"></i></sup>
 			</label>
 			<div class="col-sm-7">
 				<input class="configKey form-control" data-l1key="temporisation_lecture"/>

@@ -2,7 +2,7 @@
     "id": "wescontrol",
     "name": "Wes Control",
     "description": {
-        "fr_FR": "Prenez le contrôle de votre serveur d'énergie Cartelectronic Wes depuis Jeedom et vous serez en mesure d'en décupler les fonctionnalités. Le plugin offre la possibilité d'utiliser un fichier CGX spécialement conçu pour Jeedom et permettant de lire davantage de données que celles disponibles par défaut (nécessite un accès FTP au serveur Wes).",
+        "fr_FR": "Prenez le contrôle de votre serveur d'énergie Cartelectronic Wes depuis Jeedom et vous serez en mesure d'en décupler les fonctionnalités. Le plugin offre la possibilité d'utiliser un fichier CGX spécialement conçu pour Jeedom et permettant de lire davantage de données que celles disponibles par défaut (nécessite un accès au serveur Wes en FTP).",
         "en_US": "This plugin will allow you to integrate a CartElectronics wes",
         "es_ES": "Este complemento le permitirá integrar un wes de CartElectronics",
         "de_DE": "Mit diesem Plugin können Sie eine CartElectronics wes integrieren",
