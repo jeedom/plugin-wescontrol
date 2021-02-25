@@ -36,8 +36,6 @@ Pour accéder aux différents équipements **Wes Control**, dirigez-vous vers le
 
 Après avoir créé votre équipement serveur Wes, cliquez sur celui-ci pour accéder à la configuration des accès ainsi qu'à la gestion des équipements/fonctionnalités.     
 
-![Équipement serveur Wes](../images/wescontrol_generalTab.png)
-
 Renseignez les informations générales de l'équipement puis indiquez si vous possédez des matériels optionnels branchés sur le Wes tels qu'un écran ou une alimentation 9 Volts pour la mesure de la tension secteur en cochant les cases correspondantes.
 
 Ensuite, renseignez les informations d'accès au serveur Wes en HTTP afin de pouvoir communiquer avec lui :
