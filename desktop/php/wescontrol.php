@@ -83,7 +83,7 @@ sendVarToJS('typeid', $typeid);
 				echo '</div>';
 				echo '</div>';
 
-				echo '<div class="col-sm-12 wesSortableMenu" style="margin-bottom:20px;">';
+				echo '<div class="col-sm-12" style="margin-bottom:20px;">';
 				foreach ($childEqLogics[$generalEqLogic->getId()] as $type => $childEqLogic) {
 					echo '<div class="panel panel-default" style="margin-bottom:0!important;">';
 					echo '<div class="panel-heading">';
