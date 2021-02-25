@@ -122,8 +122,7 @@ class wescontrol extends eqLogic {
 				"reel"=>array("name"=>__("Température",__FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"°C", "xpath"=>"//temp/SONDE#id#", "dashboard"=>"tile", "mobile"=>"tile")
 			),
 			"analogique"=>array(
-				"reel"=>array("name"=>__("Réel",__FILE__), "type"=>"info", "subtype"=>"numeric", "dashboard"=>"tile", "mobile"=>"tile"),
-				"brut"=>array("name"=>__("Brut",__FILE__), "type"=>"info", "subtype"=>"numeric", "xpath"=>"//analogique/AD#id#", "dashboard"=>"tile", "mobile"=>"tile")
+				"value"=>array("name"=>__("Valeur",__FILE__), "type"=>"info", "subtype"=>"numeric", "xpath"=>"//analogique/AD#id#", "unite"=>"V", "dashboard"=>"tile", "mobile"=>"tile")
 			),
 			"variable"=>array(
 				"value"=>array("name"=>__("Valeur",__FILE__), "type"=>"info", "subtype"=>"numeric", "xpath"=>"//variables/VARIABLE#id#", "dashboard"=>"tile", "mobile"=>"tile")
