@@ -25,11 +25,11 @@ if (!isConnect('admin')) {
 <form class="form-horizontal">
 	<fieldset>
 		<div class="form-group">
-			<label class="col-sm-3 control-label">{{Temps entre deux lectures}} <sub>(s.)</sub>
+			<label class="col-sm-3 control-label">{{Fréquence de rafraîchissement}} <sub>(s.)</sub>
 				<sup><i class="fas fa-question-circle tooltips" title="{{Délai en secondes entre 2 interrogations du serveur Wes. 30 par défaut}}"></i></sup>
 			</label>
 			<div class="col-sm-7">
-				<input class="configKey form-control" data-l1key="temporisation_lecture"/>
+				<input type="number" min="0" step="1" class="configKey form-control" data-l1key="temporisation_lecture" onkeydown="if(event.key==='.'||event.key===','||event.key==='+'||event.key==='-'){event.preventDefault();}" oninput="event.target.value=event.target.value.replace(/\D/,'');"/>
 			</div>
 		</div>
 	</fieldset>

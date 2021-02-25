@@ -22,7 +22,7 @@ Le plugin ne nécessite pas de configuration particulière mais propose un champ
 
 >**IMPORTANT**
 >    
->Vous avez la possibilité d'interroger votre serveur Wes jusqu'à chaque seconde si vous le souhaitez. Si vous constatez des lenteurs ou une instabilité du système, revenez à la valeur par défaut *(30)*.
+>Si vous diminuez cette valeur et constatez des lenteurs ou une instabilité du système, revenez à la valeur par défaut *(30)*.
 
 ## Configuration de l'équipement serveur Wes
 
@@ -38,7 +38,9 @@ Après avoir créé votre équipement serveur Wes, cliquez sur celui-ci pour acc
 
 ![Équipement serveur Wes](../images/wescontrol_generalTab.png)
 
-Renseignez les informations générales de l'équipement puis indiquez les informations d'accès au serveur Wes en HTTP :
+Renseignez les informations générales de l'équipement puis indiquez si vous possédez des matériels optionnels branchés sur le Wes tels qu'un écran ou une alimentation 9 Volts pour la mesure de la tension secteur en cochant les cases correspondantes.
+
+Ensuite, renseignez les informations d'accès au serveur Wes en HTTP afin de pouvoir communiquer avec lui :
 - **IP du Wes** : adresse IP sur laquelle le serveur Wes est joignable.
 - **Port du Wes** *(facultatif)* : port sur lequel le serveur Wes est joignable *(80 par défaut)*.
 - **Identifiant HTTP** : identifiant permettant de communiquer en HTTP avec le serveur Wes.
@@ -72,10 +74,18 @@ Comme à l'habitude, le clic sur un équipement vous amène sur sa page de confi
 
 >**ASTUCE**
 >
->Le champs de recherche permet la visualisation immédiate de l'équipement recherché. Sur la droite, l'icone en forme de croix annule la recherche, le dossier ouvert déplie tous les menus et le dossier fermé replie l'ensemble.
+>Le champ de recherche permet la visualisation immédiate de l'équipement recherché. Sur la droite, l'icône en forme de croix annule la recherche, le dossier ouvert déplie tous les menus et le dossier fermé replie l'ensemble.
 
-# Paramètres optionnels des équipements
+## Paramètres optionnels des équipements
 
-Certains équipements sont dotés de paramètres complémentaires qu'il faudra renseigner lors de leur activation.
+Certains équipements sont dotés de paramètres de configuration complémentaires qu'il faudra renseigner lors de leur activation.
 
-Ces paramètres peuvent être le type de mesure à relever pour des pinces ampèremétriques *(consommation ou production)* ou la formule d'abonnement électrique concernant la téléinfo par exemple.   
+Ces paramètres peuvent être le type de mesure à relever pour des pinces ampèremétriques *(consommation ou production)* ou la formule d'abonnement électrique concernant la téléinfo par exemple.
+
+D'autres peuvent concerner la sélection d'un type de matériel spécifique afin de personnaliser les images d'illustration des équipements comme le type de compteur à impulsions *(eau, gaz, gazpar)* ou le type de pince ampèremétrique utilisé *(20 Ampères ou 100 Ampères)* entre autre.
+
+## Interface du WES
+
+Sur chaque page d'équipement (y compris l'équipement serveur Wes) se trouve un bouton bleu en haut à droite permettant d'ouvrir l'interface internet du serveur Wes dans un nouvel onglet de votre navigateur.
+
+En fonction du type d'équipement sur lequel vous vous trouvez, vous serez automatiquement redirigé vers la page d'interface correspondant à cette fonctionnalité.

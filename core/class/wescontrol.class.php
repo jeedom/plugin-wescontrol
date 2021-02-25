@@ -106,7 +106,7 @@ class wescontrol extends eqLogic {
 			"bouton"=>array(
 				"state"=>array("name"=>__("Etat", __FILE__), "type"=>"info", "subtype"=>"binary", "xpath"=>"//entree/ENTREE#id#")
 			),
-			"relai"=>array(
+			"relais"=>array(
 				"state"=>array("name"=>__("Etat", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=>0, "xpath"=>"//relais/RELAIS#id#", "xpathcond"=>"//relais1W/RELAIS#id#", "cond"=>"#id#>=10", "dashboard"=>"prise", "mobile"=>"prise", "order"=>1),
 				"btn_on"=>array("name"=>"On", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"prise", "mobile"=>"prise", "order"=>2, "url" => "RL.cgi?rl#typeId#=ON"),
 				"btn_off"=>array("name"=>"Off", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"prise", "mobile"=>"prise", "order"=>3, "url" => "RL.cgi?rl#typeId#=OFF"),
@@ -118,8 +118,10 @@ class wescontrol extends eqLogic {
 				"btn_off"=>array("name"=>"Off", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"circle", "mobile"=>"circle", "order"=>3),
 				"commute"=>array("name"=>"Toggle", "type"=>"action", "subtype"=>"other", "order"=>4)
 			),
-			"temperature"=>array(
-				"reel"=>array("name"=>__("Température",__FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"°C", "xpath"=>"//temp/SONDE#id#", "dashboard"=>"tile", "mobile"=>"tile")
+			"sonde"=>array(
+				"temperature"=>array("name"=>__("Température",__FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"°C", "xpath"=>"//temp/SONDE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["sondeMeasure"=>"temperature"]),
+				"humidity"=>array("name"=>__("Humidité",__FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"%", "xpath"=>"//temp/SONDE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["sondeMeasure"=>"humidity"]),
+				"luminosity"=>array("name"=>__("Luminosité",__FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"lm", "xpath"=>"//temp/SONDE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["sondeMeasure"=>"luminosity"])
 			),
 			"analogique"=>array(
 				"value"=>array("name"=>__("Valeur",__FILE__), "type"=>"info", "subtype"=>"numeric", "xpath"=>"//analogique/AD#id#", "unite"=>"V", "dashboard"=>"tile", "mobile"=>"tile")
@@ -138,10 +140,10 @@ class wescontrol extends eqLogic {
 			"compteur"=>array("name"=>__("Compteurs impulsions", __FILE__), "logical"=>"_C", "HTM"=>"PULSES.HTM", "width"=>"272px", "height"=>"332px", "category"=>"energy", "xpath"=>"//impulsion/INDEX#id#", "maxnumber"=>6, "type"=>__("Compteur", __FILE__), "alternateimg" => array("type"=> "select", "value"=>"typecompt")),
 			"bouton"=>array("name"=>__("Entrées", __FILE__), "logical"=>"_B", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//entree/ENTREE#id#", "maxnumber"=>2, "type"=>__("Entrée", __FILE__)),
 			"pince"=>array("name"=>__("Pinces ampèremétriques", __FILE__), "logical"=>"_P", "HTM"=>"PCEVAL.HTM", "width"=>"392px", "height"=>"272px", "category"=>"energy", "xpath"=>"//pince/I#id#","maxnumber"=>4, "type"=>__("Pince", __FILE__), "alternateimg" => array("type"=> "select", "value"=>"typepince")),
-			"relai"=>array("name"=>__("Relais", __FILE__), "logical"=>"_R", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//relais/RELAIS#id#","maxnumber"=>2, "type"=>__("Relais", __FILE__)),
+			"relais"=>array("name"=>__("Relais", __FILE__), "logical"=>"_R", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//relais/RELAIS#id#","maxnumber"=>2, "type"=>__("Relais", __FILE__)),
 			"switch"=>array("name"=>__("Switchs virtuels", __FILE__), "logical"=>"_S", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//switch_virtuel/SWITCH#id#", "maxnumber"=>24, "type"=>__("Switch", __FILE__)),
 			"teleinfo"=>array("name"=>__("Téléinfo", __FILE__), "logical"=>"_T", "HTM"=>"TICVAL.HTM", "width"=>"312px", "height"=>"492px", "category"=>"energy", "xpath"=>"//tic#id#/ADCO", "maxnumber"=>3, "type"=>__("TIC", __FILE__), "alternateimg" => array("type"=> "select", "value"=>"typetic")),
-			"temperature"=>array("name"=>__("Températures", __FILE__), "logical"=>"_A", "HTM"=>"TMP.HTM", "category"=>"heating", "width"=>"112px", "height"=>"172px", "xpath"=>"//temp/SONDE#id#", "maxnumber"=>30, "type"=>__("Sonde", __FILE__)),
+			"sonde"=>array("name"=>__("Sondes", __FILE__), "logical"=>"_A", "HTM"=>"TMP.HTM", "category"=>"heating", "width"=>"112px", "height"=>"172px", "xpath"=>"//temp/SONDE#id#", "maxnumber"=>30, "type"=>__("Sonde", __FILE__)),
 			"variable"=>array("name"=>__("Variables", __FILE__), "logical"=>"_V", "HTM"=>"", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//variables/VARIABLE#id#", "maxnumber"=>8, "type"=>__("Variable", __FILE__)),
 		);
 		return $types;

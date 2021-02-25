@@ -114,9 +114,9 @@ sendVarToJS('typeid', $typeid);
 									}
 								}
 							} else if ($alternate['type'] == 'select'){
-									if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png')) {
-										$img = 'plugins/wescontrol/core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png';
-									}
+								if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png')) {
+									$img = 'plugins/wescontrol/core/config/'.$type.'_'.$eqLogic->getConfiguration($alternate['value'],'').'.png';
+								}
 							}
 						}
 						echo '<img src="' . $img . '"/>';
@@ -203,6 +203,16 @@ sendVarToJS('typeid', $typeid);
 							<br>
 							<legend class="showgeneral" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
 							<div class="form-group showgeneral" style="display: none;">
+								<label class="col-sm-3 control-label">{{Options Wes}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher les matériels optionnels branchés sur ce serveur Wes}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Écran}}" data-l1key="configuration" data-l2key="screen"/>{{Écran}}</label>
+									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Alimentation 9V}}" data-l1key="configuration" data-l2key="9v"/>{{Alimentation 9V}}</label>
+								</div>
+							</div>
+							<br class="showgeneral">
+							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{IP du Wes}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Adresse ip sur laquelle le serveur Wes est joignable}}"></i></sup>
 								</label>
@@ -234,6 +244,7 @@ sendVarToJS('typeid', $typeid);
 									<input type="text" class="eqLogicAttr form-control inputPassword" data-l1key="configuration" data-l2key="password"/>
 								</div>
 							</div>
+							<br class="showgeneral">
 							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{Identifiant FTP}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
@@ -259,15 +270,7 @@ sendVarToJS('typeid', $typeid);
 									<a class="btn btn-primary btn-sm eqLogicAction tooltips" data-action="sendCGX" title="{{Cliquer sur le bouton pour envoyer le fichier CGX sur le serveur Wes}}"><i class="fas fa-file-export"></i> {{Envoyer fichier CGX}}</a>
 								</div>
 							</div>
-							<div class="form-group showgeneral" style="display: none;">
-								<label class="col-sm-3 control-label">{{Options Wes}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher les options que vous possédez}}"></i></sup>
-								</label>
-								<div class="col-sm-7">
-									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Ecran}}" data-l1key="configuration" data-l2key="screen"/>Ecran</label>
-									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Alimentation 9V}}" data-l1key="configuration" data-l2key="9v"/>Alimentation 9V</label>
-								</div>
-							</div>
+
 							<div class="form-group showteleinfo" style="display: none;">
 								<label class="col-sm-3 control-label">{{Tarification}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer la formule de tarification de votre abonnement}}"></i></sup>
@@ -283,8 +286,8 @@ sendVarToJS('typeid', $typeid);
 								</div>
 							</div>
 							<div class="form-group showteleinfo" style="display: none;">
-								<label class="col-sm-3 control-label">{{Type de pince}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur TIC. Uniquement utilisé pour l'image}}"></i></sup>
+								<label class="col-sm-3 control-label">{{Type de compteur}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur TIC utilisé afin de personnaliser l'image d'illustration}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typetic">
@@ -294,6 +297,7 @@ sendVarToJS('typeid', $typeid);
 									</select>
 								</div>
 							</div>
+
 							<div class="form-group showpince" style="display: none;">
 								<label class="col-sm-3 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
@@ -306,31 +310,48 @@ sendVarToJS('typeid', $typeid);
 									</select>
 								</div>
 							</div>
-							<div class="form-group showcompteur" style="display: none;">
-								<label class="col-sm-3 control-label">{{Type de compteur}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur. Uniquement utilisé pour l'image}}"></i></sup>
-								</label>
-								<div class="col-sm-7">
-									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typecompt">
-										<option value="" disabled>*** {{A renseigner}} ***</option>
-										<option value="gaz">{{Gaz}}</option>
-										<option value="eau">{{Eau}}</option>
-									</select>
-								</div>
-							</div>
 							<div class="form-group showpince" style="display: none;">
 								<label class="col-sm-3 control-label">{{Type de pince}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de pince. Uniquement utilisé pour l'image}}"></i></sup>
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de pince utilisé afin de personnaliser l'image d'illustration de l'équipement}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
 									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typepince">
 										<option value="" disabled>*** {{A renseigner}} ***</option>
-										<option value="100a">{{100A}}</option>
-										<option value="20a">{{20A}}</option>
+										<option value="100a">{{100 Ampères (100A)}}</option>
+										<option value="20a">{{20 Ampères (20A)}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group showcompteur" style="display: none;">
+								<label class="col-sm-3 control-label">{{Type de compteur}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur utilisé afin de personnaliser l'image d'illustration de l'équipement}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typecompt">
+										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="eau">{{Eau}}</option>
+										<option value="gaz">{{Gaz}}</option>
+										<option value="gazpar">{{Gazpar}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group showsonde" style="display: none;">
+								<label class="col-sm-3 control-label">{{Type de mesure}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="sondeMeasure">
+										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="temperature">{{Température}}</option>
+										<option value="humidity">{{Humidité}}</option>
+										<option value="luminosity">{{Luminosité}}</option>
 									</select>
 								</div>
 							</div>
 						</div>
+
 
 						<div class="col-lg-6 showgeneral" style="display: none;">
 							<legend><i class="fas fa-tasks"></i> {{Gestion des équipements}}</legend>
