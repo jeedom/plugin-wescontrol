@@ -129,9 +129,7 @@ $(".wesSortableMenu").sortable({axis: "y", cursor: "move", items: ".panel", plac
         data = (data.result) ? data.result : data
         data.display = {menuorder: typeorder}
         jeedom.eqLogic.simpleSave({
-          eqLogic: data,
-          success: function() {
-          }
+          eqLogic: data
         })
       }
     })
