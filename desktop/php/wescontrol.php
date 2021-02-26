@@ -76,10 +76,8 @@ sendVarToJS('jeedomversion', config::byKey('version'));
 				if (file_exists(dirname(__FILE__) . '/../../core/config/general.png')) {
 					$img = 'plugins/wescontrol/core/config/general.png';
 				}
-				if ($generalEqLogic->getConfiguration('screen',0) == 1) {
-					if (file_exists(dirname(__FILE__) . '/../../core/config/general_screen.png')) {
-						$img = 'plugins/wescontrol/core/config/general_screen.png';
-					}
+				if ($generalEqLogic->getConfiguration('screen',0) == 1 && file_exists(dirname(__FILE__) . '/../../core/config/general_screen.png')) {
+					$img = 'plugins/wescontrol/core/config/general_screen.png';
 				}
 				echo '<img src="' . $img . '"/>';
 				echo '<span class="name">' . $generalEqLogic->getHumanName(true, true) . '</span>';
@@ -124,16 +122,10 @@ sendVarToJS('jeedomversion', config::byKey('version'));
 							$img = 'plugins/wescontrol/core/config/'.$type.'.png';
 						}
 						if (isset($typeArray[$type]['alternateimg'])) {
-							if ($typeArray[$type]['alternateimg']['type'] == 'binary') {
-								if ($eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'], 0) == 1) {
-									if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$typeArray[$type]['alternateimg']['value'].'.png')) {
-										$img = 'plugins/wescontrol/core/config/'.$type.'_'.$typeArray[$type]['alternateimg']['value'].'.png';
-									}
-								}
-							} else if ($typeArray[$type]['alternateimg']['type'] == 'select'){
-								if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'],'').'.png')) {
-									$img = 'plugins/wescontrol/core/config/'.$type.'_'.$eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'],'').'.png';
-								}
+							if ($typeArray[$type]['alternateimg']['type'] == 'binary' && $eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'], 0) == 1 && file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$typeArray[$type]['alternateimg']['value'].'.png')) {
+								$img = 'plugins/wescontrol/core/config/'.$type.'_'.$typeArray[$type]['alternateimg']['value'].'.png';
+							} else if ($typeArray[$type]['alternateimg']['type'] == 'select' && file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'_'.$eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'],'').'.png')) {
+								$img = 'plugins/wescontrol/core/config/'.$type.'_'.$eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'],'').'.png';
 							}
 						}
 						echo '<img src="' . $img . '"/>';
