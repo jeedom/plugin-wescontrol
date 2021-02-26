@@ -90,7 +90,7 @@ sendVarToJS('typeid', $typeid);
 				}
 				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
 				foreach ($childEqLogics[$generalEqLogic->getId()] as $type => $childEqLogic) {
-					if (empty($childEqLogics[$generalEqLogic->getId()][$type]) || !is_array($childEqLogics[$generalEqLogic->getId()][$type])) {
+					if (empty($childEqLogic) || !is_array($childEqLogic)) {
 						continue;
 					}
 					echo '<div class="panel panel-default" data-type="'.$type.'" style="margin-bottom:0!important;">';
