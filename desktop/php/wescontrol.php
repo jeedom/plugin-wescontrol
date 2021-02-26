@@ -67,7 +67,7 @@ sendVarToJS('typeid', $typeid);
 			}
 
 			foreach ($generalEqLogics as $generalEqLogic) {
-				echo '<div style="width:100%;display:flex;">';
+				echo '<div style="width:100%;display:flex;margin-bottom:20px;">';
 				echo '<div class="eqLogicThumbnailContainer" style="width:130px;">';
 				$opacity = ($generalEqLogic->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $generalEqLogic->getId() . '">';
@@ -88,12 +88,12 @@ sendVarToJS('typeid', $typeid);
 				if (!empty($sortedMenu[$generalEqLogic->getId()]) && is_array($sortedMenu[$generalEqLogic->getId()])) {
 					$childEqLogics[$generalEqLogic->getId()] = array_merge(array_flip($sortedMenu[$generalEqLogic->getId()]), $childEqLogics[$generalEqLogic->getId()]);
 				}
-				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
+				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'">';
 				foreach ($childEqLogics[$generalEqLogic->getId()] as $type => $childEqLogic) {
 					if (empty($childEqLogic) || !is_array($childEqLogic)) {
 						continue;
 					}
-					echo '<div class="panel panel-default" data-type="'.$type.'" style="margin-bottom:0!important;">';
+					echo '<div class="panel panel-default" data-type="'.$type.'">';
 					echo '<div class="panel-heading">';
 					echo '<div class="panel-title">';
 					echo '<a class="accordion-toggle wescontrolTab" data-toggle="collapse" data-parent="" aria-expanded="false" href="#wescontrol_'.$type.$generalEqLogic->getId().'">';
