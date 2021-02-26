@@ -27,13 +27,15 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').on('change',functio
   }
 });
 
-$(".wescontrolTab").on('click',function(){
-  setTimeout(function(){
-    $('.packery').packery({
-      itemSelector: ".eqLogicDisplayCard"
-    });
-  },50);
-});
+if (jeedomversion < '4.2') {
+  $(".wescontrolTab").on('click',function(){
+    setTimeout(function(){
+      $('.packery').packery({
+        itemSelector: ".eqLogicDisplayCard"
+      });
+    },50);
+  });
+}
 
 $('.eqLogicAttr[data-l2key=usecustomcgx]').on('click', function(){
   if ($(this).is(':checked')) {
@@ -118,22 +120,22 @@ $('#bt_resetwescontrolSearch').off('click').on('click', function() {
 })
 
 $(".wesSortableMenu").sortable({axis: "y", cursor: "move", items: ".panel", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true,
-  stop: function() {
-    var typeorder = []
-    $(this).find('.panel').each(function() {
-      typeorder.push($(this).data('type'))
-    })
-    jeedom.eqLogic.byId({
-      id: $(this).attr('data-generalId'),
-      success: function(data) {
-        data = (data.result) ? data.result : data
-        data.display = {menuorder: typeorder}
-        jeedom.eqLogic.simpleSave({
-          eqLogic: data
-        })
-      }
-    })
-  }
+stop: function() {
+  var typeorder = []
+  $(this).find('.panel').each(function() {
+    typeorder.push($(this).data('type'))
+  })
+  jeedom.eqLogic.byId({
+    id: $(this).attr('data-generalId'),
+    success: function(data) {
+      data = (data.result) ? data.result : data
+      data.display = {menuorder: typeorder}
+      jeedom.eqLogic.simpleSave({
+        eqLogic: data
+      })
+    }
+  })
+}
 });
 
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});

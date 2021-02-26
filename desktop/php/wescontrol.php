@@ -11,6 +11,7 @@ foreach ($typeArray as $type => $data) {
 	$typeid[$type] = $data['HTM'];
 }
 sendVarToJS('typeid', $typeid);
+sendVarToJS('jeedomversion', config::byKey('version'));
 ?>
 
 <div class="row row-overflow">
@@ -110,7 +111,7 @@ sendVarToJS('typeid', $typeid);
 					else if ($countActive == 0) {
 						$classCount = 'icon_red';
 					}
-					echo '<img src="'.$img.'" width="30px"/> ' . $typeArray[$type]['name'] . ' <sub>(<span class="'.$classCount.'">'.$countActive.'/'.$countTotal.'</span>)</sub>';
+					echo '<img src="'.$img.'" width="30px"/> ' . $typeArray[$type]['name'] . '  <sub class="'.$classCount.'">'.$countActive.'/'.$countTotal.'</sub>';
 					echo '</div>';
 					echo '</div>';
 					echo '<div id="wescontrol_'.$type.$generalEqLogic->getId().'" class="panel-collapse collapse">';
