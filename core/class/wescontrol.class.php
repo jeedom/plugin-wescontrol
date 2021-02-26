@@ -135,7 +135,7 @@ class wescontrol extends eqLogic {
 
 	public function getTypes() {
 		$types = array(
-			"general"=>array("name"=>__("Serveur wescontrol", __FILE__), "width"=>"232px", "height"=>"212px", "HTM"=>"", "ignoreCreation"=>1, "alternateimg"=>["type"=>"binary", "value"=>"screen"]),
+			"general"=>array("name"=>__("Serveur wescontrol", __FILE__), "HTM"=>"", "ignoreCreation"=>1, "alternateimg"=>["type"=>"binary", "value"=>"screen"]),
 			"analogique"=>array("name"=>__("Capteurs", __FILE__), "logical"=>"_N", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//analogique/AD#id#", "maxnumber"=>4, "type"=>__("Tension", __FILE__)),
 			"compteur"=>array("name"=>__("Compteurs impulsions", __FILE__), "logical"=>"_C", "HTM"=>"PULSES.HTM", "width"=>"272px", "height"=>"332px", "category"=>"energy", "xpath"=>"//impulsion/INDEX#id#", "maxnumber"=>6, "type"=>__("Compteur", __FILE__), "alternateimg"=>["type"=>"select", "value"=>"typecompt"]),
 			"bouton"=>array("name"=>__("Entrées", __FILE__), "logical"=>"_B", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//entree/ENTREE#id#", "maxnumber"=>2, "type"=>__("Entrée", __FILE__)),
@@ -275,7 +275,10 @@ class wescontrol extends eqLogic {
 		$this->setIsEnable(0);
 		$this->setIsVisible(0);
 		if ($this->getConfiguration('type', '') == '') {
-			$this->setCategory('energy', 1)->setConfiguration('type', 'general');
+			$this->setConfiguration('type', 'general');
+			$this->setCategory('energy', 1);
+			$this->setDisplay('width', '232px');
+			$this->setDisplay('height', '212px');
 		}
 	}
 
