@@ -68,7 +68,7 @@ sendVarToJS('jeedomversion', config::byKey('version'));
 			}
 
 			foreach ($generalEqLogics as $generalEqLogic) {
-				echo '<div style="width:100%;display:flex;margin-bottom:20px;">';
+				echo '<div style="width:100%;display:flex;">';
 				echo '<div class="eqLogicThumbnailContainer" style="width:130px;">';
 				$opacity = ($generalEqLogic->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $generalEqLogic->getId() . '">';
@@ -89,7 +89,7 @@ sendVarToJS('jeedomversion', config::byKey('version'));
 				if (!empty($sortedMenu[$generalEqLogic->getId()]) && is_array($sortedMenu[$generalEqLogic->getId()])) {
 					$childEqLogics[$generalEqLogic->getId()] = array_merge(array_flip($sortedMenu[$generalEqLogic->getId()]), $childEqLogics[$generalEqLogic->getId()]);
 				}
-				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'">';
+				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
 				foreach ($childEqLogics[$generalEqLogic->getId()] as $type => $childEqLogic) {
 					if (empty($childEqLogic) || !is_array($childEqLogic)) {
 						continue;
