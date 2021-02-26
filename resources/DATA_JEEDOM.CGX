@@ -1,5 +1,8 @@
 t <?xml version="1.0" encoding="UTF-8"?>
 t <data>
+t <jeedom>
+t <cgxversion>1.0</cgxversion>
+t </jeedom>
 t <info>
 c g d <date>%02d/%02d/%02d</date>
 c h h <time>%02d:%02d</time>

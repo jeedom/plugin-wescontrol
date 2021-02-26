@@ -30,7 +30,15 @@ function wescontrol_install() {
 		$cron->setSchedule('* * * * *');
 		$cron->save();
 	}
-	config::save('temporisation_lecture', 30, 'wescontrol');
+	if (config::byKey('pollInterval','wescontrol') == ''){
+		config::save('pollInterval', 30, 'wescontrol');
+	}
+	$file = dirname(__FILE__) . '/../resources/DATA_JEEDOM.CGX';
+	$text = file_get_contents($file);
+	preg_match('/<cgxversion>(.*)<\/cgxversion>/', $text, $matches);
+	if ($matches == 1){
+		config::save('cgxversion', $matches[1], 'wescontrol');
+	}
 	$cron->start();
 }
 
@@ -47,14 +55,21 @@ function wescontrol_update() {
 		$cron->setTimeout(1440);
 		$cron->save();
 	}
+	if (config::byKey('pollInterval', 'wescontrol','') == '') {
+		config::save('pollInterval', 30, 'wescontrol');
+	}
 	foreach (eqLogic::byType('wescontrol', true) as $wescontrol) {
 		if ($wescontrol->getConfiguration('type') == 'general') {
 			$wescontrol->save();
 		}
 	}
-	if (config::byKey('temporisation_lecture', 'wescontrol','') == '') {
-		config::save('temporisation_lecture', 30, 'wescontrol');
+	$file = dirname(__FILE__) . '/../resources/DATA_JEEDOM.CGX';
+	$text = file_get_contents($file);
+	preg_match('/<cgxversion>(.*)<\/cgxversion>/', $text, $matches);
+	if ($matches == 1){
+		config::save('cgxversion', $matches[1], 'wescontrol');
 	}
+	$cron->start();
 }
 
 function wescontrol_remove() {

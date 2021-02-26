@@ -68,7 +68,8 @@ class wescontrol extends eqLogic {
 				"alarmeon"=>array("name"=>__("Alarme On", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1,"screen"=>1], "order"=>4, "url"=>"AJAX.cgx?alarme=ON"),
 				"alarmeoff"=>array("name"=>__("Alarme Off", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1,"screen"=>1], "order"=>5 , "url"=>"AJAX.cgx?alarme=OFF"),
 				"spaceleft"=>array("name"=>__("Espace libre", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"Go", "xpath"=>"//info/spaceleft", "filter"=>["usecustomcgx"=>1], "order"=>6),
-				"tension"=>array("name"=>__("Tension", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"V", "minValue"=>200, "maxValue"=>260, "xpath"=>"//pince/V", "filter"=>["9v"=>1], "order"=>7)
+				"servercgxversion"=>array("name"=>__("Version CGX Serveur", __FILE__), "type"=>"info", "subtype"=>"string", "visible"=>0, "xpath"=>"//jeedom/cgxversion", "filter"=>["usecustomcgx"=>1], "order"=>7),
+				"cgxupdate"=>array("name"=>__("Update CGX", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=>0, "filter"=>["usecustomcgx"=>1], "order"=>8)
 			),
 			"compteur"=>array(
 				"nbimpulsion"=>array("name"=>__("Impulsions", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"imp", "xpath"=>"//impulsion/PULSE#id#", "dashboard"=>"tile", "mobile"=>"tile", "order"=>0),
@@ -198,8 +199,8 @@ class wescontrol extends eqLogic {
 		}
 		log::add(__CLASS__,'debug','cron stop');
 		$endtime = microtime (true);
-		if ($endtime - $starttime < config::byKey('temporisation_lecture', __CLASS__, 60, true)) {
-			usleep(floor((config::byKey('temporisation_lecture', __CLASS__) + $starttime - $endtime)*1000000));
+		if ($endtime - $starttime < config::byKey('pollInterval', __CLASS__, 60, true)) {
+			usleep(floor((config::byKey('pollInterval', __CLASS__) + $starttime - $endtime)*1000000));
 		}
 	}
 
@@ -455,6 +456,14 @@ class wescontrol extends eqLogic {
 							if (count($status) != 0){
 								if ($eqLogic->getConfiguration('type','') == 'relai' && $logical == 'state'){
 									$value = ($value == 'ON') ? 1 : 0;
+								}
+								if ($eqLogic->getConfiguration('type','') == 'general' && $logical == 'servercgxversion' && $eqLogic->getConfiguration('usecustomcgx',0) == 1){
+									if ($value != config::byKey('cgxversion','wescontrol','')) {
+										$eqLogic->checkAndUpdateCmd('cgxupdate', 1);
+										message::add(__CLASS__, __('Le wes ', __FILE__) . $eqLogic->getHumanName(true) . __(' a besoin d\'une mise à jour de son fichier cgx. Nouvelle version : ', __FILE__) . config::byKey('cgxversion','wescontrol','') . __(' Version actuelle : ', __FILE__) . $value, '', 'needsCgxUpdate'.$eqLogic->getId());
+									} else {
+										$eqLogic->checkAndUpdateCmd('cgxupdate', 0);
+									}
 								}
 								$eqLogic->checkAndUpdateCmd($logical, $value);
 							}
