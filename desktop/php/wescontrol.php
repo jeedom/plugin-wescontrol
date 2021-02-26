@@ -334,8 +334,8 @@ sendVarToJS('jeedomversion', config::byKey('version'));
 								<div class="col-sm-7">
 									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typepince">
 										<option value="" disabled>*** {{A renseigner}} ***</option>
-										<option value="100a">{{100 Ampères (100A)}}</option>
 										<option value="20a">{{20 Ampères (20A)}}</option>
+										<option value="100a">{{100 Ampères (100A)}}</option>
 									</select>
 								</div>
 							</div>
