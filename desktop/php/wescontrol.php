@@ -101,7 +101,16 @@ sendVarToJS('typeid', $typeid);
 					if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'.png')) {
 						$img = 'plugins/wescontrol/core/config/'.$type.'.png';
 					}
-					echo '<img src="'.$img.'" width="30px"/> ' . $typeArray[$type]['name'] . ' <sub>('.count($activeChildEqLogics[$generalEqLogic->getId()][$type]).'/'.count($childEqLogic).')</sub>';
+					$countTotal = count($childEqLogic);
+					$countActive = count($activeChildEqLogics[$generalEqLogic->getId()][$type]);
+					$classCount = 'icon_orange';
+					if ($countActive == $countTotal) {
+						$classCount = 'icon_green';
+					}
+					else if ($countActive == 0) {
+						$classCount = 'icon_red';
+					}
+					echo '<img src="'.$img.'" width="30px"/> ' . $typeArray[$type]['name'] . ' <sub>(<span class="'.$classCount.'">'.$countActive.'/'.$countTotal.'</span>)</sub>';
 					echo '</div>';
 					echo '</div>';
 					echo '<div id="wescontrol_'.$type.$generalEqLogic->getId().'" class="panel-collapse collapse">';
