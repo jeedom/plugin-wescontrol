@@ -70,6 +70,10 @@ Le champ de recherche permet la visualisation immédiate de l'équipement recher
 
 ![Navigation dans les équipements](../images/wescontrol_screenshot1.png)
 
+>**ASTUCE**
+>
+>Il est possible de réorganiser chaque menu dans la liste en restant cliqué dessus le temps de le positionner à l'endroit voulu.
+
 Comme à l'habitude, le clic sur un équipement vous amène sur sa page de configuration permettant de renseigner les informations générales et de visualiser la liste des commandes.
 
 ## Paramètres optionnels des équipements

@@ -53,13 +53,14 @@ sendVarToJS('typeid', $typeid);
 			foreach ($eqLogics as $eqLogic) {
 				if ($eqLogic->getConfiguration('type') == 'general') {
 					array_push($generalEqLogics, $eqLogic);
+					$sortedMenu[$eqLogic->getId()] = $eqLogic->getDisplay('menuorder', '');
 				}
 				else {
-					$generalId = explode('_', $eqLogic->getLogicalId());
-					$childEqLogics[$generalId[0]][$eqLogic->getConfiguration('type')][] = $eqLogic;
+					$generalId = substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_"));
+					$childEqLogics[$generalId][$eqLogic->getConfiguration('type')][] = $eqLogic;
 
 					if ($eqLogic->getIsEnable()) {
-						$activeChildEqLogics[$generalId[0]][$eqLogic->getConfiguration('type')][] = '';
+						$activeChildEqLogics[$generalId][$eqLogic->getConfiguration('type')][] = '';
 					}
 				}
 			}
@@ -83,9 +84,15 @@ sendVarToJS('typeid', $typeid);
 				echo '</div>';
 				echo '</div>';
 
-				echo '<div class="col-sm-12" style="margin-bottom:20px;">';
+				if (!empty($sortedMenu[$generalEqLogic->getId()]) && is_array($sortedMenu[$generalEqLogic->getId()])) {
+					$childEqLogics[$generalEqLogic->getId()] = array_merge(array_flip($sortedMenu[$generalEqLogic->getId()]), $childEqLogics[$generalEqLogic->getId()]);
+				}
+				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
 				foreach ($childEqLogics[$generalEqLogic->getId()] as $type => $childEqLogic) {
-					echo '<div class="panel panel-default" style="margin-bottom:0!important;">';
+					if (empty($childEqLogics[$generalEqLogic->getId()][$type]) || !is_array($childEqLogics[$generalEqLogic->getId()][$type])) {
+						continue;
+					}
+					echo '<div class="panel panel-default" data-type="'.$type.'" style="margin-bottom:0!important;">';
 					echo '<div class="panel-heading">';
 					echo '<div class="panel-title">';
 					echo '<a class="accordion-toggle wescontrolTab" data-toggle="collapse" data-parent="" aria-expanded="false" href="#wescontrol_'.$type.$generalEqLogic->getId().'">';
