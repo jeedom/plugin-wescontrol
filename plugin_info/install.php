@@ -36,7 +36,7 @@ function wescontrol_install() {
 	$file = dirname(__FILE__) . '/../resources/DATA_JEEDOM.CGX';
 	$text = file_get_contents($file);
 	preg_match('/<cgxversion>(.*)<\/cgxversion>/', $text, $matches);
-	if ($matches == 1){
+	if ($matches){
 		config::save('cgxversion', $matches[1], 'wescontrol');
 	}
 	$cron->start();
@@ -66,7 +66,7 @@ function wescontrol_update() {
 	$file = dirname(__FILE__) . '/../resources/DATA_JEEDOM.CGX';
 	$text = file_get_contents($file);
 	preg_match('/<cgxversion>(.*)<\/cgxversion>/', $text, $matches);
-	if ($matches == 1){
+	if ($matches){
 		config::save('cgxversion', $matches[1], 'wescontrol');
 	}
 	$cron->start();
