@@ -10,8 +10,7 @@ $typeid = array();
 foreach ($typeArray as $type => $data) {
 	$typeid[$type] = $data['HTM'];
 }
-sendVarToJS('typeid', $typeid);
-sendVarToJS('jeedomversion', config::byKey('version'));
+sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 ?>
 
 <div class="row row-overflow">
@@ -60,7 +59,6 @@ sendVarToJS('jeedomversion', config::byKey('version'));
 				else {
 					$generalId = substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_"));
 					$childEqLogics[$generalId][$eqLogic->getConfiguration('type')][] = $eqLogic;
-
 					if ($eqLogic->getIsEnable()) {
 						$activeChildEqLogics[$generalId][$eqLogic->getConfiguration('type')][] = '';
 					}
@@ -83,11 +81,11 @@ sendVarToJS('jeedomversion', config::byKey('version'));
 				echo '<span class="name">' . $generalEqLogic->getHumanName(true, true) . '</span>';
 				echo '</div>';
 				echo '</div>';
-
+				
+				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
 				if (!empty($sortedMenu[$generalEqLogic->getId()]) && is_array($sortedMenu[$generalEqLogic->getId()])) {
 					$childEqLogics[$generalEqLogic->getId()] = array_merge(array_flip($sortedMenu[$generalEqLogic->getId()]), $childEqLogics[$generalEqLogic->getId()]);
 				}
-				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
 				foreach ($childEqLogics[$generalEqLogic->getId()] as $type => $childEqLogic) {
 					if (empty($childEqLogic) || !is_array($childEqLogic)) {
 						continue;
