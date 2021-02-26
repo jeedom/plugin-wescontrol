@@ -47,6 +47,7 @@ sendVarToJS('typeid', $typeid);
 			echo '</div>';
 			echo '<div class="panel-group">';
 			$generalEqLogics = array();
+			$sortedMenu = array();
 			$childEqLogics = array();
 			$activeChildEqLogics = array();
 
