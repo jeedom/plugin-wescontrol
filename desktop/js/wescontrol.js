@@ -118,7 +118,7 @@ $('#bt_resetwescontrolSearch').off('click').on('click', function() {
 })
 
 $(".wesSortableMenu").sortable({axis: "y", cursor: "move", items: ".panel", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true,
-  stop: function(event, ui) {
+  stop: function() {
     var typeorder = []
     $(this).find('.panel').each(function() {
       typeorder.push($(this).data('type'))
