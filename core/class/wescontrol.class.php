@@ -421,7 +421,7 @@ class wescontrol extends eqLogic {
 	}
 
 	public function pull() {
-		if ( $this->getIsEnable() && $this->getConfiguration('type') == "general") {
+		if ($this->getIsEnable() && $this->getConfiguration('type') == "general") {
 			log::add(__CLASS__, 'debug', $this->getHumanName() . __(' Interrogation du serveur Wes', __FILE__));
 			$url = $this->getReadUrl();
 			$xml = simpleXML_load_file($url);
@@ -431,7 +431,7 @@ class wescontrol extends eqLogic {
 				$xml = simpleXML_load_file($url);
 				$count++;
 			}
-			if ( $xml === false ) {
+			if ($xml === false) {
 				$this->checkAndUpdateCmd('status', 0);
 				log::add(__CLASS__, 'error', $this->getHumanName() . __('Le serveur Wes n\'est pas joignable sur ', __FILE__) . $url);
 				return false;
@@ -450,17 +450,17 @@ class wescontrol extends eqLogic {
 									$xpath = $details['xpathcond'];
 								}
 							}
-							$xpathModele = str_replace('#id#',$typeId,$xpath);
+							$xpathModele = str_replace('#id#', $typeId, $xpath);
 							$status = $xml->xpath($xpathModele);
 							$value = (string) $status[0];
-							if (count($status) != 0){
-								if ($eqLogic->getConfiguration('type','') == 'relai' && $logical == 'state'){
+							if (count($status) != 0) {
+								if ($eqLogic->getConfiguration('type','') == 'relais' && $logical == 'state'){
 									$value = ($value == 'ON') ? 1 : 0;
 								}
-								if ($eqLogic->getConfiguration('type','') == 'general' && $logical == 'servercgxversion' && $eqLogic->getConfiguration('usecustomcgx',0) == 1){
+								if ($eqLogic->getConfiguration('type','') == 'general' && $logical == 'servercgxversion' && $eqLogic->getConfiguration('usecustomcgx',0) == 1) {
 									if ($value != config::byKey('cgxversion','wescontrol','')) {
 										$eqLogic->checkAndUpdateCmd('cgxupdate', 1);
-										message::add(__CLASS__, __('Le wes ', __FILE__) . $eqLogic->getHumanName(true) . __(' a besoin d\'une mise à jour de son fichier cgx. Nouvelle version : ', __FILE__) . config::byKey('cgxversion','wescontrol','') . __(' Version actuelle : ', __FILE__) . $value, '', 'needsCgxUpdate'.$eqLogic->getId());
+										message::add(__CLASS__, $eqLogic->getHumanName() . __(' Mise à jour du fichier CGX Jeedom disponible. Version actuelle : ', __FILE__) . $value . ' / ' .  __('Nouvelle version : ', __FILE__). config::byKey('cgxversion','wescontrol',''), '', 'needsCgxUpdate'.$eqLogic->getId());
 									} else {
 										$eqLogic->checkAndUpdateCmd('cgxupdate', 0);
 									}
