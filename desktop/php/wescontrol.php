@@ -81,7 +81,7 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 				echo '<span class="name">' . $generalEqLogic->getHumanName(true, true) . '</span>';
 				echo '</div>';
 				echo '</div>';
-				
+
 				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
 				if (!empty($sortedMenu[$generalEqLogic->getId()]) && is_array($sortedMenu[$generalEqLogic->getId()])) {
 					$childEqLogics[$generalEqLogic->getId()] = array_merge(array_flip($sortedMenu[$generalEqLogic->getId()]), $childEqLogics[$generalEqLogic->getId()]);
@@ -284,9 +284,8 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 								</label>
 								<div class="col-sm-7">
 									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="tarification">
-										<option value="">{{Sans tarification}}</option>
-										<option value="BASE">Base</option>
-										<option value="HC">Heures creuses</option>
+										<option value="BASE">{{Base/Sans Tarification}}</option>
+										<option value="HC">Heures Creuses</option>
 										<option value="BBRH">Tempo</option>
 										<option value="EJP">EJP</option>
 									</select>

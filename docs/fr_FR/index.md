@@ -1,7 +1,5 @@
 # Plugin WES Control
 
-# Description
-
 Ce plugin va vous permettre de prendre le contrôle de votre [**serveur d'énergie WES de CartElectronic**](https://www.cartelectronic.fr/content/8-serveur-wes){:target="\_blank"} et d'en récupérer toutes les données instantanément dans Jeedom.    
 
 ![Visuel Wes](../../core/config/general.png)
@@ -89,3 +87,7 @@ D'autres peuvent concerner la sélection d'un type de matériel spécifique afin
 Sur chaque page d'équipement (y compris l'équipement serveur Wes) se trouve, en haut à droite, un bouton bleu nommé **Interface Wes** qui permet d'ouvrir l'interface internet du serveur Wes dans un nouvel onglet de votre navigateur.
 
 En fonction du type d'équipement sur lequel vous vous trouvez, vous serez automatiquement redirigé vers la page d'interface correspondant à cette fonctionnalité.
+
+# Évolutions à venir
+
+L'équipe travaille d'ores et déjà à l'intégration des extensions Wes actuellement non prises en charge telles que l'extension 8 relais ou modbus et fera son maximum pour faire évoluer le plugin en ce sens dans les meilleurs délais.

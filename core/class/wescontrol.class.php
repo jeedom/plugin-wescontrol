@@ -67,9 +67,10 @@ class wescontrol extends eqLogic {
 				"alarme"=>array("name"=>__("Alarme", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=> 0, "xpath"=>"//info/alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1,"screen"=>1], "order"=>3),
 				"alarmeon"=>array("name"=>__("Alarme On", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1,"screen"=>1], "order"=>4, "url"=>"AJAX.cgx?alarme=ON"),
 				"alarmeoff"=>array("name"=>__("Alarme Off", __FILE__), "type"=>"action", "subtype"=>"other", "value"=>"alarme","dashboard"=>"alert", "mobile"=>"alert", "filter"=>["usecustomcgx"=>1,"screen"=>1], "order"=>5 , "url"=>"AJAX.cgx?alarme=OFF"),
-				"spaceleft"=>array("name"=>__("Espace libre", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"Go", "xpath"=>"//info/spaceleft", "filter"=>["usecustomcgx"=>1], "order"=>6),
-				"servercgxversion"=>array("name"=>__("Version CGX Serveur", __FILE__), "type"=>"info", "subtype"=>"string", "visible"=>0, "xpath"=>"//jeedom/cgxversion", "filter"=>["usecustomcgx"=>1], "order"=>7),
-				"cgxupdate"=>array("name"=>__("Update CGX", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=>0, "filter"=>["usecustomcgx"=>1], "order"=>8)
+				"tension"=>array("name"=>__("Tension", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"V", "minValue"=>200, "maxValue"=>260, "xpath"=>"//pince/V", "filter"=>["9v"=>1], "order"=>6),
+				"spaceleft"=>array("name"=>__("Espace libre", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"Go", "xpath"=>"//info/spaceleft", "filter"=>["usecustomcgx"=>1], "order"=>7),
+				"servercgxversion"=>array("name"=>__("Version CGX Serveur", __FILE__), "type"=>"info", "subtype"=>"string", "visible"=>0, "xpath"=>"//jeedom/cgxversion", "filter"=>["usecustomcgx"=>1], "order"=>8),
+				"cgxupdate"=>array("name"=>__("Update CGX", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=>0, "filter"=>["usecustomcgx"=>1], "order"=>9)
 			),
 			"compteur"=>array(
 				"nbimpulsion"=>array("name"=>__("Impulsions", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"imp", "xpath"=>"//impulsion/PULSE#id#", "dashboard"=>"tile", "mobile"=>"tile", "order"=>0),
@@ -115,9 +116,9 @@ class wescontrol extends eqLogic {
 			),
 			"switch"=>array(
 				"state"=>array("name"=>__("Etat", __FILE__), "type"=>"info", "subtype"=>"binary", "visible"=>0, "xpath"=>"//switch_virtuel/SWITCH#id#","dashboard"=>"circle", "mobile"=>"circle", "order"=>0),
-				"btn_on"=>array("name"=>"On", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"circle", "mobile"=>"circle", "order"=>1),
-				"btn_off"=>array("name"=>"Off", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"circle", "mobile"=>"circle", "order"=>2),
-				"commute"=>array("name"=>"Toggle", "type"=>"action", "subtype"=>"other", "order"=>3)
+				"btn_on"=>array("name"=>"On", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"circle", "mobile"=>"circle", "order"=>1, "url" => "AJAX.cgx?vs#typeId#=ON"),
+				"btn_off"=>array("name"=>"Off", "type"=>"action", "subtype"=>"other", "value"=>"state", "dashboard"=>"circle", "mobile"=>"circle", "order"=>2, "url" => "AJAX.cgx?vs#typeId#=OFF"),
+				"commute"=>array("name"=>"Toggle", "type"=>"action", "subtype"=>"other", "order"=>3, "url" => "AJAX.cgx?fvs=#typeId#")
 			),
 			"sonde"=>array(
 				"temperature"=>array("name"=>__("Température",__FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"°C", "xpath"=>"//temp/SONDE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["sondeMeasure"=>"temperature"]),
@@ -191,13 +192,11 @@ class wescontrol extends eqLogic {
 
 	public static function daemon() {
 		$starttime = microtime (true);
-		log::add(__CLASS__,'debug','cron start');
 		foreach (self::byType(__CLASS__, true) as $eqLogic) {
 			if($eqLogic->getConfiguration('type') == "general"){
 				$eqLogic->pull();
 			}
 		}
-		log::add(__CLASS__,'debug','cron stop');
 		$endtime = microtime (true);
 		if ($endtime - $starttime < config::byKey('pollInterval', __CLASS__, 60, true)) {
 			usleep(floor((config::byKey('pollInterval', __CLASS__) + $starttime - $endtime)*1000000));

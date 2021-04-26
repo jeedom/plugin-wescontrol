@@ -27,6 +27,7 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').on('change',functio
   }
 });
 
+// deprecated after 4.2
 if (jeedomversion < '4.2') {
   $(".wescontrolTab").on('click',function(){
     setTimeout(function(){
