@@ -7,7 +7,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
 $typeArray = wescontrol::getTypes();
 sendVarToJS(['eqType'=>$plugin->getId(),'typeid'=>$typeArray, 'jeedomversion'=>config::byKey('version')]);
 ?>
-
+<style>
+.ui-sortable-placeholder {
+  display: block!important;
+}
+</style>
 <div class="row row-overflow">
 	<div class="col-lg-12 eqLogicThumbnailDisplay">
 		<legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>

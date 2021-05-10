@@ -143,26 +143,39 @@ $('#bt_resetwescontrolSearch').off('click').on('click', function() {
   $('#in_searchwescontrol').val('').keyup()
 })
 
-$(".wesSortableMenu").sortable({axis: "y", cursor: "move", items: ".panel", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true,
-stop: function() {
-  var typeorder = []
-  $(this).find('.panel').each(function() {
-    typeorder.push($(this).data('type'))
-  })
-  jeedom.eqLogic.byId({
-    id: $(this).attr('data-generalId'),
-    success: function(data) {
-      data = (data.result) ? data.result : data
-      data.display = {menuorder: typeorder}
-      jeedom.eqLogic.simpleSave({
-        eqLogic: data
-      })
-    }
-  })
-}
+$(".wesSortableMenu").sortable({
+  axis: "y",
+  cursor: "move",
+  items: ".panel",
+  placeholder: "ui-state-highlight",
+  tolerance: "intersect",
+  forcePlaceholderSize: true,
+  update: function() {
+    var typeorder = []
+    $(this).find('.panel').each(function() {
+      typeorder.push($(this).data('type'))
+    })
+    jeedom.eqLogic.byId({
+      id: $(this).attr('data-generalId'),
+      success: function(data) {
+        data = (data.result) ? data.result : data
+        data.display = {menuorder: typeorder}
+        jeedom.eqLogic.simpleSave({
+          eqLogic: data
+        })
+      }
+    })
+  }
 });
 
-$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd").sortable({
+  axis: "y",
+  cursor: "move",
+  items: ".cmd",
+  placeholder: "ui-state-highlight",
+  tolerance: "intersect",
+  forcePlaceholderSize: true
+});
 
 function addCmdToTable(_cmd) {
   if (!isset(_cmd)) {
