@@ -3,14 +3,9 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 $plugin = plugin::byId('wescontrol');
-sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 $typeArray = wescontrol::getTypes();
-$typeid = array();
-foreach ($typeArray as $type => $data) {
-	$typeid[$type] = $data['HTM'];
-}
-sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
+sendVarToJS(['eqType'=>$plugin->getId(),'typeid'=>$typeArray, 'jeedomversion'=>config::byKey('version')]);
 ?>
 
 <div class="row row-overflow">
@@ -146,17 +141,17 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 	<div class="col-lg-12 eqLogic" style="display: none;">
 		<div class="input-group pull-right" style="display:inline-flex">
 			<span class="input-group-btn">
-				<a class="btn btn-primary btn-sm eqLogicAction roundedLeft" id="bt_goCarte"><i class="far fa-window-restore"></i> {{Interface Wes}}
-				</a><a class="btn btn-default btn-sm eqLogicAction" data-action="configure"><i class="fa fa-cogs"></i> {{Configuration avancée}}
-				</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i> {{Dupliquer}}
+				<a class="btn btn-primary btn-sm eqLogicAction roundedLeft" id="bt_goCarte"><i class="far fa-window-restore"></i><span class="hidden-xs"> {{Interface Wes}}</span>
+				</a><a class="btn btn-default btn-sm eqLogicAction" data-action="configure"><i class="fa fa-cogs"></i><span class="hidden-xs"> {{Configuration avancée}}</span>
+				</a><a class="btn btn-default btn-sm eqLogicAction" data-action="copy"><i class="fas fa-copy"></i><span class="hidden-xs"> {{Dupliquer}}</span>
 				</a><a class="btn btn-sm btn-success eqLogicAction" data-action="save"><i class="fas fa-check-circle"></i> {{Sauvegarder}}
 				</a><a class="btn btn-danger btn-sm eqLogicAction roundedRight" data-action="remove"><i class="fas fa-minus-circle"></i> {{Supprimer}}</a>
 			</span>
 		</div>
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fas fa-arrow-circle-left"></i></a></li>
-			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i><span class="hidden-xs"> {{Équipement}}</span></a></li>
-			<li role="presentation"><a href="#commandtab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-list"></i><span class="hidden-xs"> {{Commandes}}</span></a></li>
+			<li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Équipement}}</a></li>
+			<li role="presentation"><a href="#commandtab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-list"></i> {{Commandes}}</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -164,7 +159,7 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 				<form class="form-horizontal">
 					<fieldset>
 						<div class="col-lg-6">
-							<legend><i class="fas fa-wrench"></i> {{Général}}</legend>
+							<legend><i class="fas fa-wrench"></i> {{Paramètres généraux}}</legend>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Nom}}</label>
 								<div class="col-sm-7">
@@ -207,8 +202,8 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>Visible</label>
 								</div>
 							</div>
-							<br>
-							<legend class="showgeneral" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres}}</legend>
+
+							<legend class="showgeneral" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
 							<div class="form-group showgeneral" style="display: none;">
 								<label class="col-sm-3 control-label">{{Options Wes}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher les matériels optionnels branchés sur ce serveur Wes}}"></i></sup>
@@ -251,8 +246,19 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 									<input type="text" class="eqLogicAttr form-control inputPassword" data-l1key="configuration" data-l2key="password"/>
 								</div>
 							</div>
-							<br class="showgeneral">
+
+							<legend class="showgeneral" style="display: none;"><i class="fas fa-file-code"></i> {{Fichier CGX Jeedom}}</legend>
 							<div class="form-group showgeneral" style="display: none;">
+								<label class="col-sm-3 control-label" >{{Activer}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher la case pour utiliser le fichier CGX spécialement conçu pour le plugin afin de récupérer davantage de données}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Activer}}" data-l1key="configuration" data-l2key="usecustomcgx"/>
+								</div>
+							</div>
+							<div class="showgeneral" id="CGXParams" style="display: none;">
+							<br>
+							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Identifiant FTP}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
 								</label>
@@ -260,7 +266,7 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ftpusername"/>
 								</div>
 							</div>
-							<div class="form-group showgeneral" style="display: none;">
+							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Mot de passe FTP}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
 								</label>
@@ -268,16 +274,18 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 									<input type="text" class="eqLogicAttr form-control inputPassword" data-l1key="configuration" data-l2key="ftppassword"/>
 								</div>
 							</div>
-							<div class="form-group showgeneral" style="display: none;">
-								<label class="col-sm-3 control-label" >{{Fichier CGX Jeedom}}
-									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher la case pour utiliser le fichier CGX spécialement conçu pour le plugin afin de récupérer davantage de données}}"></i></sup>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" >{{Envoyer le fichier}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Cliquer sur le bouton pour envoyer le fichier CGX sur le serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-7">
-									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Activer}}" data-l1key="configuration" data-l2key="usecustomcgx"/>
-									<a class="btn btn-primary btn-sm eqLogicAction tooltips" data-action="sendCGX" title="{{Cliquer sur le bouton pour envoyer le fichier CGX sur le serveur Wes}}"><i class="fas fa-file-export"></i> {{Envoyer fichier CGX}}</a>
+									<a class="btn btn-primary btn-sm eqLogicAction tooltips" data-action="sendCGX"><i class="fas fa-file-export"></i> {{Envoyer fichier CGX}}</a>
+									<!-- <label class="checkbox-inline" style="margin-left:10px;"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Mise à jour automatique}}" data-l1key="configuration" data-l2key="autoupdatecgx"/>{{Mise à jour automatique}}	<sup><i class="fas fa-question-circle tooltips" title="{{Cocher la case pour que le fichier soit automatiquement mis à jour sur le serveur en cas de nouvelle version}}"></i></sup></label> -->
 								</div>
 							</div>
+						</div>
 
+							<legend class="showteleinfo" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
 							<div class="form-group showteleinfo" style="display: none;">
 								<label class="col-sm-3 control-label">{{Tarification}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer la formule de tarification de votre abonnement}}"></i></sup>
@@ -288,6 +296,18 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 										<option value="HC">Heures Creuses</option>
 										<option value="BBRH">Tempo</option>
 										<option value="EJP">EJP</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group showteleinfo" style="display: none;">
+								<label class="col-sm-3 control-label">{{Type de mesure}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ticMeasure">
+										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="consumption">{{Consommation}}</option>
+										<option value="production">{{Production}}</option>
 									</select>
 								</div>
 							</div>
@@ -304,6 +324,7 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 								</div>
 							</div>
 
+							<legend class="showpince" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
 							<div class="form-group showpince" style="display: none;">
 								<label class="col-sm-3 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
@@ -329,6 +350,7 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 								</div>
 							</div>
 
+							<legend class="showcompteur" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
 							<div class="form-group showcompteur" style="display: none;">
 								<label class="col-sm-3 control-label">{{Type de compteur}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur utilisé afin de personnaliser l'image d'illustration de l'équipement}}"></i></sup>
@@ -336,13 +358,29 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 								<div class="col-sm-7">
 									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="typecompt">
 										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="cal">{{Calories}}</option>
 										<option value="eau">{{Eau}}</option>
+										<option value="elec">{{Electricité}}</option>
+										<option value="fioul">{{Fioul}}</option>
 										<option value="gaz">{{Gaz}}</option>
 										<option value="gazpar">{{Gazpar}}</option>
 									</select>
 								</div>
 							</div>
+							<div class="form-group showcompteur" style="display: none;">
+								<label class="col-sm-3 control-label">{{Type de mesure}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="comptMeasure">
+										<option value="" disabled>*** {{A renseigner}} ***</option>
+										<option value="consumption">{{Consommation}}</option>
+										<option value="production">{{Production}}</option>
+									</select>
+								</div>
+							</div>
 
+							<legend class="showsonde" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
 							<div class="form-group showsonde" style="display: none;">
 								<label class="col-sm-3 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
@@ -382,26 +420,43 @@ sendVarToJS(['typeid'=>$typeid, 'jeedomversion'=>config::byKey('version')]);
 							}
 							?>
 						</div>
+						<div class="col-lg-6 hidegeneral">
+							<legend><i class="fas fa-info"></i> {{Informations}}</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">{{Type d'équipement Wes}}
+									<sup><i class="fas fa-question-circle tooltips" title="{{Catégorie d'équipement Wes}}"></i></sup>
+								</label>
+								<div class="col-sm-7">
+									<strong id="span_type"></strong>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3"></label>
+								<div class="col-sm-7">
+									<img id="icon_visu" style="max-width:160px;"/>
+								</div>
+							</div>
+						</div>
 					</fieldset>
 				</form>
 				<hr>
 			</div>
 
 			<div role="tabpanel" class="tab-pane" id="commandtab">
-				<table id="table_cmd" class="table table-bordered table-condensed">
-					<thead>
-						<tr>
-							<th>{{Nom}}</th>
-							<th>{{Type}}</th>
-							<th>{{LogicalId}}</th>
-							<th>{{Unité}}</th>
-							<th>{{Paramètres}}</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
+					<table id="table_cmd" class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th class="visible-lg">{{ID}}</th>
+								<th>{{Nom}}</th>
+								<th>{{Type}}</th>
+								<th>{{Paramètres}}</th>
+								<th>{{Options}}</th>
+								<th>{{Actions}}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
 			</div>
 		</div>
 	</div>

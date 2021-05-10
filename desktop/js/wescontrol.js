@@ -14,19 +14,6 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').on('change',function(){
-  type = $(this).value()
-  if (type != '') {
-    for (var i in typeid) {
-      if (type == i){
-        $('.show'+i).show();
-      } else {
-        $('.show'+i).hide();
-      }
-    }
-  }
-});
-
 // deprecated after 4.2
 if (jeedomversion < '4.2') {
   $(".wescontrolTab").on('click',function(){
@@ -38,12 +25,48 @@ if (jeedomversion < '4.2') {
   });
 }
 
-$('.eqLogicAttr[data-l2key=usecustomcgx]').on('click', function(){
+$('.eqLogicAttr[data-l2key=type]').on('change',function(){
+  var type = $(this).value()
+  if (type != '') {
+    if (type == 'general') {
+      $('.hidegeneral').hide()
+    }
+    else {
+      $('.hidegeneral').show()
+      $('#span_type').html(typeid[type]['type'])
+      if (typeid[type]['alternateimg'] != undefined) {
+        if ($('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').value() != null) {
+          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').value())
+        }
+        else {
+          $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/'+type+'.png')
+        }
+        $('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').off().on('change', function() {
+          if ($(this).value() != null) {
+            refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').value())
+          }
+        })
+      }
+      else {
+        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/'+type+'.png')
+      }
+    }
+    for (var i in typeid) {
+      if (type == i){
+        $('.show'+i).show()
+      } else {
+        $('.show'+i).hide()
+      }
+    }
+  }
+});
+
+$('.eqLogicAttr[data-l2key=usecustomcgx]').on('change', function(){
   if ($(this).is(':checked')) {
-    $('#div_alert').showAlert({message: '{{N\'oubliez pas de cliquer sur le bouton "Envoyer fichier CGX" pour utiliser le fichier CGX personnalisé Jeedom et ainsi avoir accès à davantage de données.}}', level: 'warning'});
+    $('#CGXParams').show();
   }
   else {
-    $.hideAlert()
+    $('#CGXParams').hide();
   }
 })
 
@@ -81,7 +104,7 @@ $('#bt_goCarte').on('click', function() {
   let port = ($('.eqLogicAttr[data-l2key=port]').value() != '') ? ':'+$('.eqLogicAttr[data-l2key=port]').value() : ''
 
   if (ip != '' && username != '' && password != '') {
-    window.open('http://'+username+':'+password+'@'+ip+port+'/'+typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()])
+    window.open('http://'+username+':'+password+'@'+ip+port+'/'+typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()]['HTM'])
   }
   else {
     $('#div_alert').showAlert({message: '{{Veuillez renseigner les informations de connexion HTTP pour accéder à l\'interface du serveur Wes.}}', level: 'danger'});
@@ -149,37 +172,30 @@ function addCmdToTable(_cmd) {
     _cmd.configuration = {};
   }
   var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
-  tr += '<td>';
-  tr += '<div class="row">';
-  tr += '<div class="col-sm-6">';
-  tr += '<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fa fa-flag"></i> Icône</a>';
+  tr += '<td class="visible-lg" style="width:60px;">';
+  tr += '<span class="cmdAttr" data-l1key="id"></span>';
+  tr += '</td>';
+  tr += '<td style="min-width:150px;width:280px;">';
+  tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" placeholder="{{Nom de la commande}}">';
+  tr += '<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fas fa-flag"></i> {{Icône}}</a>';
   tr += '<span class="cmdAttr" data-l1key="display" data-l2key="icon" style="margin-left : 10px;"></span>';
-  tr += '</div>';
-  tr += '<div class="col-sm-6">';
-  tr += '<input class="cmdAttr form-control input-sm" data-l1key="name">';
-  tr += '</div>';
-  tr += '</div>';
-  tr += '<select class="cmdAttr form-control input-sm" data-l1key="value" style="display : none;margin-top : 5px;" title="La valeur de la commande vaut par défaut la commande">';
-  tr += '<option value="">Aucune</option>';
-  tr += '</select>';
   tr += '</td>';
   tr += '<td>';
-  tr += '<input class="cmdAttr form-control input-sm" data-l1key="id" style="display : none;">';
   tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>';
   tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
   tr += '</td>';
-  tr += '<td><input class="cmdAttr form-control input-sm" data-l1key="logicalId" value="0" style="width : 70%; display : inline-block;" placeholder="{{Commande}}"><br/>';
-  tr += '</td>';
-  tr += '<td>';
+  tr += '<td style="min-width:150px;width:350px;">';
   tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width:30%;display:inline-block;">';
-  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width:30%;display:inline-block;">';
+  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width:30%;display:inline-block;margin-left:2px;">';
   tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="Unité" title="{{Unité}}" style="width:30%;display:inline-block;margin-left:2px;">';
   tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="listValue" placeholder="{{Liste de valeur|texte séparé par ;}}" title="{{Liste}}">';
-  tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
-  tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isHistorized" checked/>{{Historiser}}</label></span> ';
-  tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary"/>{{Inverser}}</label></span> ';
   tr += '</td>';
-  tr += '<td>';
+  tr += '<td style="min-width:80px;width:350px;">';
+  tr += '<label class="checkbox-inline" style="margin-left:10px;"><input type="checkbox" class="cmdAttr" data-l1key="isVisible" checked/>{{Afficher}}</label>';
+  tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isHistorized" checked/>{{Historiser}}</label>';
+  tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary"/>{{Inverser}}</label>';
+  tr += '</td>';
+  tr += '<td style="min-width:80px;width:200px;">';
   if (is_numeric(_cmd.id)) {
     tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fas fa-cogs"></i></a> ';
     tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
@@ -201,4 +217,16 @@ function addCmdToTable(_cmd) {
       jeedom.cmd.changeType(tr, init(_cmd.subType));
     }
   });
+}
+
+function refreshWesDevicePic(type, value) {
+  let src = 'plugins/wescontrol/core/config/'+type+'_'+value+'.png'
+  fetch(src, { method: 'HEAD' })
+  .then(res => {
+    if (res.ok) {
+      $('#icon_visu').attr('src', src)
+    } else {
+      $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/'+type+'.png')
+    }
+  }).catch(err => console.log('Error : ', err));
 }

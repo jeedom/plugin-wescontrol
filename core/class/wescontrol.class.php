@@ -53,12 +53,18 @@ class wescontrol extends eqLogic {
 				"BBRHPJW"=>array("name"=>__("Index (heures pleines jours blancs Tempo)", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "filter"=>["tarification"=>"EJP"], "calcul"=>"#value#/1000", "dashboard"=>"tile", "mobile"=>"tile","xpath"=>"//tic#id#/BBRHPJW", "order"=>26),
 				"BBRHCJR"=>array("name"=>__("Index (heures creuses jours rouges Tempo)", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "filter"=>["tarification"=>"EJP"], "calcul"=>"#value#/1000", "dashboard"=>"tile", "mobile"=>"tile","xpath"=>"//tic#id#/BBRHCJR", "order"=>27),
 				"BBRHPJR"=>array("name"=>__("Index (heures pleines jours rouges Tempo)", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "filter"=>["tarification"=>"EJP"], "calcul"=>"#value#/1000", "dashboard"=>"tile", "mobile"=>"tile","xpath"=>"//tic#id#/BBRHPJR", "order"=>28),
-				"CONSO_JOUR"=>array("name"=>__("Consommation jour", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_JOUR", "filter"=>["usecustomcgx"=>1], "dashboard"=>"tile", "mobile"=>"tile", "order"=>29),
-				"COUT_JOUR"=>array("name"=>__("Coût jour", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_JOUR", "filter"=>["usecustomcgx"=>1], "dashboard"=>"tile", "mobile"=>"tile", "order"=>30),
-				"CONSO_MOIS"=>array("name"=>__("Consommation mois", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_MOIS", "filter"=>["usecustomcgx"=>1], "dashboard"=>"tile", "mobile"=>"tile", "order"=>31),
-				"COUT_MOIS"=>array("name"=>__("Coût mois", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_MOIS", "filter"=>["usecustomcgx"=>1], "dashboard"=>"tile", "mobile"=>"tile", "order"=>32),
-				"CONSO_ANNEE"=>array("name"=>__("Consommation année", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_ANNEE", "filter"=>["usecustomcgx"=>1], "dashboard"=>"tile", "mobile"=>"tile", "order"=>33),
-				"COUT_ANNEE"=>array("name"=>__("Coût année", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_ANNEE", "filter"=>["usecustomcgx"=>1], "dashboard"=>"tile", "mobile"=>"tile", "order"=>34)
+				"CONSO_JOUR"=>array("name"=>__("Consommation jour", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_JOUR", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"consumption"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>29),
+				"COUT_JOUR"=>array("name"=>__("Coût jour", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_JOUR", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"consumption"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>30),
+				"CONSO_MOIS"=>array("name"=>__("Consommation mois", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_MOIS", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"consumption"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>31),
+				"COUT_MOIS"=>array("name"=>__("Coût mois", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_MOIS", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"consumption"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>32),
+				"CONSO_ANNEE"=>array("name"=>__("Consommation année", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_ANNEE", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"consumption"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>33),
+				"COUT_ANNEE"=>array("name"=>__("Coût année", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_ANNEE", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"consumption"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>34),
+				"PROD_JOUR"=>array("name"=>__("Production jour", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_JOUR", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"production"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>29),
+				"GAIN_JOUR"=>array("name"=>__("Gain jour", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_JOUR", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"production"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>30),
+				"PROD_MOIS"=>array("name"=>__("Production mois", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_MOIS", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"production"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>31),
+				"GAIN_MOIS"=>array("name"=>__("Gain mois", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_MOIS", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"production"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>32),
+				"PROD_ANNEE"=>array("name"=>__("Production année", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"kWh", "xpath"=>"//tic#id#/CONSO_ANNEE", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"production"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>33),
+				"GAIN_ANNEE"=>array("name"=>__("Gain année", __FILE__), "type"=>"info", "subtype"=> "numeric", "unite"=>"€", "xpath"=>"//tic#id#/COUT_ANNEE", "filter"=>["usecustomcgx"=>1, "ticMeasure"=>"production"], "dashboard"=>"tile", "mobile"=>"tile", "order"=>34)
 			),
 			"general"=>array(
 				"firmware"=>array("name"=>__("Firmware", __FILE__), "type"=>"info", "subtype"=>"string", "xpath"=>"//info/firmware", "order"=>0),
@@ -74,19 +80,26 @@ class wescontrol extends eqLogic {
 			),
 			"compteur"=>array(
 				"nbimpulsion"=>array("name"=>__("Impulsions", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"imp", "xpath"=>"//impulsion/PULSE#id#", "dashboard"=>"tile", "mobile"=>"tile", "order"=>0),
-				"index"=>array("name"=>__("Index", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"l", "xpath"=>"//impulsion/INDEX#id#", "dashboard"=>"tile", "mobile"=>"tile", "order"=>1),
-				"debit"=>array("name"=>__("Débit", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"l/min", "xpath"=>"//impulsion/DEBIT#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>2),
-				"consoveille"=>array("name"=>__("Consommation J-1", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"l", "xpath"=>"//impulsion/CONSO_VEILLE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>3),
-				"consojour"=>array("name"=>__("Consommation jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"l", "xpath"=>"//impulsion/CONSO_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>4),
-				"coutjour"=>array("name"=>__("Coût jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>5),
-				"consomois"=>array("name"=>__("Consommation mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"m3", "xpath"=>"//impulsion/CONSO_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>6),
-				"coutmois"=>array("name"=>__("Coût mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>7),
-				"consoannee"=>array("name"=>__("Consommation année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"m3", "xpath"=>"//impulsion/CONSO_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>8),
-				"coutannee"=>array("name"=>__("Coût année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>9)
+				"index"=>array("name"=>__("Index", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"l", "elec"=>"Wh", "cal"=>"Wh"], "xpath"=>"//impulsion/INDEX#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "typecompt"=>true], "order"=>1),
+				"debit"=>array("name"=>__("Débit", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"l/min", "elec"=>"Wh/min", "cal"=>"Wh/min"], "xpath"=>"//impulsion/DEBIT#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["typecompt"=>true], "order"=>2),
+				"consoveille"=>array("name"=>__("Consommation J-1", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"l", "elec"=>"Wh", "cal"=>"Wh"], "xpath"=>"//impulsion/CONSO_VEILLE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"consumption", "typecompt"=>true], "order"=>3),
+				"consojour"=>array("name"=>__("Consommation jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"l", "elec"=>"Wh", "cal"=>"Wh"], "xpath"=>"//impulsion/CONSO_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"consumption", "typecompt"=>true], "order"=>4),
+				"coutjour"=>array("name"=>__("Coût jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"consumption"], "order"=>5),
+				"consomois"=>array("name"=>__("Consommation mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"m3", "elec"=>"kWh", "cal"=>"kWh"], "xpath"=>"//impulsion/CONSO_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"consumption", "typecompt"=>true], "order"=>6),
+				"coutmois"=>array("name"=>__("Coût mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"consumption"], "order"=>7),
+				"consoannee"=>array("name"=>__("Consommation année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"m3", "elec"=>"kWh", "cal"=>"kWh"], "xpath"=>"//impulsion/CONSO_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"consumption", "typecompt"=>true], "order"=>8),
+				"coutannee"=>array("name"=>__("Coût année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"consumption"], "order"=>9),
+				"prodveille"=>array("name"=>__("Production J-1", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"l", "elec"=>"Wh", "cal"=>"Wh"], "xpath"=>"//impulsion/CONSO_VEILLE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"production", "typecompt"=>true], "order"=>3),
+				"prodjour"=>array("name"=>__("Production jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"l", "elec"=>"Wh", "cal"=>"Wh"], "xpath"=>"//impulsion/CONSO_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"production", "typecompt"=>true], "order"=>4),
+				"gainjour"=>array("name"=>__("Gain jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"production"], "order"=>5),
+				"prodmois"=>array("name"=>__("Production mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"m3", "elec"=>"kWh", "cal"=>"kWh"], "xpath"=>"//impulsion/CONSO_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"production", "typecompt"=>true], "order"=>6),
+				"gainmois"=>array("name"=>__("Gain mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"production"], "order"=>7),
+				"prodannee"=>array("name"=>__("Production année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>["default"=>"m3", "elec"=>"kWh", "cal"=>"kWh"], "xpath"=>"//impulsion/CONSO_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"production", "typecompt"=>true], "order"=>8),
+				"gainannee"=>array("name"=>__("Gain année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//impulsion/COUT_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "comptMeasure"=>"production"], "order"=>9)
 			),
 			"pince"=>array(
 				"index"=>array("name"=>__("Index consommation", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/INDEX#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["pinceMeasure"=>"consumption"], "order"=>0),
-				"injection"=>array("name"=>__("Index injection", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/INJECT#id#", "dashboard"=>"tile", "mobile"=>"tile",  "filter"=>["pinceMeasure"=>"production"], "order"=>0),
+				"injection"=>array("name"=>__("Index production", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/INJECT#id#", "dashboard"=>"tile", "mobile"=>"tile",  "filter"=>["pinceMeasure"=>"production"], "order"=>0),
 				"intensite"=>array("name"=>__("Intensité", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"A", "xpath"=>"//pince/I#id#", "dashboard"=>"tile", "mobile"=>"tile", "order"=>1),
 				"puissance"=>array("name"=>__("Puissance", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"VA", "xpath"=>"//pince/PUISSANCE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>2),
 				"consojour"=>array("name"=>__("Consommation jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/CONSO_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"consumption"], "order"=>3),
@@ -95,11 +108,11 @@ class wescontrol extends eqLogic {
 				"coutmois"=>array("name"=>__("Coût mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//pince/COUT_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"consumption"], "order"=>6),
 				"consoannee"=>array("name"=>__("Consommation année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh","xpath"=>"//pince/CONSO_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"consumption"], "order"=>7),
 				"coutannee"=>array("name"=>__("Coût année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//pince/COUT_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"consumption"], "order"=>8),
-				"injecjour"=>array("name"=>__("Injection jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/INJEC_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>3),
+				"injecjour"=>array("name"=>__("Production jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/INJEC_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>3),
 				"gainjour"=>array("name"=>__("Gain jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€","xpath"=>"//pince/GAIN_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>4),
-				"injecmois"=>array("name"=>__("Injection mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh","xpath"=>"//pince/INJEC_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>5),
+				"injecmois"=>array("name"=>__("Production mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh","xpath"=>"//pince/INJEC_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>5),
 				"gainmois"=>array("name"=>__("Gain mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//pince/GAIN_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>6),
-				"injecannee"=>array("name"=>__("Injection année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/INJEC_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>7),
+				"injecannee"=>array("name"=>__("Production année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"kWh", "xpath"=>"//pince/INJEC_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>7),
 				"gainannee"=>array("name"=>__("Gain année", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"€", "xpath"=>"//pince/GAIN_ANNEE#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1, "pinceMeasure"=>"production"], "order"=>8),
 				"maxjour"=>array("name"=>__("Puissance max jour", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"A", "xpath"=>"//pince/MAX_JOUR#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>9),
 				"maxmois"=>array("name"=>__("Puissance max mois", __FILE__), "type"=>"info", "subtype"=>"numeric", "unite"=>"A", "xpath"=>"//pince/MAX_MOIS#id#", "dashboard"=>"tile", "mobile"=>"tile", "filter"=>["usecustomcgx"=>1], "order"=>10),
@@ -135,9 +148,9 @@ class wescontrol extends eqLogic {
 		return $commands;
 	}
 
-	public function getTypes() {
+	public static function getTypes() {
 		$types = array(
-			"general"=>array("name"=>__("Serveur wescontrol", __FILE__), "HTM"=>"", "ignoreCreation"=>1, "alternateimg"=>["type"=>"binary", "value"=>"screen"]),
+			"general"=>array("name"=>__("Serveur Wes", __FILE__), "HTM"=>"", "ignoreCreation"=>1, "alternateimg"=>["type"=>"binary", "value"=>"screen"]),
 			"analogique"=>array("name"=>__("Capteurs", __FILE__), "logical"=>"_N", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//analogique/AD#id#", "maxnumber"=>4, "type"=>__("Tension", __FILE__)),
 			"compteur"=>array("name"=>__("Compteurs impulsions", __FILE__), "logical"=>"_C", "HTM"=>"PULSES.HTM", "width"=>"272px", "height"=>"332px", "category"=>"energy", "xpath"=>"//impulsion/INDEX#id#", "maxnumber"=>6, "type"=>__("Compteur", __FILE__), "alternateimg"=>["type"=>"select", "value"=>"typecompt"]),
 			"bouton"=>array("name"=>__("Entrées", __FILE__), "logical"=>"_B", "HTM"=>"RELAIS.HTM", "category"=>"automatism", "width"=>"112px", "height"=>"172px", "xpath"=>"//entree/ENTREE#id#", "maxnumber"=>2, "type"=>__("Entrée", __FILE__)),
@@ -306,34 +319,45 @@ class wescontrol extends eqLogic {
 				->setType($details['type'])
 				->setSubType($details['subtype'])
 				->setLogicalId($logicalId);
-				if (isset($details['visible'])){
+				if (isset($details['visible'])) {
 					$cmd->setIsVisible($details['visible']);
 				}
-				if (isset($details['order'])){
+				if (isset($details['order'])) {
 					$cmd->setOrder($details['order']);
 				}
-				if (isset($details['history'])){
+				if (isset($details['history'])) {
 					$cmd->setIsHistorized($details['history']);
 				}
-				if (isset($details['unite'])){
-					$cmd->setUnite($details['unite']);
+				if (isset($details['unite'])) {
+					if (is_array($details['unite'])) {
+						$alternateVal = self::getTypes()[$this->getConfiguration('type')]['alternateimg']['value'];
+						if (isset($details['unite'][$this->getConfiguration($alternateVal)])) {
+							$cmd->setUnite($details['unite'][$this->getConfiguration($alternateVal)]);
+						}
+						else {
+							$cmd->setUnite($details['unite']['default']);
+						}
+					}
+					else {
+						$cmd->setUnite($details['unite']);
+					}
 				}
-				if (isset($details['calcul'])){
+				if (isset($details['calcul'])) {
 					$cmd->setConfiguration('calculValueOffset',$details['calcul']);
 				}
-				if (isset($details['value'])){
+				if (isset($details['value'])) {
 					$cmd->setValue($this->getCmd('info', $details['value'])->getId());
 				}
-				if (isset($details['dashboard'])){
+				if (isset($details['dashboard'])) {
 					$cmd->setTemplate('dashboard',$details['dashboard']);
 				}
-				if (isset($details['mobile'])){
+				if (isset($details['mobile'])) {
 					$cmd->setTemplate('mobile',$details['mobile']);
 				}
-				if (isset($details['minValue'])){
+				if (isset($details['minValue'])) {
 					$cmd->setConfiguration('minValue',$details['minValue']);
 				}
-				if (isset($details['maxValue'])){
+				if (isset($details['maxValue'])) {
 					$cmd->setConfiguration('maxValue',$details['maxValue']);
 				}
 				$cmd->save();
