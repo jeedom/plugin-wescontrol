@@ -31,14 +31,25 @@ try {
     $ftpIp = $generalEqLogic->getConfiguration('ip', init('ftpIp'));
     $ftpUser = $generalEqLogic->getConfiguration('ftpusername', init('ftpUser'));
     $ftpPass = $generalEqLogic->getConfiguration('ftppassword', init('ftpPass'));
-		if ($ftpIp != '' && $ftpUser != '' && $ftpPass != '') {
-			if (!$generalEqLogic->sendFtp($ftpIp, $ftpUser, $ftpPass)) {
-      	throw new Exception(__('Échec d\'envoi du fichier CGX personnalisé.',__FILE__));
-  		}
-		}
-		else {
-			throw new Exception(__('Veuillez renseigner les informations de connexion FTP pour envoyer le fichier CGX personnalisé.',__FILE__));
-		}
+    if (!empty($ftpIp) && !empty($ftpUser) && !empty($ftpPass)) {
+      if (!$generalEqLogic->sendFtp($ftpIp, $ftpUser, $ftpPass)) {
+        throw new Exception(__('Échec d\'envoi du fichier CGX personnalisé.',__FILE__));
+      }
+    }
+    else {
+      throw new Exception(__('Veuillez renseigner les informations de connexion FTP pour envoyer le fichier CGX personnalisé.',__FILE__));
+    }
+    ajax::success();
+  }
+
+  if (init('action') == 'updateAllCGX') {
+    log::add('wescontrol', 'debug', __('Tentative de mise à jour du fichier CGX sur tous les serveurs Wes', __FILE__));
+    $eqLogics = eqLogic::byType('wescontrol', true);
+    foreach ($eqLogics as $eqLogic) {
+      if ($eqLogic->getConfiguration('type') === 'general' && $eqLogic->getConfiguration('usecustomcgx', 0) == 1) {
+        $eqLogic->doCGXUpdate();
+      }
+    }
     ajax::success();
   }
 

@@ -33,12 +33,7 @@ function wescontrol_install() {
 	if (config::byKey('pollInterval','wescontrol') == ''){
 		config::save('pollInterval', 30, 'wescontrol');
 	}
-	$file = dirname(__FILE__) . '/../resources/DATA_JEEDOM.CGX';
-	$text = file_get_contents($file);
-	preg_match('/<cgxversion>(.*)<\/cgxversion>/', $text, $matches);
-	if ($matches){
-		config::save('cgxversion', $matches[1], 'wescontrol');
-	}
+	wescontrol::checkAndUpdateCGXVersion();
 	$cron->start();
 }
 
@@ -63,12 +58,7 @@ function wescontrol_update() {
 			$wescontrol->save();
 		}
 	}
-	$file = dirname(__FILE__) . '/../resources/DATA_JEEDOM.CGX';
-	$text = file_get_contents($file);
-	preg_match('/<cgxversion>(.*)<\/cgxversion>/', $text, $matches);
-	if ($matches){
-		config::save('cgxversion', $matches[1], 'wescontrol');
-	}
+	wescontrol::checkAndUpdateCGXVersion();
 	$cron->start();
 }
 

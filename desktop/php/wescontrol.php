@@ -284,7 +284,7 @@ sendVarToJS(['eqType'=>$plugin->getId(),'typeid'=>$typeArray, 'jeedomversion'=>c
 								</label>
 								<div class="col-sm-7">
 									<a class="btn btn-primary btn-sm eqLogicAction tooltips" data-action="sendCGX"><i class="fas fa-file-export"></i> {{Envoyer fichier CGX}}</a>
-									<!-- <label class="checkbox-inline" style="margin-left:10px;"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Mise à jour automatique}}" data-l1key="configuration" data-l2key="autoupdatecgx"/>{{Mise à jour automatique}}	<sup><i class="fas fa-question-circle tooltips" title="{{Cocher la case pour que le fichier soit automatiquement mis à jour sur le serveur en cas de nouvelle version}}"></i></sup></label> -->
+									<label class="checkbox-inline" style="margin-left:10px;"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Mise à jour automatique}}" data-l1key="configuration" data-l2key="autoupdatecgx"/>{{Mise à jour automatique}}	<sup><i class="fas fa-question-circle tooltips" title="{{Cocher la case pour que le fichier soit automatiquement mis à jour sur le serveur en cas de nouvelle version}}"></i></sup></label>
 								</div>
 							</div>
 						</div>
