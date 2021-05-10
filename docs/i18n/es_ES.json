@@ -2,6 +2,13 @@
     "changelog.md": {
         "Changelog Wes Control": "Registro de cambios Wes Control",
         "Pour rappel, s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement la mise à jour de documentation, de traduction ou de texte": "A modo de recordatorio, si no hay información sobre la actualización es porque solo se refiere a la actualización de documentación, traducción o texto",
+        "10\/05\/2021": "10\/05\/2021",
+        "Nouvelle version du fichier CGX V1.0.2": "Nueva versión del archivo CGX V1.0.2",
+        "Ajout du paramètre \"Type de mesure\" pour les compteurs et TIC": "Adición del parámetro \"Tipo de medida\" para contadores y TIC",
+        "Calories, Electricté et Fioul": "Calorías, electricidad y combustible",
+        "Ajout des types de compteurs": "Adición de tipos de contador",
+        "Ajout d'une option de mise à jour automatique et d'une commande de mise à jour du fichier CGX ainsi que d'un bouton permettant la mise à jour de tous les serveurs actifs": "Adición de una opción de actualización automática y un comando para actualizar el archivo CGX, así como un botón que permite la actualización de todos los servidores activos",
+        "Optimisation de l'interface": "Optimización de la interfaz",
         "28\/04\/2021": "28\/04\/2021",
         "Mise à disposition du plugin": "Suministro del complemento",
         " IMPORTANT.": " IMPORTANTE.",

@@ -2,6 +2,13 @@
     "changelog.md": {
         "Changelog Wes Control": "Changelog Wes Control",
         "Pour rappel, s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement la mise à jour de documentation, de traduction ou de texte": "As a reminder, if there is no information on the update, it is because it only concerns the update of documentation, translation or text",
+        "10\/05\/2021": "05\/10\/2021",
+        "Nouvelle version du fichier CGX V1.0.2": "New version of CGX file V1.0.2",
+        "Ajout du paramètre \"Type de mesure\" pour les compteurs et TIC": "Addition of the \"Type of measurement\" parameter for meters and TIC",
+        "Calories, Electricté et Fioul": "Calories, Electricity and Fuel",
+        "Ajout des types de compteurs": "Addition of counter types",
+        "Ajout d'une option de mise à jour automatique et d'une commande de mise à jour du fichier CGX ainsi que d'un bouton permettant la mise à jour de tous les serveurs actifs": "Addition of an automatic update option and a command to update the CGX file as well as a button allowing the update of all active servers",
+        "Optimisation de l'interface": "Interface optimization",
         "28\/04\/2021": "04\/28\/2021",
         "Mise à disposition du plugin": "Provision of the plugin",
         " IMPORTANT.": " IMPORTANT.",
