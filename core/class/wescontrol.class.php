@@ -553,12 +553,12 @@ class wescontrolCmd extends cmd {
 		if (!is_object($eqLogic) || $eqLogic->getIsEnable() != 1) {
 			throw new Exception(__('Équipement désactivé, impossible d\'exécuter la commande : ', __FILE__) . $this->getHumaName());
 		}
-		log::add('wescontrol', 'debug', $eqLogic->getHumanName() . __(' Exécution de la commande ', __FILE) . $this->getName());
+		log::add('wescontrol', 'debug', $eqLogic->getHumanName() . __(' Exécution de la commande ', __FILE__) . $this->getName());
 		$wesEqLogic = eqLogic::byId(substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_")));
 		$typeId = substr($eqLogic->getLogicalId(), strpos($eqLogic->getLogicalId(), "_")+2);
 		if ($eqLogic->getConfiguration('type') == 'general') {
 			if ($this->getLogicalId() == 'docgxupdate') {
-				log::add('wescontrol', 'debug', $eqLogic->getHumanName() . __(' Tentative de mise à jour manuelle du fichier CGX', __FILE));
+				log::add('wescontrol', 'debug', $eqLogic->getHumanName() . __(' Tentative de mise à jour manuelle du fichier CGX', __FILE__));
 				$eqLogic->doCGXUpdate();
 			}
 			else {

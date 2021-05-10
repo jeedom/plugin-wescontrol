@@ -59,16 +59,17 @@ sendVarToJS(['eqType'=>$plugin->getId(),'typeid'=>$typeArray, 'jeedomversion'=>c
 					$generalId = substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(),"_"));
 					$childEqLogics[$generalId][$eqLogic->getConfiguration('type')][] = $eqLogic;
 					if ($eqLogic->getIsEnable()) {
-						$activeChildEqLogics[$generalId][$eqLogic->getConfiguration('type')][] = '';
+						$activeChildEqLogics[$generalId][$eqLogic->getConfiguration('type')][] = true;
 					}
 				}
 			}
 
 			foreach ($generalEqLogics as $generalEqLogic) {
+				$generalEqId = $generalEqLogic->getId();
 				echo '<div style="width:100%;display:flex;">';
 				echo '<div class="eqLogicThumbnailContainer" style="width:130px;">';
 				$opacity = ($generalEqLogic->getIsEnable()) ? '' : 'disableCard';
-				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $generalEqLogic->getId() . '">';
+				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $generalEqId . '">';
 				$img = $plugin->getPathImgIcon();
 				if (file_exists(dirname(__FILE__) . '/../../core/config/general.png')) {
 					$img = 'plugins/wescontrol/core/config/general.png';
@@ -81,35 +82,35 @@ sendVarToJS(['eqType'=>$plugin->getId(),'typeid'=>$typeArray, 'jeedomversion'=>c
 				echo '</div>';
 				echo '</div>';
 
-				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqLogic->getId().'" style="margin-bottom:20px;">';
-				if (!empty($sortedMenu[$generalEqLogic->getId()]) && is_array($sortedMenu[$generalEqLogic->getId()])) {
-					$childEqLogics[$generalEqLogic->getId()] = array_merge(array_flip($sortedMenu[$generalEqLogic->getId()]), $childEqLogics[$generalEqLogic->getId()]);
+				echo '<div class="col-sm-12 wesSortableMenu" data-generalId="'.$generalEqId.'" style="margin-bottom:20px;">';
+				if (!empty($sortedMenu[$generalEqId]) && is_array($sortedMenu[$generalEqId])) {
+					$childEqLogics[$generalEqId] = array_merge(array_flip($sortedMenu[$generalEqId]), $childEqLogics[$generalEqId]);
 				}
-				foreach ($childEqLogics[$generalEqLogic->getId()] as $type => $childEqLogic) {
+				foreach ($childEqLogics[$generalEqId] as $type => $childEqLogic) {
 					if (empty($childEqLogic) || !is_array($childEqLogic)) {
 						continue;
 					}
 					echo '<div class="panel panel-default" data-type="'.$type.'">';
 					echo '<div class="panel-heading">';
 					echo '<div class="panel-title">';
-					echo '<a class="accordion-toggle wescontrolTab" data-toggle="collapse" data-parent="" aria-expanded="false" href="#wescontrol_'.$type.$generalEqLogic->getId().'">';
+					echo '<a class="accordion-toggle wescontrolTab" data-toggle="collapse" data-parent="" aria-expanded="false" href="#wescontrol_'.$type.$generalEqId.'">';
 					$img = $plugin->getPathImgIcon();
 					if (file_exists(dirname(__FILE__) . '/../../core/config/'.$type.'.png')) {
 						$img = 'plugins/wescontrol/core/config/'.$type.'.png';
 					}
 					$countTotal = count($childEqLogic);
-					$countActive = count($activeChildEqLogics[$generalEqLogic->getId()][$type]);
+					$countActive = (!empty($activeChildEqLogics[$generalEqId])) ? count($activeChildEqLogics[$generalEqId][$type]) : 0;
 					$classCount = 'icon_orange';
 					if ($countActive == $countTotal) {
 						$classCount = 'icon_green';
 					}
-					else if ($countActive == 0) {
+					else if ($countActive === 0) {
 						$classCount = 'icon_red';
 					}
 					echo '<img src="'.$img.'" width="30px"/> ' . $typeArray[$type]['name'] . '  <sub class="'.$classCount.'">'.$countActive.'/'.$countTotal.'</sub>';
 					echo '</div>';
 					echo '</div>';
-					echo '<div id="wescontrol_'.$type.$generalEqLogic->getId().'" class="panel-collapse collapse">';
+					echo '<div id="wescontrol_'.$type.$generalEqId.'" class="panel-collapse collapse">';
 					echo '<div class="panel-body" style="padding:0 0 0 5px!important;">';
 					echo '<div class="eqLogicThumbnailContainer packery">';
 					foreach ($childEqLogic as $eqLogic) {
