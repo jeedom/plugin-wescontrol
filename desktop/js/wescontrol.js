@@ -62,7 +62,7 @@ $('.eqLogicAttr[data-l2key=type]').on('change',function(){
 });
 
 $('.eqLogicAttr[data-l2key=usecustomcgx]').on('change', function(){
-  if ($(this).is(':checked')) {
+  if ($(this).is(':checked') && $('.eqLogicAttr[data-l2key=type]').value() == 'general') {
     $('#CGXParams').show();
   }
   else {
