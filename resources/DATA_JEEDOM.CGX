@@ -1,7 +1,7 @@
 t <?xml version="1.0" encoding="UTF-8"?>
 t <data>
 t <jeedom>
-t <cgxversion>1.0.2</cgxversion>
+t <cgxversion>1.0.3</cgxversion>
 t </jeedom>
 t <info>
 c g d <date>%02d/%02d/%02d</date>
@@ -21,7 +21,7 @@ c jT1 <CONSO_JOUR>%.03f</CONSO_JOUR>
 c jE1 <COUT_JOUR>%.02f</COUT_JOUR>
 c mT1 <CONSO_MOIS>%.03f</CONSO_MOIS>
 c mE1 <COUT_MOIS>%.02f</COUT_MOIS>
-c aT1 <CONSO_ANNEE>%d</CONSO_ANNEE>
+c aT1 <CONSO_ANNEE>%.03f</CONSO_ANNEE>
 c aE1 <COUT_ANNEE>%.02f</COUT_ANNEE>
 c ij1 <PAPIJ>%d</PAPIJ>
 c ii10<IINST>%d</IINST>
@@ -68,7 +68,7 @@ c jT2 <CONSO_JOUR>%.03f</CONSO_JOUR>
 c jE2 <COUT_JOUR>%.02f</COUT_JOUR>
 c mT2 <CONSO_MOIS>%.03f</CONSO_MOIS>
 c mE2 <COUT_MOIS>%.02f</COUT_MOIS>
-c aT2 <CONSO_ANNEE>%d</CONSO_ANNEE>
+c aT2 <CONSO_ANNEE>%.03f</CONSO_ANNEE>
 c aE2 <COUT_ANNEE>%.02f</COUT_ANNEE>
 c ij2 <PAPIJ>%d</PAPIJ>
 c ii20<IINST>%d</IINST>
@@ -115,7 +115,7 @@ c jT3 <CONSO_JOUR>%.03f</CONSO_JOUR>
 c jE3 <COUT_JOUR>%.02f</COUT_JOUR>
 c mT3 <CONSO_MOIS>%.03f</CONSO_MOIS>
 c mE3 <COUT_MOIS>%.02f</COUT_MOIS>
-c aT3 <CONSO_ANNEE>%d</CONSO_ANNEE>
+c aT3 <CONSO_ANNEE>%.03f</CONSO_ANNEE>
 c aE3 <COUT_ANNEE>%.02f</COUT_ANNEE>
 c ij3 <PAPIJ>%d</PAPIJ>
 c ii30<IINST>%d</IINST>

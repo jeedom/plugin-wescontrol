@@ -14,18 +14,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// deprecated after 4.2
-if (jeedomversion < '4.2') {
-  $(".wescontrolTab").on('click',function(){
-    setTimeout(function(){
-      $('.packery').packery({
-        itemSelector: ".eqLogicDisplayCard"
-      });
-    },50);
-  });
-}
-
-$('.eqLogicAttr[data-l2key=type]').on('change',function(){
+$('.eqLogicAttr[data-l2key=type]').on('change', function() {
   var type = $(this).value()
   if (type != '') {
     if (type == 'general') {
@@ -35,42 +24,42 @@ $('.eqLogicAttr[data-l2key=type]').on('change',function(){
       $('.hidegeneral').show()
       $('#span_type').html(typeid[type]['type'])
       if (typeid[type]['alternateimg'] != undefined) {
-        if ($('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').value() != null) {
-          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').value())
+        if ($('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').value() != null) {
+          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').value())
         }
         else {
-          $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/'+type+'.png')
+          $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
         }
-        $('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').off().on('change', function() {
+        $('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').off().on('change', function() {
           if ($(this).value() != null) {
-            refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key='+typeid[type]['alternateimg']['value']+']').value())
+            refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').value())
           }
         })
       }
       else {
-        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/'+type+'.png')
+        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
       }
     }
     for (var i in typeid) {
-      if (type == i){
-        $('.show'+i).show()
+      if (type == i) {
+        $('.show' + i).show()
       } else {
-        $('.show'+i).hide()
+        $('.show' + i).hide()
       }
     }
   }
-});
+})
 
-$('.eqLogicAttr[data-l2key=usecustomcgx]').on('change', function(){
+$('.eqLogicAttr[data-l2key=usecustomcgx]').on('change', function() {
   if ($(this).is(':checked') && $('.eqLogicAttr[data-l2key=type]').value() == 'general') {
-    $('#CGXParams').show();
+    $('#CGXParams').show()
   }
   else {
-    $('#CGXParams').hide();
+    $('#CGXParams').hide()
   }
 })
 
-$('.eqLogicAction[data-action=sendCGX]').off().on('click', function (){
+$('.eqLogicAction[data-action=sendCGX]').off().on('click', function() {
   $.ajax({
     type: "POST",
     url: "plugins/wescontrol/core/ajax/wescontrol.ajax.php",
@@ -83,17 +72,17 @@ $('.eqLogicAction[data-action=sendCGX]').off().on('click', function (){
     },
     dataType: 'json',
     global: false,
-    error: function (request, status, error) {
-      handleAjaxError(request, status, error);
+    error: function(request, status, error) {
+      handleAjaxError(request, status, error)
     },
-    success: function (data) {
+    success: function(data) {
       if (data.state != 'ok') {
-        $('#div_alert').showAlert({message: data.result, level: 'danger'});
-        return;
+        $('#div_alert').showAlert({ message: data.result, level: 'danger' })
+        return
       }
-      $('#div_alert').showAlert({message: '{{Fichier CGX envoyé avec succès.}}', level: 'success'});
+      $('#div_alert').showAlert({ message: '{{Fichier CGX envoyé avec succès.}}', level: 'success' })
     }
-  });
+  })
 })
 
 $('#bt_goCarte').on('click', function() {
@@ -101,36 +90,35 @@ $('#bt_goCarte').on('click', function() {
   let ip = $('.eqLogicAttr[data-l2key=ip]').value()
   let username = $('.eqLogicAttr[data-l2key=username]').value()
   let password = $('.eqLogicAttr[data-l2key=password]').value()
-  let port = ($('.eqLogicAttr[data-l2key=port]').value() != '') ? ':'+$('.eqLogicAttr[data-l2key=port]').value() : ''
+  let port = ($('.eqLogicAttr[data-l2key=port]').value() != '') ? ':' + $('.eqLogicAttr[data-l2key=port]').value() : ''
 
   if (ip != '' && username != '' && password != '') {
-    window.open('http://'+username+':'+password+'@'+ip+port+'/'+typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()]['HTM'])
+    window.open('http://' + username + ':' + password + '@' + ip + port + '/' + typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()]['HTM'])
   }
   else {
-    $('#div_alert').showAlert({message: '{{Veuillez renseigner les informations de connexion HTTP pour accéder à l\'interface du serveur Wes.}}', level: 'danger'});
+    $('#div_alert').showAlert({ message: '{{Veuillez renseigner les informations de connexion HTTP pour accéder à l\'interface du serveur Wes.}}', level: 'danger' })
   }
-});
+})
 
 $('#in_searchwescontrol').keyup(function() {
   var search = $(this).value()
   if (search == '') {
     $('.eqLogicDisplayCard').show()
-    return;
+    return
   }
   search = normTextLower(search)
-  $('.eqLogicThumbnailContainer.packery .eqLogicDisplayCard').hide()
-  $('.panel-collapse').attr('data-show',0)
+  $('.eqLogicThumbnailContainer .eqLogicDisplayCard').hide()
+  $('.panel-collapse').attr('data-show', 0)
   var text
   $('.eqLogicDisplayCard .name').each(function() {
     text = normTextLower($(this).text())
     if (text.indexOf(search) >= 0) {
       $(this).closest('.eqLogicDisplayCard').show()
-      $(this).closest('.panel-collapse').attr('data-show',1)
+      $(this).closest('.panel-collapse').attr('data-show', 1)
     }
   })
   $('.panel-collapse[data-show=1]').collapse('show')
   $('.panel-collapse[data-show=0]').collapse('hide')
-  $('.packery').packery()
 })
 
 $('#bt_openAllwescontrol').off('click').on('click', function() {
@@ -159,14 +147,14 @@ $(".wesSortableMenu").sortable({
       id: $(this).attr('data-generalId'),
       success: function(data) {
         data = (data.result) ? data.result : data
-        data.display = {menuorder: typeorder}
+        data.display = { menuorder: typeorder }
         jeedom.eqLogic.simpleSave({
           eqLogic: data
         })
       }
     })
   }
-});
+})
 
 $("#table_cmd").sortable({
   axis: "y",
@@ -175,71 +163,78 @@ $("#table_cmd").sortable({
   placeholder: "ui-state-highlight",
   tolerance: "intersect",
   forcePlaceholderSize: true
-});
+})
 
 function addCmdToTable(_cmd) {
   if (!isset(_cmd)) {
-    var _cmd = {configuration: {}};
+    var _cmd = { configuration: {} }
   }
   if (!isset(_cmd.configuration)) {
-    _cmd.configuration = {};
+    _cmd.configuration = {}
   }
-  var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
-  tr += '<td class="visible-lg" style="width:60px;">';
-  tr += '<span class="cmdAttr" data-l1key="id"></span>';
-  tr += '</td>';
-  tr += '<td style="min-width:150px;width:280px;">';
-  tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" placeholder="{{Nom de la commande}}">';
-  tr += '<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fas fa-flag"></i> {{Icône}}</a>';
-  tr += '<span class="cmdAttr" data-l1key="display" data-l2key="icon" style="margin-left : 10px;"></span>';
-  tr += '</td>';
-  tr += '<td>';
-  tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>';
-  tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
-  tr += '</td>';
-  tr += '<td style="min-width:150px;width:350px;">';
-  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width:30%;display:inline-block;">';
-  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width:30%;display:inline-block;margin-left:2px;">';
-  tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="Unité" title="{{Unité}}" style="width:30%;display:inline-block;margin-left:2px;">';
-  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="listValue" placeholder="{{Liste de valeur|texte séparé par ;}}" title="{{Liste}}">';
-  tr += '</td>';
-  tr += '<td style="min-width:80px;width:350px;">';
-  tr += '<label class="checkbox-inline" style="margin-left:10px;"><input type="checkbox" class="cmdAttr" data-l1key="isVisible" checked/>{{Afficher}}</label>';
-  tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isHistorized" checked/>{{Historiser}}</label>';
-  tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary"/>{{Inverser}}</label>';
-  tr += '</td>';
-  tr += '<td style="min-width:80px;width:200px;">';
+  var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">'
+  tr += '<td class="hidden-xs">'
+  tr += '<span class="cmdAttr" data-l1key="id"></span>'
+  tr += '</td>'
+  tr += '<td>'
+  tr += '<div class="input-group">'
+  tr += '<input class="cmdAttr form-control input-sm roundedLeft" data-l1key="name" placeholder="{{Nom de la commande}}">'
+  tr += '<span class="input-group-btn">'
+  tr += '<a class="cmdAction btn btn-sm btn-default" data-l1key="chooseIcon" title="{{Choisir une icône}}"><i class="fas fa-icons disabled"></i></a>'
+  tr += '</span>'
+  tr += '<span class="cmdAttr input-group-addon roundedRight" data-l1key="display" data-l2key="icon" style="font-size:19px;padding:0 5px 0 0!important;"></span>'
+  tr += '</div>'
+  tr += '<select class="cmdAttr form-control input-sm" data-l1key="value" style="display:none;margin-top:5px;" title="{{Commande information liée}}">'
+  tr += '<option value="">{{Aucune}}</option>'
+  tr += '</select>'
+  tr += '</td>'
+  tr += '<td>'
+  tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>'
+  tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>'
+  tr += '</td>'
+  tr += '<td>'
+  tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isVisible" checked>{{Afficher}}</label> '
+  tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isHistorized" checked>{{Historiser}}</label> '
+  tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary">{{Inverser}}</label> '
+  tr += '<div style="margin-top:7px;">'
+  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width:30%;max-width:80px;display:inline-block;margin-right:2px;">'
+  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width:30%;max-width:80px;display:inline-block;margin-right:2px;">'
+  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="unite" placeholder="Unité" title="{{Unité}}" style="width:30%;max-width:80px;display:inline-block;margin-right:2px;">'
+  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="listValue" placeholder="{{Liste : valeur|texte (séparées par un point-virgule)}}" title="{{Liste : valeur|texte}}">'
+  tr += '</div>'
+  tr += '</td>'
+  tr += '<td>'
   if (is_numeric(_cmd.id)) {
-    tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fas fa-cogs"></i></a> ';
-    tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
+    tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fas fa-cogs"></i></a> '
+    tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>'
   }
-  tr += '<i class="fas fa-minus-circle pull-right cmdAction cursor" data-action="remove"></i>';
-  tr += '</td>';
-  tr += '</tr>';
-  $('#table_cmd tbody').append(tr);
-  var tr = $('#table_cmd tbody tr').last();
+  tr += '<i class="fas fa-minus-circle pull-right cmdAction cursor" data-action="remove"></i>'
+  tr += '</td>'
+  tr += '</tr>'
+  $('#table_cmd tbody').append(tr)
+  var tr = $('#table_cmd tbody tr').last()
   jeedom.eqLogic.builSelectCmd({
     id: $('.eqLogicAttr[data-l1key=id]').value(),
-    filter: {type: 'info'},
-    error: function (error) {
-      $('#div_alert').showAlert({message: error.message, level: 'danger'});
+    filter: { type: 'info' },
+    error: function(error) {
+      $('#div_alert').showAlert({ message: error.message, level: 'danger' })
     },
-    success: function (result) {
-      tr.find('.cmdAttr[data-l1key=value]').append(result);
-      tr.setValues(_cmd, '.cmdAttr');
-      jeedom.cmd.changeType(tr, init(_cmd.subType));
+    success: function(result) {
+      tr.find('.cmdAttr[data-l1key=value]').append(result)
+      tr.setValues(_cmd, '.cmdAttr')
+      jeedom.cmd.changeType(tr, init(_cmd.subType))
     }
-  });
+  })
 }
 
 function refreshWesDevicePic(type, value) {
-  let src = 'plugins/wescontrol/core/config/'+type+'_'+value+'.png'
+  let src = 'plugins/wescontrol/core/config/' + type + '_' + value + '.png'
   fetch(src, { method: 'HEAD' })
-  .then(res => {
-    if (res.ok) {
-      $('#icon_visu').attr('src', src)
-    } else {
-      $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/'+type+'.png')
-    }
-  }).catch(err => console.log('Error : ', err));
+    .then(res => {
+      if (res.ok) {
+        $('#icon_visu').attr('src', src)
+      } else {
+        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
+      }
+    }).catch(err => console.log('Error : ', err))
 }
