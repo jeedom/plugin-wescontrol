@@ -33,11 +33,10 @@ try {
     $ftpPass = $generalEqLogic->getConfiguration('ftppassword', init('ftpPass'));
     if (!empty($ftpIp) && !empty($ftpUser) && !empty($ftpPass)) {
       if (!$generalEqLogic->sendFtp($ftpIp, $ftpUser, $ftpPass)) {
-        throw new Exception(__('Échec d\'envoi du fichier CGX personnalisé.',__FILE__));
+        throw new Exception(__("Échec d'envoi du fichier CGX personnalisé.", __FILE__));
       }
-    }
-    else {
-      throw new Exception(__('Veuillez renseigner les informations de connexion FTP pour envoyer le fichier CGX personnalisé.',__FILE__));
+    } else {
+      throw new Exception(__('Veuillez renseigner les informations de connexion FTP pour envoyer le fichier CGX personnalisé.', __FILE__));
     }
     ajax::success();
   }
@@ -53,7 +52,11 @@ try {
     ajax::success();
   }
 
-  throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
+  if (init('action') == 'checkFullCompatibility') {
+    ajax::success(eqLogic::byId(init('eqLogicId'))->checkFullCompatibility());
+  }
+
+  throw new Exception(__('Aucune méthode correspondante à', __FILE__) . ' : ' . init('action'));
   /*     * *********Catch exeption*************** */
 } catch (Exception $e) {
   ajax::error(displayException($e), $e->getCode());
