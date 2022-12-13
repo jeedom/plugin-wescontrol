@@ -1,26 +1,22 @@
-# Changelog plugin template
+# Changelog Wes Control
 
 >**IMPORTANT**
 >
->Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
+>Pour rappel, s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement la mise à jour de documentation, de traduction ou de texte.
 
-# 20/11/2020
+# 13/12/2022
 
-- Présentation officielle V4
-- Ajouts d'éléments d'informations et de paramètres pour les commandes
+- Vérification de la pleine compatibilité du plugin en fonction de sa version et de celle du firmware du Wes *(``< V0.84A10`` = plugin stable / ``>= V0.84A10`` = plugin beta)*
+- Ajout de l'affichage en disposition tableau des équipements enfants.
 
-# 16/11/2020
+# 10/05/2021
 
-- version minimale Jeedom: 3.3.39 (dernière MAJ critique)
+- Nouvelle version du fichier CGX V1.0.2
+- Ajout du paramètre "Type de mesure" pour les compteurs et TIC
+- Ajout des types de compteurs **Calories, Electricté et Fioul**
+- Ajout d’une option de mise à jour automatique et d’une commande de mise à jour du fichier CGX ainsi que d’un bouton permettant la mise à jour de tous les serveurs actifs
+- Optimisation de l’interface.
 
-# 04/11/2020
+# 28/04/2021
 
-- Nouvelle présentation de la liste des objets
-
-# 07/08/2020
-
-- Ajout de commentaires
-
-# 17/05/2020
-
-- Mise à jour de la documentation
+- Mise à disposition du plugin
