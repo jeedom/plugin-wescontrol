@@ -276,17 +276,6 @@ class wescontrol extends eqLogic {
 		}
 	}
 
-	public function checkFullCompatibility() {
-		if ($this->getConfiguration('type') == 'general' && !empty($firmwareWes = $this->getCmd('info', 'firmware')->execCmd())) {
-			$pluginVersion = update::byLogicalId(__CLASS__)->getConfiguration('version');
-			if (version_compare($firmwareWes, 'V0.84A10', '<') && $pluginVersion != 'stable') {
-				return __('Nous vous conseillons de basculer sur la version stable du plugin pour une meilleure compatibilité avec votre serveur Wes en firmware inférieur à V0.84A10.', __FILE__);
-			} else if (version_compare($firmwareWes, 'V0.84A10', '>=') && $pluginVersion != 'beta') {
-				return __('Nous vous conseillons de basculer sur la version beta du plugin pour une meilleure compatibilité avec votre serveur Wes en firmware supérieur ou égal à V0.84A10.', __FILE__);
-			}
-		}
-	}
-
 	public function getReadUrl() {
 		$url = 'http://' . $this->getConfiguration('username') . ":" . $this->getConfiguration('password') . '@';
 		$url .= $this->getConfiguration('ip');

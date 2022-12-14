@@ -16,52 +16,34 @@
 
 function printEqLogic(_eqLogic) {
   var type = _eqLogic.configuration.type
-  if (type == 'general') {
-    $('.hidegeneral, .compatibility').hide()
-    $.ajax({
-      type: "POST",
-      url: "plugins/wescontrol/core/ajax/wescontrol.ajax.php",
-      data: {
-        action: "checkFullCompatibility",
-        eqLogicId: _eqLogic.id
-      },
-      dataType: 'json',
-      global: false,
-      error: function(error) {
-        $('#div_alert').showAlert({ message: error.message, level: 'danger' })
-      },
-      success: function(data) {
-        if (data.result != null) {
-          $('.compatibility').text(data.result).show()
-        }
-      }
-    })
-  }
-  else {
-    $('.hidegeneral').show()
-    $('#span_type').html(_typeid[type]['type'])
-    if (_typeid[type]['alternateimg'] != undefined) {
-      if ($('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value() != null) {
-        refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
-      }
-      else {
-        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
-      }
-      $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').off().on('change', function() {
-        if ($(this).value() != null) {
-          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
-        }
-      })
-    }
-    else {
-      $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
-    }
-  }
+  $('.hidegeneral').hide()
   for (var i in _typeid) {
     if (type == i) {
       $('.show' + i).show()
     } else {
       $('.show' + i).hide()
+    }
+  }
+  if (type !== 'general') {
+    {
+      $('.hidegeneral').show()
+      $('#span_type').html(_typeid[type]['type'])
+      if (_typeid[type]['alternateimg'] != undefined) {
+        if ($('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value() != null) {
+          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
+        }
+        else {
+          $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
+        }
+        $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').off().on('change', function() {
+          if ($(this).value() != null) {
+            refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
+          }
+        })
+      }
+      else {
+        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
+      }
     }
   }
 }
