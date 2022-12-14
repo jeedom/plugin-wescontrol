@@ -104,12 +104,12 @@ $('#in_searchwescontrol').keyup(function() {
     $('.childEqLogic').show()
     return
   }
-  search = normTextLower(search)
+  search = jeedomUtils.normTextLower(search)
   $('.eqLogicThumbnailContainer .childEqLogic').hide()
   $('.panel-collapse').attr('data-show', 0)
   var text
   $('.childEqLogic .name').each(function() {
-    text = normTextLower($(this).text())
+    text = jeedomUtils.normTextLower($(this).text())
     if (text.indexOf(search) >= 0) {
       $(this).closest('.childEqLogic').show()
       $(this).closest('.panel-collapse').attr('data-show', 1)
