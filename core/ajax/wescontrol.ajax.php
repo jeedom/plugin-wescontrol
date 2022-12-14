@@ -52,10 +52,6 @@ try {
     ajax::success();
   }
 
-  if (init('action') == 'checkFullCompatibility') {
-    ajax::success(eqLogic::byId(init('eqLogicId'))->checkFullCompatibility());
-  }
-
   throw new Exception(__('Aucune méthode correspondante à', __FILE__) . ' : ' . init('action'));
   /*     * *********Catch exeption*************** */
 } catch (Exception $e) {

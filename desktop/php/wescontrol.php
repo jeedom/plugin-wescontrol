@@ -198,10 +198,8 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Visible}}" data-l1key="isVisible" checked>Visible</label>
 								</div>
 							</div>
-
-							<legend class="showgeneral" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
-							<div class="form-group showgeneral" style="display: none;">
-								<label class="col-sm-4 control-label">{{Options Wes}}
+							<div class="form-group showgeneral">
+								<label class="col-sm-4 control-label">{{Options du Wes}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher les matériels optionnels branchés sur ce serveur Wes}}"></i></sup>
 								</label>
 								<div class="col-sm-6">
@@ -209,8 +207,9 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-label-text="{{Alimentation 9V}}" data-l1key="configuration" data-l2key="9v">{{Alimentation 9V}}</label>
 								</div>
 							</div>
-							<br class="showgeneral">
-							<div class="form-group showgeneral" style="display: none;">
+
+							<legend class="showgeneral"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
+							<div class="form-group showgeneral">
 								<label class="col-sm-4 control-label">{{IP du Wes}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Adresse ip sur laquelle le serveur Wes est joignable}}"></i></sup>
 								</label>
@@ -218,7 +217,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ip">
 								</div>
 							</div>
-							<div class="form-group showgeneral" style="display: none;">
+							<div class="form-group showgeneral">
 								<label class="col-sm-4 control-label">{{Port du Wes}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Port de communication sur lequel le serveur Wes est joignable. (facultatif - 80 par défaut)}}"></i></sup>
 								</label>
@@ -226,7 +225,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="port" placeholder="80">
 								</div>
 							</div>
-							<div class="form-group showgeneral" style="display: none;">
+							<div class="form-group showgeneral">
 								<label class="col-sm-4 control-label">{{Identifiant HTTP}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès HTTP. Permet de communiquer avec le serveur Wes}}"></i></sup>
 								</label>
@@ -234,7 +233,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									<input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="username">
 								</div>
 							</div>
-							<div class="form-group showgeneral" style="display: none;">
+							<div class="form-group showgeneral">
 								<label class="col-sm-4 control-label">{{Mot de passe HTTP}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner le mot de passe du compte pour l'accès HTTP. Permet de communiquer avec le serveur Wes}}"></i></sup>
 								</label>
@@ -243,9 +242,8 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 								</div>
 							</div>
 
-							<legend class="showgeneral" style="display: none;"><i class="fas fa-file-code"></i> {{Fichier CGX Jeedom}}</legend>
-							<div class="showgeneral"><span class="alert alert-info text-center compatibility col-sm-10 col-sm-offset-1"></span></div>
-							<div class="form-group showgeneral" style="display: none;">
+							<legend class="showgeneral"><i class="fas fa-file-code"></i> {{Fichier CGX Jeedom}}</legend>
+							<div class="form-group showgeneral">
 								<label class="col-sm-4 control-label">{{Activer}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Cocher la case pour utiliser le fichier CGX spécialement conçu pour le plugin afin de récupérer davantage de données}}"></i></sup>
 								</label>
@@ -253,7 +251,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Activer}}" data-l1key="configuration" data-l2key="usecustomcgx">
 								</div>
 							</div>
-							<div class="showgeneral" id="CGXParams" style="display: none;">
+							<div class="showgeneral" id="CGXParams">
 								<div class="form-group">
 									<label class="col-sm-4 control-label">{{Identifiant FTP}}
 										<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
@@ -281,8 +279,8 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 								</div>
 							</div>
 
-							<legend class="showteleinfo" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
-							<div class="form-group showteleinfo" style="display: none;">
+							<legend class="showteleinfo"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
+							<div class="form-group showteleinfo">
 								<label class="col-sm-4 control-label">{{Tarification}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer la formule de tarification de votre abonnement}}"></i></sup>
 								</label>
@@ -295,7 +293,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									</select>
 								</div>
 							</div>
-							<div class="form-group showteleinfo" style="display: none;">
+							<div class="form-group showteleinfo">
 								<label class="col-sm-4 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
 								</label>
@@ -307,7 +305,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									</select>
 								</div>
 							</div>
-							<div class="form-group showteleinfo" style="display: none;">
+							<div class="form-group showteleinfo">
 								<label class="col-sm-4 control-label">{{Type de compteur}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur TIC utilisé afin de personnaliser l'image d'illustration}}"></i></sup>
 								</label>
@@ -320,8 +318,8 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 								</div>
 							</div>
 
-							<legend class="showpince" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
-							<div class="form-group showpince" style="display: none;">
+							<legend class="showpince"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
+							<div class="form-group showpince">
 								<label class="col-sm-4 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
 								</label>
@@ -333,7 +331,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									</select>
 								</div>
 							</div>
-							<div class="form-group showpince" style="display: none;">
+							<div class="form-group showpince">
 								<label class="col-sm-4 control-label">{{Type de pince}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de pince utilisé afin de personnaliser l'image d'illustration de l'équipement}}"></i></sup>
 								</label>
@@ -346,8 +344,8 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 								</div>
 							</div>
 
-							<legend class="showcompteur" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
-							<div class="form-group showcompteur" style="display: none;">
+							<legend class="showcompteur"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
+							<div class="form-group showcompteur">
 								<label class="col-sm-4 control-label">{{Type de compteur}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de compteur utilisé afin de personnaliser l'image d'illustration de l'équipement}}"></i></sup>
 								</label>
@@ -363,7 +361,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									</select>
 								</div>
 							</div>
-							<div class="form-group showcompteur" style="display: none;">
+							<div class="form-group showcompteur">
 								<label class="col-sm-4 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
 								</label>
@@ -376,8 +374,8 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 								</div>
 							</div>
 
-							<legend class="showsonde" style="display: none;"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
-							<div class="form-group showsonde" style="display: none;">
+							<legend class="showsonde"><i class="fas fa-cogs"></i> {{Paramètres spécifiques}}</legend>
+							<div class="form-group showsonde">
 								<label class="col-sm-4 control-label">{{Type de mesure}}
 									<sup><i class="fas fa-question-circle tooltips" title="{{Indiquer le type de mesure à relever}}"></i></sup>
 								</label>
@@ -393,7 +391,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 						</div>
 
 
-						<div class="col-lg-6 showgeneral" style="display: none;">
+						<div class="col-lg-6 showgeneral">
 							<legend><i class="fas fa-tasks"></i> {{Gestion des équipements}}</legend>
 							<div class="alert alert-warning col-xs-10 col-xs-offset-1">
 								<i class="fas fa-exclamation-triangle"></i>

@@ -40,14 +40,23 @@ $eqLogics = eqLogic::byType('wescontrol', true);
 			<div class="col-sm-6">
 				<span class="configKey label label-info" data-l1key="cgxversion"></span>
 				<?php
-				$localVersion = config::byKey('cgxversion', 'wescontrol', '');
-				$countWesServers = 0;
-				$countNotToDate = 0;
+				$pluginVersion = update::byLogicalId('wescontrol')->getConfiguration('version');
+				$localCGXVersion = config::byKey('cgxversion', 'wescontrol', '');
+				$countWesServers = $countNotToDate = $countNeedStable = $countNeedBeta = 0;
 				foreach ($eqLogics as $eqLogic) {
-					if ($eqLogic->getConfiguration('type') === 'general' && $eqLogic->getConfiguration('usecustomcgx', 0) == 1) {
+					if ($eqLogic->getConfiguration('type') === 'general') {
 						$countWesServers++;
-						if (version_compare($eqLogic->getCmd('info', 'servercgxversion')->execCmd(), $localVersion, '<')) {
-							$countNotToDate++;
+						if ($eqLogic->getConfiguration('usecustomcgx', 0) == 1 && !empty($cgxWes = $eqLogic->getCmd('info', 'servercgxversion')->execCmd())) {
+							if (version_compare($cgxWes, $localCGXVersion, '<')) {
+								$countNotToDate++;
+							}
+						}
+						if (!empty($firmwareWes = $eqLogic->getCmd('info', 'firmware')->execCmd())) {
+							if (version_compare($firmwareWes, 'V0.84A10', '<') && $pluginVersion != 'stable') {
+								$countNeedStable++;
+							} else if (version_compare($firmwareWes, 'V0.84A10', '>=') && $pluginVersion != 'beta') {
+								$countNeedBeta++;
+							}
 						}
 					}
 				}
@@ -65,6 +74,11 @@ $eqLogics = eqLogic::byType('wescontrol', true);
 						$updatebutton = '<a class="btn btn-success" id="bt_UpdateCGX" title="{{Cliquez sur le bouton pour mettre à jour le fichier CGX sur tous les serveurs Wes}}" style="margin-top:5px;"><i class="fas fa-sync"></i> {{Mettre tous les serveurs Wes à jour}}</a>';
 					}
 					echo '<span class="label ' . $cgxAlert . '">' . $message . '</span><br>' . $updatebutton;
+					if ($countNeedBeta > 0) {
+						echo '<div class="alert alert-warning">{{Nous vous conseillons de basculer sur la version beta du plugin pour une meilleure compatibilité avec les firmwares Wes supérieurs ou égaux à V0.84A10.}}</div>';
+					} else if ($countNeedStable > 0) {
+						echo '<div class="alert alert-warning">{{Nous vous conseillons de basculer sur la version stable du plugin pour une meilleure compatibilité avec les firmwares Wes inférieurs à V0.84A10.}}</div>';
+					}
 				}
 				?>
 			</div>
