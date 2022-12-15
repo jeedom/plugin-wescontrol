@@ -14,25 +14,30 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-$('.eqLogicAttr[data-l2key=type]').on('change', function() {
-  var type = $(this).value()
-  if (type != '') {
-    if (type == 'general') {
-      $('.hidegeneral').hide()
+function printEqLogic(_eqLogic) {
+  var type = _eqLogic.configuration.type
+  $('.hidegeneral').hide()
+  for (var i in _typeid) {
+    if (type == i) {
+      $('.show' + i).show()
+    } else {
+      $('.show' + i).hide()
     }
-    else {
+  }
+  if (type !== 'general') {
+    {
       $('.hidegeneral').show()
-      $('#span_type').html(typeid[type]['type'])
-      if (typeid[type]['alternateimg'] != undefined) {
-        if ($('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').value() != null) {
-          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').value())
+      $('#span_type').html(_typeid[type]['type'])
+      if (_typeid[type]['alternateimg'] != undefined) {
+        if ($('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value() != null) {
+          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
         }
         else {
           $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
         }
-        $('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').off().on('change', function() {
+        $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').off().on('change', function() {
           if ($(this).value() != null) {
-            refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + typeid[type]['alternateimg']['value'] + ']').value())
+            refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
           }
         })
       }
@@ -40,15 +45,8 @@ $('.eqLogicAttr[data-l2key=type]').on('change', function() {
         $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
       }
     }
-    for (var i in typeid) {
-      if (type == i) {
-        $('.show' + i).show()
-      } else {
-        $('.show' + i).hide()
-      }
-    }
   }
-})
+}
 
 $('.eqLogicAttr[data-l2key=usecustomcgx]').on('change', function() {
   if ($(this).is(':checked') && $('.eqLogicAttr[data-l2key=type]').value() == 'general') {
@@ -72,8 +70,8 @@ $('.eqLogicAction[data-action=sendCGX]').off().on('click', function() {
     },
     dataType: 'json',
     global: false,
-    error: function(request, status, error) {
-      handleAjaxError(request, status, error)
+    error: function(error) {
+      $('#div_alert').showAlert({ message: error.message, level: 'danger' })
     },
     success: function(data) {
       if (data.state != 'ok') {
@@ -93,27 +91,27 @@ $('#bt_goCarte').on('click', function() {
   let port = ($('.eqLogicAttr[data-l2key=port]').value() != '') ? ':' + $('.eqLogicAttr[data-l2key=port]').value() : ''
 
   if (ip != '' && username != '' && password != '') {
-    window.open('http://' + username + ':' + password + '@' + ip + port + '/' + typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()]['HTM'])
+    window.open('http://' + username + ':' + password + '@' + ip + port + '/' + _typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()]['HTM'])
   }
   else {
-    $('#div_alert').showAlert({ message: '{{Veuillez renseigner les informations de connexion HTTP pour accéder à l\'interface du serveur Wes.}}', level: 'danger' })
+    $('#div_alert').showAlert({ message: "{{Veuillez renseigner les informations de connexion HTTP pour accéder à l'interface du serveur Wes.}}", level: 'danger' })
   }
 })
 
 $('#in_searchwescontrol').keyup(function() {
   var search = $(this).value()
   if (search == '') {
-    $('.eqLogicDisplayCard').show()
+    $('.childEqLogic').show()
     return
   }
-  search = normTextLower(search)
-  $('.eqLogicThumbnailContainer .eqLogicDisplayCard').hide()
+  search = jeedomUtils.normTextLower(search)
+  $('.eqLogicThumbnailContainer .childEqLogic').hide()
   $('.panel-collapse').attr('data-show', 0)
   var text
-  $('.eqLogicDisplayCard .name').each(function() {
-    text = normTextLower($(this).text())
+  $('.childEqLogic .name').each(function() {
+    text = jeedomUtils.normTextLower($(this).text())
     if (text.indexOf(search) >= 0) {
-      $(this).closest('.eqLogicDisplayCard').show()
+      $(this).closest('.childEqLogic').show()
       $(this).closest('.panel-collapse').attr('data-show', 1)
     }
   })
@@ -193,6 +191,9 @@ function addCmdToTable(_cmd) {
   tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>'
   tr += '</td>'
   tr += '<td>'
+  tr += '<span class="cmdAttr" data-l1key="htmlstate"></span>'
+  tr += '</td>'
+  tr += '<td>'
   tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isVisible" checked>{{Afficher}}</label> '
   tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isHistorized" checked>{{Historiser}}</label> '
   tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary">{{Inverser}}</label> '
@@ -213,7 +214,7 @@ function addCmdToTable(_cmd) {
   tr += '</tr>'
   $('#table_cmd tbody').append(tr)
   var tr = $('#table_cmd tbody tr').last()
-  jeedom.eqLogic.builSelectCmd({
+  jeedom.eqLogic.buildSelectCmd({
     id: $('.eqLogicAttr[data-l1key=id]').value(),
     filter: { type: 'info' },
     error: function(error) {
