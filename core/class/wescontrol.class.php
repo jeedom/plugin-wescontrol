@@ -421,7 +421,7 @@ class wescontrol extends eqLogic {
 				if (!isset($data['ignoreCreation'])) {
 					$id = 1;
 					while ($id <= $data['maxnumber']) {
-						if (!is_object(self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__)) && $this->getConfiguration($type . $id, 1) == 1) {
+						if (!is_object(self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__)) && $this->getConfiguration($type . $id, 0) == 1) {
 							log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __("Création de l'équipement", __FILE__) . ' ' . $data['type'] . ' ' . $id . ' : ' . $this->getId() . $data['logical'] . $id);
 							$eqLogic = (new wescontrol)
 								->setEqType_name(__CLASS__)
@@ -437,7 +437,7 @@ class wescontrol extends eqLogic {
 							$eqLogic->setDisplay('height', $data['height']);
 							$eqLogic->save();
 						} else if (is_object(self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__))) {
-							if ($this->getConfiguration($type . $id, 1) == 0) {
+							if ($this->getConfiguration($type . $id, 0) == 0) {
 								$toRemove = self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__);
 								log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __("Suppression automatique de l'équipement", __FILE__) . ' : ' . $toRemove->getName() . ' ' . $toRemove->getLogicalId());
 								$toRemove->remove();
