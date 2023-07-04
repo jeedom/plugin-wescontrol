@@ -476,16 +476,28 @@ class wescontrol extends eqLogic {
 		if ($this->getIsEnable() && $this->getConfiguration('type') == "general") {
 			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Interrogation du serveur Wes', __FILE__));
 			$url = $this->getReadUrl();
-			$xml = simpleXML_load_file($url);
+			$curl = curl_init();
+			curl_setopt($curl, CURLOPT_URL, $url );
+			curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+			$return = curl_exec($curl);
+			curl_close($curl);
 			$count = 0;
-			while ($xml === false && $count < 3) {
+			while ($return === false && $count < 3) {
 				log::add(__CLASS__, 'warning', $this->getHumanName() . ' ' . __('Tentative échouée, nouvelle interrogation du serveur Wes', __FILE__));
-				$xml = simpleXML_load_file($url);
+				$return = curl_exec($curl);
+				curl_close($curl);
 				$count++;
 			}
+			if ($return === false) {
+				$this->checkAndUpdateCmd('status', 0);
+				log::add(__CLASS__, 'error', $this->getHumanName() . ' ' . __("Le serveur Wes n'est pas joignable ou les données sont mal formatées : ", __FILE__) . ' ' . $url);
+				return false;
+			}
+			$xml = simpleXML_load_string($return);
 			if ($xml === false) {
 				$this->checkAndUpdateCmd('status', 0);
-				log::add(__CLASS__, 'error', $this->getHumanName() . ' ' . __("Le serveur Wes n'est pas joignable sur", __FILE__) . ' ' . $url);
+				log::add(__CLASS__, 'error', $this->getHumanName() . ' ' . __("Les données sont mal formatées : ", __FILE__) . ' ' . $url);
 				return false;
 			}
 			$this->checkAndUpdateCmd('status', 1);
