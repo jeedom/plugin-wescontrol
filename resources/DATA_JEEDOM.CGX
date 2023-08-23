@@ -1,7 +1,7 @@
 t <?xml version="1.0" encoding="UTF-8"?>
 t <data>
 t <jeedom>
-t <cgxversion>1.0.3</cgxversion>
+t <cgxversion>1.0.4</cgxversion>
 t </jeedom>
 t <info>
 c g d <date>%02d/%02d/%02d</date>
@@ -238,6 +238,7 @@ c Pea1 <COUT_ANNEE1>%.02f</COUT_ANNEE1>
 c PIa1 <INJEC_ANNEE1>%.02f</INJEC_ANNEE1>
 c Pga1 <GAIN_ANNEE1>%.02f</GAIN_ANNEE1>
 c PMa1 <MAX_ANNEE1>%.02f</MAX_ANNEE1>
+c PPT <WATT1>%d</WATT1><WATT2>%d</WATT2><WATT3>%d</WATT3><WATT4>%d</WATT4>
 c P A2 <I2>%.02f</I2>
 c P P2 <PUISSANCE2>%d</PUISSANCE2>
 c P W2 <INDEX2>%.03f</INDEX2>

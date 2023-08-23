@@ -117,7 +117,8 @@ class wescontrol extends eqLogic {
 				"gainannee" => array("name" => __("Gain année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//pince/GAIN_ANNEE#id#", "dashboard" => "line", "mobile" => "line", "filter" => ["usecustomcgx" => 1, "pinceMeasure" => "production"], "order" => 8),
 				"maxjour" => array("name" => __("Puissance max jour", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "A", "xpath" => "//pince/MAX_JOUR#id#", "dashboard" => "line", "mobile" => "line", "filter" => ["usecustomcgx" => 1], "order" => 9),
 				"maxmois" => array("name" => __("Puissance max mois", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "A", "xpath" => "//pince/MAX_MOIS#id#", "dashboard" => "line", "mobile" => "line", "filter" => ["usecustomcgx" => 1], "order" => 10),
-				"maxannee" => array("name" => __("Puissance max année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "A", "xpath" => "//pince/MAX_ANNEE#id#", "dashboard" => "line", "mobile" => "line", "filter" => ["usecustomcgx" => 1], "order" => 11)
+				"maxannee" => array("name" => __("Puissance max année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "A", "xpath" => "//pince/MAX_ANNEE#id#", "dashboard" => "line", "mobile" => "line", "filter" => ["usecustomcgx" => 1], "order" => 11),
+				"puissancew" => array("name" => __("Puissance (W)", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "W", "xpath" => "//pince/WATT#id#", "dashboard" => "line", "mobile" => "line", "filter" => ["usecustomcgx" => 1], "order" => 12)
 			),
 			"bouton" => array(
 				"state" => array("name" => __("Etat", __FILE__), "type" => "info", "subtype" => "binary", "xpath" => "//entree/ENTREE#id#")
