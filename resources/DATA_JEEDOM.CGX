@@ -1,7 +1,7 @@
 t <?xml version="1.0" encoding="UTF-8"?>
 t <data>
 t <jeedom>
-t <cgxversion>1.0.4</cgxversion>
+t <cgxversion>1.0.5</cgxversion>
 t </jeedom>
 t <info>
 c g d <date>%02d/%02d/%02d</date>
@@ -17,6 +17,7 @@ c eo1 <OPTARIF>%s.</OPTARIF>
 c eS1 <ISOUSC>%d</ISOUSC>
 c Tn1 <PTEC>%s</PTEC>
 c ip1 <PAP>%d</PAP>
+c ij1 <PAPIJ>%d</PAPIJ>
 c jT1 <CONSO_JOUR>%.03f</CONSO_JOUR>
 c jE1 <COUT_JOUR>%.02f</COUT_JOUR>
 c mT1 <CONSO_MOIS>%.03f</CONSO_MOIS>
@@ -56,8 +57,8 @@ c Tm14<HP_WeekEnd>%09u</HP_WeekEnd>
 c Tm15<HC_Mercredi>%09u</HC_Mercredi>
 c Tm16<HP_Mercredi>%09u</HP_Mercredi>
 c Ts1 <H_SUPER_CREUSE>%09u</H_SUPER_CREUSE>
-c Tp1 <PRODUCTEUR>%09u</PRODUCTEUR>
-c Ta1 <INJECTION>%09u</INJECTION>
+c ei1 <PRODUCTEUR>%09u</PRODUCTEUR>
+c TJ1 <INJECTION>%09u</INJECTION>
 t </tic1>
 t <tic2>
 c ea2 <ADCO>%s</ADCO>
@@ -65,6 +66,7 @@ c eo2 <OPTARIF>%s.</OPTARIF>
 c eS2 <ISOUSC>%d</ISOUSC>
 c Tn2 <PTEC>%s</PTEC>
 c ip2 <PAP>%d</PAP>
+c ij2 <PAPIJ>%d</PAPIJ>
 c jT2 <CONSO_JOUR>%.03f</CONSO_JOUR>
 c jE2 <COUT_JOUR>%.02f</COUT_JOUR>
 c mT2 <CONSO_MOIS>%.03f</CONSO_MOIS>
@@ -104,8 +106,8 @@ c Tm24<HP_WeekEnd>%09u</HP_WeekEnd>
 c Tm25<HC_Mercredi>%09u</HC_Mercredi>
 c Tm26<HP_Mercredi>%09u</HP_Mercredi>
 c Ts2 <H_SUPER_CREUSE>%09u</H_SUPER_CREUSE>
-c Tp2 <PRODUCTEUR>%09u</PRODUCTEUR>
-c Ta2 <INJECTION>%09u</INJECTION>
+c ei2 <PRODUCTEUR>%09u</PRODUCTEUR>
+c TJ2 <INJECTION>%09u</INJECTION>
 t </tic2>
 t <tic3>
 c ea3 <ADCO>%s</ADCO>
@@ -113,6 +115,7 @@ c eo3 <OPTARIF>%s.</OPTARIF>
 c eS3 <ISOUSC>%d</ISOUSC>
 c Tn3 <PTEC>%s</PTEC>
 c ip3 <PAP>%d</PAP>
+c ij3 <PAPIJ>%d</PAPIJ>
 c jT3 <CONSO_JOUR>%.03f</CONSO_JOUR>
 c jE3 <COUT_JOUR>%.02f</COUT_JOUR>
 c mT3 <CONSO_MOIS>%.03f</CONSO_MOIS>
@@ -153,7 +156,8 @@ c Tm35<HC_Mercredi>%09u</HC_Mercredi>
 c Tm36<HP_Mercredi>%09u</HP_Mercredi>
 c Ts3 <H_SUPER_CREUSE>%09u</H_SUPER_CREUSE>
 c Tp3 <PRODUCTEUR>%09u</PRODUCTEUR>
-c Ta3 <INJECTION>%09u</INJECTION>
+c ei3 <INJECTION>%09u</INJECTION>
+c TJ3 <INJECTION>%09u</INJECTION>
 t </tic3>
 t <impulsion>
 c pp1 <PULSE1>%d</PULSE1>

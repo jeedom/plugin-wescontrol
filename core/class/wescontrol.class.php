@@ -53,19 +53,22 @@ class wescontrol extends eqLogic {
 				"BBRHPJW" => array("name" => __("Index (heures pleines jours blancs Tempo)", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "filter" => ["tarification" => "BBRH"], "calcul" => "#value#/1000", "dashboard" => "line", "mobile" => "line", "xpath" => "//tic#id#/BBRHPJW", "order" => 26),
 				"BBRHCJR" => array("name" => __("Index (heures creuses jours rouges Tempo)", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "filter" => ["tarification" => "BBRH"], "calcul" => "#value#/1000", "dashboard" => "line", "mobile" => "line", "xpath" => "//tic#id#/BBRHCJR", "order" => 27),
 				"BBRHPJR" => array("name" => __("Index (heures pleines jours rouges Tempo)", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "filter" => ["tarification" => "BBRH"], "calcul" => "#value#/1000", "dashboard" => "line", "mobile" => "line", "xpath" => "//tic#id#/BBRHPJR", "order" => 28),
-				"CONSO_JOUR" => array("name" => __("Consommation jour", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_JOUR", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption"], "dashboard" => "line", "mobile" => "line", "order" => 29),
-				"COUT_JOUR" => array("name" => __("Coût jour", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_JOUR", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption"], "dashboard" => "line", "mobile" => "line", "order" => 30),
-				"CONSO_MOIS" => array("name" => __("Consommation mois", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_MOIS", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption"], "dashboard" => "line", "mobile" => "line", "order" => 31),
-				"COUT_MOIS" => array("name" => __("Coût mois", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_MOIS", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption"], "dashboard" => "line", "mobile" => "line", "order" => 32),
-				"CONSO_ANNEE" => array("name" => __("Consommation année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_ANNEE", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption"], "dashboard" => "line", "mobile" => "line", "order" => 33),
-				"COUT_ANNEE" => array("name" => __("Coût année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_ANNEE", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption"], "dashboard" => "line", "mobile" => "line", "order" => 34),
+				"CONSO_JOUR" => array("name" => __("Consommation jour", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_JOUR", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption|consumptionprod"], "dashboard" => "line", "mobile" => "line", "order" => 29),
+				"COUT_JOUR" => array("name" => __("Coût jour", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_JOUR", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption|consumptionprod"], "dashboard" => "line", "mobile" => "line", "order" => 30),
+				"CONSO_MOIS" => array("name" => __("Consommation mois", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_MOIS", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption|consumptionprod"], "dashboard" => "line", "mobile" => "line", "order" => 31),
+				"COUT_MOIS" => array("name" => __("Coût mois", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_MOIS", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption|consumptionprod"], "dashboard" => "line", "mobile" => "line", "order" => 32),
+				"CONSO_ANNEE" => array("name" => __("Consommation année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_ANNEE", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption|consumptionprod"], "dashboard" => "line", "mobile" => "line", "order" => 33),
+				"COUT_ANNEE" => array("name" => __("Coût année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_ANNEE", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "consumption|consumptionprod"], "dashboard" => "line", "mobile" => "line", "order" => 34),
 				"PROD_JOUR" => array("name" => __("Production jour", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_JOUR", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "production"], "dashboard" => "line", "mobile" => "line", "order" => 29),
 				"GAIN_JOUR" => array("name" => __("Gain jour", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_JOUR", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "production"], "dashboard" => "line", "mobile" => "line", "order" => 30),
 				"PROD_MOIS" => array("name" => __("Production mois", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_MOIS", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "production"], "dashboard" => "line", "mobile" => "line", "order" => 31),
 				"GAIN_MOIS" => array("name" => __("Gain mois", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_MOIS", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "production"], "dashboard" => "line", "mobile" => "line", "order" => 32),
 				"PROD_ANNEE" => array("name" => __("Production année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "xpath" => "//tic#id#/CONSO_ANNEE", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "production"], "dashboard" => "line", "mobile" => "line", "order" => 33),
 				"GAIN_ANNEE" => array("name" => __("Gain année", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "€", "xpath" => "//tic#id#/COUT_ANNEE", "filter" => ["usecustomcgx" => 1, "ticMeasure" => "production"], "dashboard" => "line", "mobile" => "line", "order" => 34),
-				"PTECRAW" => array("name" => __("Tarif en cours (brut)", __FILE__), "type" => "info", "subtype" => "string", "visible" => 0, "filter" => ["tarification" => "BBRH"], "calcul" => "#value#=='H. Pleine BLEU'?'HPJB':#value#=='H. Creuse BLEU'?'HCJB':#value#=='H. Pleine BLANC'?'HPJW':#value#=='H. Creuse BLANC'?'HCJW':#value#=='H. Pleine ROUGE'?'HPJR':#value#=='H. Creuse ROUGE'?'HCJR':'N/A'", "xpath" => "//tic#id#/PTEC", "order" => 35)
+				"PTECRAW" => array("name" => __("Tarif en cours (brut)", __FILE__), "type" => "info", "subtype" => "string", "visible" => 0, "filter" => ["tarification" => "BBRH"], "calcul" => "#value#=='H. Pleine BLEU'?'HPJB':#value#=='H. Creuse BLEU'?'HCJB':#value#=='H. Pleine BLANC'?'HPJW':#value#=='H. Creuse BLANC'?'HCJW':#value#=='H. Pleine ROUGE'?'HPJR':#value#=='H. Creuse ROUGE'?'HCJR':'N/A'", "xpath" => "//tic#id#/PTEC", "order" => 35),
+				"PRODUCTEUR" => array("name" => __("Producteur", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "", "xpath" => "//tic#id#/PRODUCTEUR", "dashboard" => "line", "mobile" => "line", "filter" => ["ticMeasure" => "production|consumptionprod"], "order" => 36),
+				"INJECTION" => array("name" => __("Injection", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "kWh", "calcul" => "#value#/1000", "xpath" => "//tic#id#/INJECTION", "dashboard" => "line", "mobile" => "line", "filter" => ["ticMeasure" => "production|consumptionprod"], "order" => 37),
+				"PAPIJ" => array("name" => __("Puissance Apparente Injectée", __FILE__), "type" => "info", "subtype" => "numeric", "unite" => "VA", "xpath" => "//tic#id#/PAPIJ", "filter" => ["ticMeasure" => "production|consumptionprod"], "dashboard" => "line", "mobile" => "line", "order" => 38)
 			),
 			"general" => array(
 				"firmware" => array("name" => __("Firmware", __FILE__), "type" => "info", "subtype" => "string", "xpath" => "//info/firmware", "order" => 0),
@@ -337,11 +340,12 @@ class wescontrol extends eqLogic {
 		foreach ($this->getListeCommandes()[$type] as $logicalId => $details) {
 			if (isset($details['filter'])) {
 				foreach ($details['filter'] as $param => $value) {
+					$valueArray = explode('|',$value);
 					if ($param == 'usecustomcgx' && $type != 'general') {
-						if (eqLogic::byId(substr($this->getLogicalId(), 0, strpos($this->getLogicalId(), "_")))->getConfiguration($param) != $value) {
+						if (!in_array(eqLogic::byId(substr($this->getLogicalId(), 0, strpos($this->getLogicalId(), "_")))->getConfiguration($param),$valueArray)) {
 							continue 2;
 						}
-					} else if ($this->getConfiguration($param) != $value) {
+					} else if (!in_array($this->getConfiguration($param),$valueArray)) {
 						continue 2;
 					}
 				}

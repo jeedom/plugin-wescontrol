@@ -302,6 +302,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 										<option value="" disabled>*** {{A renseigner}} ***</option>
 										<option value="consumption">{{Consommation}}</option>
 										<option value="production">{{Production}}</option>
+										<option value="consumptionprod">{{Consommation/Production}}</option>
 									</select>
 								</div>
 							</div>
