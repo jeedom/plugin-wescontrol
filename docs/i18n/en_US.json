@@ -2,6 +2,13 @@
     "changelog.md": {
         "Changelog Wes Control": "Changelog Wes Control",
         "Pour rappel, s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement la mise à jour de documentation, de traduction ou de texte": "As a reminder, if there is no information on the update, it is because it only concerns the update of documentation, translation or text",
+        "10\/01\/2024": "10\/01\/2024",
+        "Nouvelle version du fichier CGX V1.0.5": "New version of CGX file V1.0.5",
+        "Rajout de \"Consommation\/Production\" à la liste TIC": "Addition of “Consumption\/Production” to the TIC list",
+        "Changement technique de la gestiond des filtres pour avoir des champs déclarés sur plusieurs combinaisons de filtres": "Technical change to filter management to have fields declared on several filter combinations",
+        "Rajout d'une commande \"Producteur\" 1 si production activé par Enedis 0 sinon": "Addition of a “Producer” order 1 if production activated by Enedis 0 otherwise",
+        "Rajout de l'index d'injection (non remonté si producteur à 0": "Addition of the injection index (not reported if producer at 0",
+        "Rajout de puissance apparente injectée (non remontée si producteur à 0": "Addition of apparent injected power (not reported if producer at 0",
         "13\/12\/2022": "12\/13\/2022",
         "Vérification de la pleine compatibilité du plugin en fonction de sa version et de celle du firmware du Wes": "Verification of the full compatibility of the plugin according to its version and that of the firmware of the Wes",
         "plugin stable \/": "stable-plugin\/",
