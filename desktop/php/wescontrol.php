@@ -78,13 +78,13 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 					$title = 'Firmware ' . $firmwareWes;
 					$labelColor = 'label-success';
 					if (version_compare($firmwareWes, 'V0.84A10', '<')) {
-						if ($pluginVersion != 'less-than-V0.84A10') {
+						if ($pluginVersion !== 'less-than-V0.84A10') {
 							$title = '{{Firmware inférieur à V0.84A10, nécessite la version less-than-V0.84A10 du plugin (voir documentation)}}';
 							$labelColor = 'label-danger';
 						}
 					} else {
-						if ($pluginVersion === 'beta0.85') {
-							$title = "{{La branche beta0.85 n'est plus nécessaire, vous pouvez repasser en version beta ou stable}}";
+						if ($pluginVersion !== 'beta' && $pluginVersion !== 'stable') {
+							$title = "{{La version actuelle du plugin ne semble pas adaptée, vous pouvez repasser en beta ou stable}}";
 							$labelColor = 'label-warning';
 						}
 					}
