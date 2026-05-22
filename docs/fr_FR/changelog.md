@@ -7,6 +7,7 @@
 # 22/05/2026
 
 - Version de firmware Wes minimale requise : **V0.84A10** *(passer sur la branche less-than-V0.84A10 pour les versions inférieures)*
+- Diverses corrections pour Debian 12/PHP 8
 
 # 10/01/2024
 
