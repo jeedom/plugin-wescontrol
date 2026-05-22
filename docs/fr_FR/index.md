@@ -8,6 +8,9 @@ Ce plugin va vous permettre de prendre le contrôle de votre [**serveur d'énerg
 >
 >Le plugin est compatible avec les serveurs Wes en firmware `V0.84A10` minimum. Pour les versions inférieures il existe [la branche less-than-V0.84A10](https://github.com/jeedom/plugin-wescontrol/tree/less-than-V0.84A10) installable depuis Github.
 
+>
+>L’équipe travaille d’ores et déjà à l’intégration des extensions Wes actuellement non prises en charge telles que l’extension 8 relais ou modbus et fera son maximum pour faire évoluer le plugin en ce sens dans les meilleurs délais.
+
 # Configuration générale
 
 ## Configuration du plugin
