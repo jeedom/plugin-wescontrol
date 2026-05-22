@@ -241,6 +241,8 @@
         "En cours de mise à jour des fichiers CGX sur tous les serveurs Wes": "Updating CGX files on all Wes servers",
         "Fréquence de rafraîchissement": "Refresh rate",
         "Mettre tous les serveurs Wes à jour": "Update all Wes servers",
+        "Nous vous conseillons de basculer sur la version beta du plugin pour une meilleure compatibilité avec les firmwares Wes supérieurs ou égaux à V0.84A10.": "We recommend switching to the beta version of the plugin for better compatibility with Wes firmware versions V0.84A10 or higher.",
+        "Nous vous conseillons de basculer sur la version stable du plugin pour une meilleure compatibilité avec les firmwares Wes inférieurs à V0.84A10.": "We recommend switching to the stable version of the plugin for better compatibility with Wes firmware versions earlier than V0.84A10.",
         "Numéro de la dernière version du fichier CGX disponible dans le plugin": "Number of the latest version of the CGX file available in the plugin",
         "Tous les serveurs Wes sont à jour": "All Wes servers are up to date",
         "Version du fichier CGX": "CGX File Version",
