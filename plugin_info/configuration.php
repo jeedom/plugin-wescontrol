@@ -70,11 +70,6 @@ if (!isConnect('admin')) {
 						$updatebutton .= '<i class="fas fa-sync"></i> {{Mettre tous les serveurs Wes à jour}}</a>';
 					}
 					echo '<span class="label ' . $cgxAlert . '">' . $message . '</span><br>' . $updatebutton;
-					if ($countNeedBeta > 0) {
-						echo '<div class="alert alert-warning">{{Nous vous conseillons de basculer sur la version beta du plugin pour une meilleure compatibilité avec les firmwares Wes supérieurs ou égaux à V0.84A10.}}</div>';
-					} else if ($countNeedStable > 0) {
-						echo '<div class="alert alert-warning">{{Nous vous conseillons de basculer sur la version stable du plugin pour une meilleure compatibilité avec les firmwares Wes inférieurs à V0.84A10.}}</div>';
-					}
 				}
 				?>
 			</div>
