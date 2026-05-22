@@ -320,7 +320,7 @@ class wescontrol extends eqLogic {
 		if ($return === false) {
 			throw new Exception(__("Le serveur Wes n'est pas joignable.", __FILE__));
 		}
-		usleep(50);
+		// usleep(50);
 		$this->pull();
 		return;
 	}
@@ -341,12 +341,12 @@ class wescontrol extends eqLogic {
 		foreach ($this->getListeCommandes()[$type] as $logicalId => $details) {
 			if (isset($details['filter'])) {
 				foreach ($details['filter'] as $param => $value) {
-					$valueArray = explode('|',$value);
+					$valueArray = explode('|', $value);
 					if ($param == 'usecustomcgx' && $type != 'general') {
-						if (!in_array(eqLogic::byId(substr($this->getLogicalId(), 0, strpos($this->getLogicalId(), "_")))->getConfiguration($param),$valueArray)) {
+						if (!in_array(eqLogic::byId(substr($this->getLogicalId(), 0, strpos($this->getLogicalId(), "_")))->getConfiguration($param), $valueArray)) {
 							continue 2;
 						}
-					} else if (!in_array($this->getConfiguration($param),$valueArray)) {
+					} else if (!in_array($this->getConfiguration($param), $valueArray)) {
 						continue 2;
 					}
 				}
@@ -428,7 +428,8 @@ class wescontrol extends eqLogic {
 				if (!isset($data['ignoreCreation'])) {
 					$id = 1;
 					while ($id <= $data['maxnumber']) {
-						if (!is_object(self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__)) && $this->getConfiguration($type . $id, 0) == 1) {
+						$existing = self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__);
+						if (!is_object($existing) && $this->getConfiguration($type . $id, 0) == 1) {
 							log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __("Création de l'équipement", __FILE__) . ' ' . $data['type'] . ' ' . $id . ' : ' . $this->getId() . $data['logical'] . $id);
 							$eqLogic = (new wescontrol)
 								->setEqType_name(__CLASS__)
@@ -443,14 +444,12 @@ class wescontrol extends eqLogic {
 							$eqLogic->setDisplay('width', $data['width']);
 							$eqLogic->setDisplay('height', $data['height']);
 							$eqLogic->save();
-						} else if (is_object(self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__))) {
+						} else if (is_object($existing)) {
 							if ($this->getConfiguration($type . $id, 0) == 0) {
-								$toRemove = self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__);
-								log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __("Suppression automatique de l'équipement", __FILE__) . ' : ' . $toRemove->getName() . ' ' . $toRemove->getLogicalId());
-								$toRemove->remove();
+								log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __("Suppression automatique de l'équipement", __FILE__) . ' : ' . $existing->getName() . ' ' . $existing->getLogicalId());
+								$existing->remove();
 							} else {
-								self::byLogicalId($this->getId() . $data['logical'] . $id, __CLASS__)
-									->setConfiguration('ip', $this->getConfiguration('ip'))
+								$existing->setConfiguration('ip', $this->getConfiguration('ip'))
 									->setConfiguration('username', $this->getConfiguration('username'))
 									->setConfiguration('password', $this->getConfiguration('password'))
 									->save();
@@ -488,14 +487,14 @@ class wescontrol extends eqLogic {
 			curl_setopt($curl, CURLOPT_TIMEOUT, 5);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 			$return = curl_exec($curl);
-			curl_close($curl);
 			$count = 0;
 			while ($return === false && $count < 3) {
 				log::add(__CLASS__, 'warning', $this->getHumanName() . ' ' . __('Tentative échouée, nouvelle interrogation du serveur Wes', __FILE__));
+				sleep(1);
 				$return = curl_exec($curl);
-				curl_close($curl);
 				$count++;
 			}
+			curl_close($curl);
 			if ($return === false) {
 				$this->checkAndUpdateCmd('status', 0);
 				log::add(__CLASS__, 'error', $this->getHumanName() . ' ' . __("Le serveur Wes n'est pas joignable ou les données sont mal formatées : ", __FILE__) . ' ' . $url);
@@ -511,7 +510,7 @@ class wescontrol extends eqLogic {
 			foreach (self::byType(__CLASS__) as $eqLogic) {
 				if ($eqLogic->getIsEnable() && ($eqLogic->getId() == $this->getId() || substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(), "_")) == $this->getId())) {
 					$typeId = substr($eqLogic->getLogicalId(), strpos($eqLogic->getLogicalId(), "_") + 2);
-					foreach (self::getListeCommandes()[$eqLogic->getConfiguration('type', '')] as $logical => $details) {
+					foreach ($eqLogic->getListeCommandes()[$eqLogic->getConfiguration('type', '')] as $logical => $details) {
 						if (isset($details['xpath']) && $details['xpath'] != '') {
 							$xpath = $details['xpath'];
 							if (isset($details['cond'])) {
@@ -523,8 +522,8 @@ class wescontrol extends eqLogic {
 							}
 							$xpathModele = str_replace('#id#', $typeId, $xpath);
 							$status = $xml->xpath($xpathModele);
-							$value = (string) $status[0];
-							if (count($status) != 0) {
+							if (is_array($status) && count($status) > 0) {
+								$value = (string) $status[0];
 								if ($eqLogic->getConfiguration('type', '') == 'relais' && $logical == 'state') {
 									$value = ($value == 'ON') ? 1 : 0;
 								}
@@ -557,7 +556,7 @@ class wescontrolCmd extends cmd {
 	public function execute($_options = null) {
 		$eqLogic = $this->getEqLogic();
 		if (!is_object($eqLogic) || $eqLogic->getIsEnable() != 1) {
-			throw new Exception(__("Équipement désactivé, impossible d'exécuter la commande", __FILE__) . ' : ' . $this->getHumaName());
+			throw new Exception(__("Équipement désactivé, impossible d'exécuter la commande", __FILE__) . ' : ' . $this->getHumanName());
 		}
 		log::add('wescontrol', 'debug', $eqLogic->getHumanName() . ' ' . __('Exécution de la commande.', __FILE__) . ' ' . $this->getName());
 		$wesEqLogic = eqLogic::byId(substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(), "_")));
