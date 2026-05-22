@@ -4,15 +4,18 @@
 >
 >Pour rappel, s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement la mise à jour de documentation, de traduction ou de texte.
 
+# 22/05/2026
+
+- Version de firmware Wes minimale requise : **V0.84A10** *(passer sur la branche less-than-V0.84A10 pour les versions inférieures)*
+
 # 10/01/2024
 
 - Nouvelle version du fichier CGX V1.0.5
 
-- Rajout de "Consommation/Production" à la liste TIC
-- Changement technique de la gestiond des filtres pour avoir des champs déclarés sur plusieurs combinaisons de filtres
-- Rajout d'une commande "Producteur" 1 si production activé par Enedis 0 sinon
-- Rajout de l'index d'injection (non remonté si producteur à 0)
-- Rajout de puissance apparente injectée (non remontée si producteur à 0)
+- Ajout de "Consommation/Production" à la liste TIC
+- Ajout d'une commande "Producteur" *(1 si production activée par Enedis, 0 sinon)*
+- Ajout de l'index d'injection *(non remonté si producteur à 0)*
+- Ajout de puissance apparente injectée *(non remontée si producteur à 0)*
 
 # 13/12/2022
 
