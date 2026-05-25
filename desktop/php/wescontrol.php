@@ -57,6 +57,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 				}
 			}
 
+			$pluginVersion = update::byLogicalId('wescontrol')->getConfiguration('version');
 			foreach ($generalEqLogics as $generalEqLogic) {
 				$generalEqId = $generalEqLogic->getId();
 				echo '<div style="width:100%;display:flex;">';
@@ -72,6 +73,23 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 				}
 				echo '<img src="' . $img . '" style="padding-top: unset!important;">';
 				echo '<span class="name">' . $generalEqLogic->getHumanName(true, true) . '</span>';
+				$firmwareWes = $generalEqLogic->getCmd('info', 'firmware')->execCmd();
+				if (!empty($firmwareWes)) {
+					$title = 'Firmware ' . $firmwareWes;
+					$labelColor = 'label-success';
+					if (version_compare($firmwareWes, 'V0.84A10', '<')) {
+						if ($pluginVersion !== 'less-than-V0.84A10') {
+							$title = '{{Firmware inférieur à V0.84A10, nécessite la version less-than-V0.84A10 du plugin (voir documentation)}}';
+							$labelColor = 'label-danger';
+						}
+					} else {
+						if ($pluginVersion !== 'beta' && $pluginVersion !== 'stable') {
+							$title = "{{La version actuelle du plugin ne semble pas adaptée, vous pouvez repasser en beta ou stable}}";
+							$labelColor = 'label-warning';
+						}
+					}
+					echo '<span class="label ' . $labelColor . '" title="' . $title . '">' . $firmwareWes . '</span>';
+				}
 				echo '</div>';
 				echo '</div>';
 
@@ -92,7 +110,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 						$img = 'plugins/wescontrol/core/config/' . $type . '.png';
 					}
 					$countTotal = count($childEqLogic);
-					$countActive = (!empty($activeChildEqLogics[$generalEqId])) ? count($activeChildEqLogics[$generalEqId][$type]) : 0;
+					$countActive = (isset($activeChildEqLogics[$generalEqId]) && isset($activeChildEqLogics[$generalEqId][$type])) ? count($activeChildEqLogics[$generalEqId][$type]) : 0;
 					$classCount = 'icon_orange';
 					if ($countActive == $countTotal) {
 						$classCount = 'icon_green';
@@ -302,6 +320,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 										<option value="" disabled>*** {{A renseigner}} ***</option>
 										<option value="consumption">{{Consommation}}</option>
 										<option value="production">{{Production}}</option>
+										<option value="consumptionprod">{{Consommation/Production}}</option>
 									</select>
 								</div>
 							</div>
