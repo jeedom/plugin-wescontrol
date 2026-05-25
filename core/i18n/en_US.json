@@ -77,6 +77,7 @@
         "Mise à jour CGX": "CGX update",
         "Mise à jour CGX impossible : informations de connexion FTP non renseignées": "CGX update not possible: FTP connection information not filled in",
         "Mise à jour du fichier CGX Jeedom disponible. Version actuelle": "Jeedom CGX file update available. Current version",
+        "Modbus": "Modbus",
         "Nouvelle version": "New version",
         "Nouvelle version.": "New version",
         "Numéro compteur": "Meter number",
