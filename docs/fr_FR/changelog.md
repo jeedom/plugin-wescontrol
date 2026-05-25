@@ -4,6 +4,11 @@
 >
 >Pour rappel, s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement la mise à jour de documentation, de traduction ou de texte.
 
+# 25/05/2026
+
+- Nouvelle version du fichier CGX V1.0.6
+- Ajout de la prise en charge des variables Modbus *(firmware WES >= V0.9b05)*
+
 # 22/05/2026
 
 - Version de firmware Wes minimale requise : **V0.84A10** *(passer sur la branche less-than-V0.84A10 pour les versions inférieures)*
