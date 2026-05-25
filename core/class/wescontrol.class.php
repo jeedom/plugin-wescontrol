@@ -150,6 +150,9 @@ class wescontrol extends eqLogic {
 			),
 			"variable" => array(
 				"value" => array("name" => __("Valeur", __FILE__), "type" => "info", "subtype" => "numeric", "xpath" => "//variables/VARIABLE#id#", "dashboard" => "tile", "mobile" => "tile")
+			),
+			"modbus" => array(
+				"value" => array("name" => __("Valeur", __FILE__), "type" => "info", "subtype" => "numeric", "xpath" => "//mbval/MBVAL#id#", "dashboard" => "tile", "mobile" => "tile")
 			)
 		);
 		return $commands;
@@ -167,6 +170,7 @@ class wescontrol extends eqLogic {
 			"switch" => array("name" => __("Switchs virtuels", __FILE__), "logical" => "_S", "HTM" => "RELAIS.HTM", "category" => "automatism", "width" => "112px", "height" => "172px", "xpath" => "//switch_virtuel/SWITCH#id#", "maxnumber" => 24, "type" => __("Switch", __FILE__)),
 			"teleinfo" => array("name" => __("Téléinfo", __FILE__), "logical" => "_T", "HTM" => "TICVAL.HTM", "width" => "312px", "height" => "492px", "category" => "energy", "xpath" => "//tic#id#/ADCO", "maxnumber" => 3, "type" => __("TIC", __FILE__), "alternateimg" => ["type" => "select", "value" => "typetic"]),
 			"variable" => array("name" => __("Variables", __FILE__), "logical" => "_V", "HTM" => "", "category" => "automatism", "width" => "112px", "height" => "172px", "xpath" => "//variables/VARIABLE#id#", "maxnumber" => 8, "type" => __("Variable", __FILE__)),
+			"modbus" => array("name" => __("Modbus", __FILE__), "logical" => "_M", "HTM" => "MBVAR.HTM", "category" => "automatism", "width" => "112px", "height" => "172px", "xpath" => "//mbval/MBVAL#id#", "maxnumber" => 30, "type" => __("Modbus", __FILE__))
 		);
 		return $types;
 	}
@@ -508,9 +512,14 @@ class wescontrol extends eqLogic {
 			}
 			$this->checkAndUpdateCmd('status', 1);
 			foreach (self::byType(__CLASS__) as $eqLogic) {
-				if ($eqLogic->getIsEnable() && ($eqLogic->getId() == $this->getId() || substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(), "_")) == $this->getId())) {
-					$typeId = substr($eqLogic->getLogicalId(), strpos($eqLogic->getLogicalId(), "_") + 2);
-					foreach ($eqLogic->getListeCommandes()[$eqLogic->getConfiguration('type', '')] as $logical => $details) {
+				$logicalId = $eqLogic->getLogicalId();
+				if ($eqLogic->getIsEnable() && ($eqLogic->getId() == $this->getId() || substr($logicalId, 0, strpos($logicalId, "_")) == $this->getId())) {
+					$type = $eqLogic->getConfiguration('type', '');
+					$typeId = substr($logicalId, strpos($logicalId, "_") + 2);
+					if ($type === 'modbus') {
+						$typeId = sprintf("%02d", $typeId);
+					}
+					foreach ($eqLogic->getListeCommandes()[$type] as $logical => $details) {
 						if (isset($details['xpath']) && $details['xpath'] != '') {
 							$xpath = $details['xpath'];
 							if (isset($details['cond'])) {
@@ -524,10 +533,10 @@ class wescontrol extends eqLogic {
 							$status = $xml->xpath($xpathModele);
 							if (is_array($status) && count($status) > 0) {
 								$value = (string) $status[0];
-								if ($eqLogic->getConfiguration('type', '') == 'relais' && $logical == 'state') {
+								if ($type == 'relais' && $logical == 'state') {
 									$value = ($value == 'ON') ? 1 : 0;
 								}
-								if ($eqLogic->getConfiguration('type', '') == 'general' && $logical == 'servercgxversion' && $eqLogic->getConfiguration('usecustomcgx', 0) == 1) {
+								if ($type == 'general' && $logical == 'servercgxversion' && $eqLogic->getConfiguration('usecustomcgx', 0) == 1) {
 									if (version_compare($value, config::byKey('cgxversion', __CLASS__, ''), '<')) {
 										if ($eqLogic->getConfiguration('autoupdatecgx', 0) == 1) {
 											log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Tentative de mise à jour automatique du fichier CGX', __FILE__));
