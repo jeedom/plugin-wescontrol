@@ -239,8 +239,8 @@ class wescontrol extends eqLogic {
 		}
 	}
 
-	public function sendFtp($ftpIp, $ftpUser, $ftpPass) {
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Envoi du fichier CGX personnalisé au serveur Wes', __FILE__) . ' : V' . config::byKey('cgxversion', __CLASS__, ''));
+	public function sendCGXByFtp(string $ftpIp, string $ftpUser, string $ftpPass): bool {
+		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Envoi du fichier CGX personnalisé au serveur Wes', __FILE__) . ' : V' . config::byKey('cgxversion', __CLASS__));
 		$local_file = dirname(__FILE__) . '/../../resources/DATA_JEEDOM.CGX';
 		$connection = ftp_connect($ftpIp);
 		if (@ftp_login($connection, $ftpUser, $ftpPass)) {
@@ -252,7 +252,7 @@ class wescontrol extends eqLogic {
 		}
 		ftp_pasv($connection, true);
 		if (ftp_put($connection, '/DATA_JEEDOM.CGX',  $local_file, FTP_BINARY)) {
-			log::add(__CLASS__, 'debug', $this->getHumanName()  . ' ' . __('Fichier CGX correctement transmis au serveur Wes', __FILE__));
+			log::add(__CLASS__, 'info', $this->getHumanName()  . ' ' . __('Fichier CGX correctement transmis au serveur Wes', __FILE__));
 			ftp_close($connection);
 			return true;
 		} else {
@@ -262,27 +262,51 @@ class wescontrol extends eqLogic {
 		}
 	}
 
-	public function doCGXUpdate() {
-		$serverVersion = $this->getCmd('info', 'servercgxversion')->execCmd();
-		$localVersion = config::byKey('cgxversion', __CLASS__, '');
-		if (version_compare($serverVersion, $localVersion, '<')) {
-			$ftpIp = $this->getConfiguration('ip', '');
-			$ftpUser = $this->getConfiguration('ftpusername', '');
-			$ftpPass = $this->getConfiguration('ftppassword', '');
-			if (!empty($ftpIp) && !empty($ftpUser) && !empty($ftpPass)) {
-				if ($this->sendFtp($ftpIp, $ftpUser, $ftpPass)) {
-					$this->checkAndUpdateCmd('cgxupdate', 0);
+	public function checkAndUpdateCGX(string $_serverVersion = null, bool $_auto = false) {
+		if ($this->getConfiguration('type') !== 'general' || $this->getConfiguration('usecustomcgx', 0) != 1) {
+			return;
+		}
+
+		$CGXUpdateMessage = null;
+		$localVersion = config::byKey('cgxversion', __CLASS__);
+		if (empty($_serverVersion)) {
+			$_serverVersion = $this->getCmd('info', 'servercgxversion')->execCmd();
+		}
+
+		if (version_compare($_serverVersion, $localVersion, '<')) {
+			$CGXUpdateMessage = __('Mise à jour du fichier CGX Jeedom disponible. Version actuelle', __FILE__) . ' : ' . $_serverVersion . ' / ' .  __('Nouvelle version', __FILE__) . ' : ' . $localVersion;
+			if (!$_auto || $this->getConfiguration('autoupdatecgx', 0) == 1) {
+				log::add(__CLASS__, 'info', $this->getHumanName() . ' ' . $CGXUpdateMessage);
+				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Tentative de mise à jour du fichier CGX', __FILE__) . ($_auto ? ' (auto)' : ''));
+				$ftpIp = $this->getConfiguration('ip');
+				$ftpUser = $this->getConfiguration('ftpusername');
+				$ftpPass = $this->getConfiguration('ftppassword');
+				if (!empty($ftpIp) && !empty($ftpUser) && !empty($ftpPass)) {
+					if ($this->sendCGXByFtp($ftpIp, $ftpUser, $ftpPass)) {
+						$CGXUpdateMessage = null;
+					}
 				} else {
-					$this->checkAndUpdateCmd('cgxupdate', 1);
-					message::add(__CLASS__, $this->getHumanName()  . ' ' . __('Mise à jour du fichier CGX Jeedom disponible. Version actuelle', __FILE__) . ' : ' . $serverVersion . ' / ' .  __('Nouvelle version', __FILE__) . ' : ' . $localVersion, '', 'needsCgxUpdate' . $this->getId());
+					log::add(__CLASS__, 'warning', $this->getHumanName() . ' ' . __('Mise à jour CGX impossible : informations de connexion FTP non renseignées', __FILE__));
 				}
-			} else {
-				log::add(__CLASS__, 'warning', $this->getHumanName() . ' ' . __('Mise à jour CGX impossible : informations de connexion FTP non renseignées', __FILE__));
-				$this->checkAndUpdateCmd('cgxupdate', 1);
-				message::add(__CLASS__, $this->getHumanName() . ' ' . __('Mise à jour du fichier CGX Jeedom disponible. Version actuelle', __FILE__) . ' : ' . $serverVersion . ' / ' .  __('Nouvelle version', __FILE__) . ' : ' . $localVersion, '', 'needsCgxUpdate' . $this->getId());
+			}
+		}
+
+		$displayedMessage = message::byPluginLogicalId(__CLASS__, 'needsCgxUpdate' . $this->getId())[0] ?? null;
+		if ($CGXUpdateMessage) {
+			$this->checkAndUpdateCmd('cgxupdate', 1);
+
+			if (!is_object($displayedMessage)) {
+				message::add(__CLASS__, $this->getHumanName() . ' ' . $CGXUpdateMessage, '', 'needsCgxUpdate' . $this->getId());
+			} else if ($displayedMessage->getMessage() != $this->getHumanName() . ' ' . $CGXUpdateMessage) {
+				$displayedMessage->remove();
+				message::add(__CLASS__, $this->getHumanName() . ' ' . $CGXUpdateMessage, '', 'needsCgxUpdate' . $this->getId());
 			}
 		} else {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Le fichier CGX sur le serveur est déjà en dernière version', __FILE__));
+			$this->checkAndUpdateCmd('cgxupdate', 0);
+
+			if (is_object($displayedMessage)) {
+				$displayedMessage->remove();
+			}
 		}
 	}
 
@@ -301,7 +325,7 @@ class wescontrol extends eqLogic {
 		return $url;
 	}
 
-	public function execUrl($_logical, $_type, $_typeId = '') {
+	public function execUrl(string $_logical, string $_type, $_typeId = '') {
 		$url = 'http://' . $this->getConfiguration('ip');
 		if ($this->getConfiguration('port') != '') {
 			$url .= ':' . $this->getConfiguration('port');
@@ -514,7 +538,7 @@ class wescontrol extends eqLogic {
 			foreach (self::byType(__CLASS__) as $eqLogic) {
 				$logicalId = $eqLogic->getLogicalId();
 				if ($eqLogic->getIsEnable() && ($eqLogic->getId() == $this->getId() || substr($logicalId, 0, strpos($logicalId, "_")) == $this->getId())) {
-					$type = $eqLogic->getConfiguration('type', '');
+					$type = $eqLogic->getConfiguration('type');
 					$typeId = substr($logicalId, strpos($logicalId, "_") + 2);
 					if ($type === 'modbus') {
 						$typeId = sprintf("%02d", $typeId);
@@ -536,20 +560,12 @@ class wescontrol extends eqLogic {
 								if ($type == 'relais' && $logical == 'state') {
 									$value = ($value == 'ON') ? 1 : 0;
 								}
-								if ($type == 'general' && $logical == 'servercgxversion' && $eqLogic->getConfiguration('usecustomcgx', 0) == 1) {
-									if (version_compare($value, config::byKey('cgxversion', __CLASS__, ''), '<')) {
-										if ($eqLogic->getConfiguration('autoupdatecgx', 0) == 1) {
-											log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Tentative de mise à jour automatique du fichier CGX', __FILE__));
-											$eqLogic->doCGXUpdate();
-										} else {
-											$eqLogic->checkAndUpdateCmd('cgxupdate', 1);
-											message::add(__CLASS__, $eqLogic->getHumanName() . ' ' . __('Mise à jour du fichier CGX Jeedom disponible. Version actuelle', __FILE__) . ' : ' . $value . ' / ' .  __('Nouvelle version.', __FILE__) . ' : ' . config::byKey('cgxversion', __CLASS__, ''), '', 'needsCgxUpdate' . $eqLogic->getId());
-										}
-									} else {
-										$eqLogic->checkAndUpdateCmd('cgxupdate', 0);
-									}
-								}
+
 								$eqLogic->checkAndUpdateCmd($logical, $value);
+
+								if ($logical == 'servercgxversion') {
+									$eqLogic->checkAndUpdateCGX($value, true);
+								}
 							}
 						}
 					}
@@ -568,16 +584,16 @@ class wescontrolCmd extends cmd {
 			throw new Exception(__("Équipement désactivé, impossible d'exécuter la commande", __FILE__) . ' : ' . $this->getHumanName());
 		}
 		log::add('wescontrol', 'debug', $eqLogic->getHumanName() . ' ' . __('Exécution de la commande.', __FILE__) . ' ' . $this->getName());
-		$wesEqLogic = eqLogic::byId(substr($eqLogic->getLogicalId(), 0, strpos($eqLogic->getLogicalId(), "_")));
-		$typeId = substr($eqLogic->getLogicalId(), strpos($eqLogic->getLogicalId(), "_") + 2);
+		$eqLogicalId = $eqLogic->getLogicalId();
+		$typeId = substr($eqLogicalId, strpos($eqLogicalId, "_") + 2);
 		if ($eqLogic->getConfiguration('type') == 'general') {
 			if ($this->getLogicalId() == 'docgxupdate') {
-				log::add('wescontrol', 'debug', $eqLogic->getHumanName() . ' ' . __('Tentative de mise à jour manuelle du fichier CGX', __FILE__));
-				$eqLogic->doCGXUpdate();
+				$eqLogic->checkAndUpdateCGX();
 			} else {
 				$eqLogic->execUrl($this->getLogicalId(), 'general', $typeId);
 			}
 		} else {
+			$wesEqLogic = eqLogic::byId(substr($eqLogicalId, 0, strpos($eqLogicalId, "_")));
 			$wesEqLogic->execUrl($this->getLogicalId(), $eqLogic->getConfiguration('type'), $typeId);
 		}
 		return;
