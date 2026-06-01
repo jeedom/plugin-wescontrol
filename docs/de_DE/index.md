@@ -6,7 +6,7 @@ Mit diesem Plugin können Sie die Kontrolle über Ihr Plugin übernehmen [**Cart
 
 >**WICHTIG**
 >
->Da sich dieses Material in ständiger Entwicklung befindet, bietet das Plugin in stabiler Version volle Kompatibilität mit Wes-Servern mit Firmware niedriger als `V0.84A10‘ und die Beta-Version mit Firmware größer oder gleich ‚V0.84A10‘.
+>..  [](https://github.com/jeedom/plugin-wescontrol/tree/less-than-V0.84A10) .
 
 >
 >Das Team arbeitet bereits an der Integration der derzeit nicht unterstützten Wes-Erweiterungen wie der 8-Relais- oder Modbus-Erweiterung und wird sein Bestes tun, um das Plugin so schnell wie möglich in diese Richtung zu entwickeln.

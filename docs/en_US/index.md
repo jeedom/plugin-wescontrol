@@ -6,7 +6,7 @@ This plugin will allow you to take control of your [**CartElectronic WES energy 
 
 >**IMPORTANT**
 >
->This material being in constant evolution, the plugin in stable version offers full compatibility with Wes servers with firmware lower than `V0.84A10` and the beta version with firmware greater than or equal to `V0.84A10`.
+>..  [](https://github.com/jeedom/plugin-wescontrol/tree/less-than-V0.84A10) .
 
 >
 >The team is already working on the integration of the currently unsupported Wes extensions such as the 8 relay or modbus extension and will do its best to develop the plugin in this direction as soon as possible.
