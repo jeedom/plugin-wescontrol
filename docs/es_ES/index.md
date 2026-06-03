@@ -6,7 +6,7 @@ Este complemento le permitirá tomar el control de su [**Servidor de energía el
 
 >**IMPORTANTE**
 >
->..  [](https://github.com/jeedom/plugin-wescontrol/tree/less-than-V0.84A10) .
+>Le plugin est compatible avec les serveurs Wes en firmware `V0.84A10` minimum. Pour les versions inférieures il existe [la branche less-than-V0.84A10](https://github.com/jeedom/plugin-wescontrol/tree/less-than-V0.84A10) installable depuis Github.
 
 >
 >El equipo ya está trabajando en la integración de las extensiones Wes actualmente no compatibles, como el relé 8 o la extensión modbus, y hará todo lo posible para desarrollar el complemento en esta dirección lo antes posible.
