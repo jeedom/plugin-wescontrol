@@ -4,6 +4,15 @@
 >
 >Recorde-se que, se não existe informação sobre a atualização, é porque se trata apenas de atualização de documentação, tradução ou texto.
 
+# 05/06/2026
+
+- Suporte para imagens personalizadas em mosaicos de equipamentos
+- Versão mínima do Jeedom necessária : **4.4**
+
+# 01/06/2026
+
+- Correção no tratamento de mensagens de atualização de CGX : Criação, atualização e exclusão automáticas com base no estado atual do servidor Wes
+
 # 25/05/2026
 
 - Nouvelle version du fichier CGX V1.0.6

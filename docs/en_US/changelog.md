@@ -4,6 +4,15 @@
 >
 >As a reminder, if there is no information on the update, it is because it only concerns the update of documentation, translation or text.
 
+# 
+
+- 
+-  : **4.4**
+
+# 
+
+- X : 
+
 # 25/05/2026
 
 - Nouvelle version du fichier CGX V1.0.6
