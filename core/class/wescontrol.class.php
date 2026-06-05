@@ -574,6 +574,35 @@ class wescontrol extends eqLogic {
 			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __("Fin d'interrogation du serveur Wes", __FILE__));
 		}
 	}
+
+	public function getImage(): string {
+		if (method_exists($this, 'getCustomImage')) {
+			$customImage = $this->getCustomImage();
+			if ($customImage !== null) {
+				return $customImage;
+			}
+		}
+
+		$eqType = $this->getConfiguration('type');
+		$eqDetails = self::getTypes()[$eqType];
+		if (isset($eqDetails['alternateimg'])) {
+			$alternateImg = $eqDetails['alternateimg'];
+			if ($alternateImg['type'] == 'binary' && $this->getConfiguration($alternateImg['value'], 0) == 1 && file_exists(dirname(__FILE__) . '/../../core/config/' . $eqType . '_' . $alternateImg['value'] . '.png')) {
+				return 'plugins/wescontrol/core/config/' . $eqType . '_' . $alternateImg['value'] . '.png';
+			} else if ($alternateImg['type'] == 'select') {
+				$val = $this->getConfiguration($alternateImg['value']);
+				if (file_exists(dirname(__FILE__) . '/../../core/config/' . $eqType . '_' . $val . '.png')) {
+					return 'plugins/wescontrol/core/config/' . $eqType . '_' . $val . '.png';
+				}
+			}
+		}
+		if (file_exists(dirname(__FILE__) . '/../../core/config/' . $eqType . '.png')) {
+			return 'plugins/wescontrol/core/config/' . $eqType . '.png';
+		}
+
+		$plugin = plugin::byId(__CLASS__);
+		return $plugin->getPathImgIcon();
+	}
 }
 
 class wescontrolCmd extends cmd {

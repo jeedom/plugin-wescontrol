@@ -64,14 +64,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 				echo '<div class="eqLogicThumbnailContainer" style="width:130px;">';
 				$opacity = ($generalEqLogic->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $generalEqId . '">';
-				$img = $plugin->getPathImgIcon();
-				if (file_exists(dirname(__FILE__) . '/../../core/config/general.png')) {
-					$img = 'plugins/wescontrol/core/config/general.png';
-				}
-				if ($generalEqLogic->getConfiguration('screen', 0) == 1 && file_exists(dirname(__FILE__) . '/../../core/config/general_screen.png')) {
-					$img = 'plugins/wescontrol/core/config/general_screen.png';
-				}
-				echo '<img src="' . $img . '" style="padding-top: unset!important;">';
+				echo '<img src="' . $generalEqLogic->getImage() . '" style="padding-top: unset!important;">';
 				echo '<span class="name">' . $generalEqLogic->getHumanName(true, true) . '</span>';
 				$firmwareWes = $generalEqLogic->getCmd('info', 'firmware')->execCmd();
 				if (!empty($firmwareWes)) {
@@ -105,9 +98,10 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 					echo '<div class="panel-heading">';
 					echo '<div class="panel-title">';
 					echo '<a class="accordion-toggle wescontrolTab" data-toggle="collapse" data-parent="" aria-expanded="false" href="#wescontrol_' . $type . $generalEqId . '">';
-					$img = $plugin->getPathImgIcon();
 					if (file_exists(dirname(__FILE__) . '/../../core/config/' . $type . '.png')) {
 						$img = 'plugins/wescontrol/core/config/' . $type . '.png';
+					} else {
+						$img = $plugin->getPathImgIcon();
 					}
 					$countTotal = count($childEqLogic);
 					$countActive = (isset($activeChildEqLogics[$generalEqId]) && isset($activeChildEqLogics[$generalEqId][$type])) ? count($activeChildEqLogics[$generalEqId][$type]) : 0;
@@ -126,17 +120,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 					foreach ($childEqLogic as $eqLogic) {
 						$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
 						echo '<div class="eqLogicDisplayCard cursor childEqLogic ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
-						if (file_exists(dirname(__FILE__) . '/../../core/config/' . $type . '.png')) {
-							$img = 'plugins/wescontrol/core/config/' . $type . '.png';
-						}
-						if (isset($typeArray[$type]['alternateimg'])) {
-							if ($typeArray[$type]['alternateimg']['type'] == 'binary' && $eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'], 0) == 1 && file_exists(dirname(__FILE__) . '/../../core/config/' . $type . '_' . $typeArray[$type]['alternateimg']['value'] . '.png')) {
-								$img = 'plugins/wescontrol/core/config/' . $type . '_' . $typeArray[$type]['alternateimg']['value'] . '.png';
-							} else if ($typeArray[$type]['alternateimg']['type'] == 'select' && file_exists(dirname(__FILE__) . '/../../core/config/' . $type . '_' . $eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'], '') . '.png')) {
-								$img = 'plugins/wescontrol/core/config/' . $type . '_' . $eqLogic->getConfiguration($typeArray[$type]['alternateimg']['value'], '') . '.png';
-							}
-						}
-						echo '<img src="' . $img . '" style="padding-top: unset!important;">';
+						echo '<img src="' . $eqLogic->getImage() . '" style="padding-top: unset!important;">';
 						echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
 						echo '</div>';
 					}
@@ -269,7 +253,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 									<input type="checkbox" class="eqLogicAttr" data-label-text="{{Activer}}" data-l1key="configuration" data-l2key="usecustomcgx">
 								</div>
 							</div>
-							<div class="showgeneral" id="CGXParams">
+							<div class="hidden" id="CGXParams">
 								<div class="form-group">
 									<label class="col-sm-4 control-label">{{Identifiant FTP}}
 										<sup><i class="fas fa-question-circle tooltips" title="{{Renseigner l'identifiant du compte pour l'accès FTP. Permet l'envoi du fichier CGX sur le serveur Wes}}"></i></sup>
