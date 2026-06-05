@@ -17,6 +17,8 @@
 function printEqLogic(_eqLogic) {
   const hideGeneral = document.querySelectorAll('.hidegeneral')
   hideGeneral.unseen()
+  // 4.5.4 mini: document.getElementById('CGXParams').unseen()
+  document.getElementById('CGXParams').addClass('hidden')
 
   let type = _eqLogic.configuration.type
   for (const i in _typeid) {
@@ -29,8 +31,8 @@ function printEqLogic(_eqLogic) {
 
   if (type === 'general') {
     if (_eqLogic.configuration.usecustomcgx == 1) {
-      document.getElementById('CGXParams').removeClass('hidden')
       // 4.5.4 mini: document.getElementById('CGXParams').seen()
+      document.getElementById('CGXParams').removeClass('hidden')
     }
   } else {
     hideGeneral.seen()
@@ -51,11 +53,11 @@ function printEqLogic(_eqLogic) {
 
 document.querySelector('.eqLogicAttr[data-l2key=usecustomcgx]').addEventListener('change', function() {
   if (this.checked) {
-    document.getElementById('CGXParams').removeClass('hidden')
     // 4.5.4 mini: document.getElementById('CGXParams').seen()
+    document.getElementById('CGXParams').removeClass('hidden')
   } else {
-    document.getElementById('CGXParams').addClass('hidden')
     // 4.5.4 mini: document.getElementById('CGXParams').unseen()
+    document.getElementById('CGXParams').addClass('hidden')
   }
 })
 
