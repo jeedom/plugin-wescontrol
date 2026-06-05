@@ -141,7 +141,7 @@
         "Nom de la commande": "Command name",
         "Tester": "Test",
         "Unité": "Unit",
-        "Veuillez renseigner les informations de connexion HTTP pour accéder à l'interface du serveur Wes.": "Please fill in the HTTP login information to access the Wes server interface"
+        "Veuillez renseigner les informations de connexion HTTP pour accéder à l'interface du serveur Wes": "Please enter your HTTP login credentials to access the Wes server interface"
     },
     "plugins\/wescontrol\/desktop\/php\/wescontrol.php": {
         "100 Ampères (100A)": "100 Amps (100A)",
