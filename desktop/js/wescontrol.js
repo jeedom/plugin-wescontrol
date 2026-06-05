@@ -15,163 +15,197 @@
 */
 
 function printEqLogic(_eqLogic) {
-  var type = _eqLogic.configuration.type
-  $('.hidegeneral').hide()
-  for (var i in _typeid) {
-    if (type == i) {
-      $('.show' + i).show()
+  const hideGeneral = document.querySelectorAll('.hidegeneral')
+  hideGeneral.unseen()
+
+  let type = _eqLogic.configuration.type
+  for (const i in _typeid) {
+    if (type !== i) {
+      document.querySelectorAll('.show' + i).unseen()
     } else {
-      $('.show' + i).hide()
+      document.querySelectorAll('.show' + type).seen()
     }
   }
-  if (type !== 'general') {
-    {
-      $('.hidegeneral').show()
-      $('#span_type').html(_typeid[type]['type'])
-      if (_typeid[type]['alternateimg'] != undefined) {
-        if ($('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value() != null) {
-          refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
-        }
-        else {
-          $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
-        }
-        $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').off().on('change', function() {
-          if ($(this).value() != null) {
-            refreshWesDevicePic(type, $('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').value())
-          }
-        })
-      }
-      else {
-        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
-      }
+
+  if (type === 'general') {
+    if (_eqLogic.configuration.usecustomcgx == 1) {
+      document.getElementById('CGXParams').removeClass('hidden')
+      // 4.5.4 mini: document.getElementById('CGXParams').seen()
+    }
+  } else {
+    hideGeneral.seen()
+    document.getElementById('span_type').innerText = _typeid[type]['type']
+    let eqImg = document.querySelector('.eqLogicDisplayCard[data-eqLogic_id="' + _eqLogic.id + '"] img').src
+    document.getElementById('icon_visu').src = eqImg
+
+    if (isset(_typeid[type]['alternateimg'])) {
+      document.querySelector('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').addEventListener('change', function() {
+        document.getElementById('icon_visu').src = 'plugins/wescontrol/core/config/' + type + '_' + this.jeeValue() + '.png'
+      })
     }
   }
 }
 
-$('.eqLogicAttr[data-l2key=usecustomcgx]').on('change', function() {
-  if ($(this).is(':checked') && $('.eqLogicAttr[data-l2key=type]').value() == 'general') {
-    $('#CGXParams').show()
-  }
-  else {
-    $('#CGXParams').hide()
-  }
-})
-
-$('.eqLogicAction[data-action=sendCGX]').off().on('click', function() {
-  $.ajax({
-    type: "POST",
-    url: "plugins/wescontrol/core/ajax/wescontrol.ajax.php",
-    data: {
-      eqLogicId: $('.eqLogicAttr[data-l1key=id]').value(),
-      ftpIp: $('.eqLogicAttr[data-l2key=ip]').value(),
-      ftpUser: $('.eqLogicAttr[data-l2key=ftpusername]').value(),
-      ftpPass: $('.eqLogicAttr[data-l2key=ftppassword]').value(),
-      action: "sendCGX",
-    },
-    dataType: 'json',
-    global: false,
-    error: function(error) {
-      $('#div_alert').showAlert({ message: error.message, level: 'danger' })
-    },
-    success: function(data) {
-      if (data.state != 'ok') {
-        $('#div_alert').showAlert({ message: data.result, level: 'danger' })
-        return
-      }
-      $('#div_alert').showAlert({ message: '{{Fichier CGX envoyé avec succès.}}', level: 'success' })
-    }
-  })
-})
-
-$('#bt_goCarte').on('click', function() {
-  $.hideAlert()
-  let ip = $('.eqLogicAttr[data-l2key=ip]').value()
-  let username = $('.eqLogicAttr[data-l2key=username]').value()
-  let password = $('.eqLogicAttr[data-l2key=password]').value()
-  let port = ($('.eqLogicAttr[data-l2key=port]').value() != '') ? ':' + $('.eqLogicAttr[data-l2key=port]').value() : ''
-
-  if (ip != '' && username != '' && password != '') {
-    window.open('http://' + username + ':' + password + '@' + ip + port + '/' + _typeid[$('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').value()]['HTM'])
-  }
-  else {
-    $('#div_alert').showAlert({ message: "{{Veuillez renseigner les informations de connexion HTTP pour accéder à l'interface du serveur Wes.}}", level: 'danger' })
+document.querySelector('.eqLogicAttr[data-l2key=usecustomcgx]').addEventListener('change', function() {
+  if (this.checked) {
+    document.getElementById('CGXParams').removeClass('hidden')
+    // 4.5.4 mini: document.getElementById('CGXParams').seen()
+  } else {
+    document.getElementById('CGXParams').addClass('hidden')
+    // 4.5.4 mini: document.getElementById('CGXParams').unseen()
   }
 })
 
-$('#in_searchwescontrol').keyup(function() {
-  var search = $(this).value()
-  if (search == '') {
-    $('.childEqLogic').show()
-    return
-  }
-  search = jeedomUtils.normTextLower(search)
-  $('.eqLogicThumbnailContainer .childEqLogic').hide()
-  $('.panel-collapse').attr('data-show', 0)
-  var text
-  $('.childEqLogic .name').each(function() {
-    text = jeedomUtils.normTextLower($(this).text())
-    if (text.indexOf(search) >= 0) {
-      $(this).closest('.childEqLogic').show()
-      $(this).closest('.panel-collapse').attr('data-show', 1)
-    }
-  })
-  $('.panel-collapse[data-show=1]').collapse('show')
-  $('.panel-collapse[data-show=0]').collapse('hide')
-})
+document.getElementById('div_pageContainer').addEventListener('click', function(event) {
+  let _target = null
 
-$('#bt_openAllwescontrol').off('click').on('click', function() {
-  $("div.panel-title > .accordion-toggle[aria-expanded='false']").click()
-})
-$('#bt_closeAllwescontrol').off('click').on('click', function() {
-  $("div.panel-title > .accordion-toggle[aria-expanded='true']").click()
-})
-$('#bt_resetwescontrolSearch').off('click').on('click', function() {
-  $('#in_searchwescontrol').val('').keyup()
-})
-
-$(".wesSortableMenu").sortable({
-  axis: "y",
-  cursor: "move",
-  items: ".panel",
-  placeholder: "ui-state-highlight",
-  tolerance: "intersect",
-  forcePlaceholderSize: true,
-  update: function() {
-    var typeorder = []
-    $(this).find('.panel').each(function() {
-      typeorder.push($(this).data('type'))
-    })
-    jeedom.eqLogic.byId({
-      id: $(this).attr('data-generalId'),
+  if (_target = event.target.closest('.eqLogicAction[data-action=sendCGX]')) {
+    domUtils.ajax({
+      type: "POST",
+      url: "plugins/wescontrol/core/ajax/wescontrol.ajax.php",
+      data: {
+        eqLogicId: document.querySelector('.eqLogicAttr[data-l1key=id]').jeeValue(),
+        ftpIp: document.querySelector('.eqLogicAttr[data-l2key=ip]').jeeValue(),
+        ftpUser: document.querySelector('.eqLogicAttr[data-l2key=ftpusername]').jeeValue(),
+        ftpPass: document.querySelector('.eqLogicAttr[data-l2key=ftppassword]').jeeValue(),
+        action: "sendCGX",
+      },
+      dataType: 'json',
+      global: false,
+      error: function(error) {
+        jeedomUtils.showAlert({
+          message: error.message,
+          level: 'danger'
+        })
+      },
       success: function(data) {
-        data = (data.result) ? data.result : data
-        data.display = { menuorder: typeorder }
-        jeedom.eqLogic.simpleSave({
-          eqLogic: data
+        if (data.state != 'ok') {
+          jeedomUtils.showAlert({
+            message: data.result,
+            level: 'danger'
+          })
+          return
+        }
+        jeedomUtils.showAlert({
+          message: '{{Fichier CGX envoyé avec succès.}}',
+          level: 'success'
         })
       }
     })
+    return
+  }
+
+  if (_target = event.target.closest('#bt_goCarte')) {
+    const ip = document.querySelector('.eqLogicAttr[data-l2key=ip]').jeeValue()
+    const username = document.querySelector('.eqLogicAttr[data-l2key=username]').jeeValue()
+    const password = document.querySelector('.eqLogicAttr[data-l2key=password]').jeeValue()
+    let port = document.querySelector('.eqLogicAttr[data-l2key=port]').jeeValue()
+    if (port != '') {
+      port = ':' + port
+    }
+
+    if (ip != '' && username != '' && password != '') {
+      const type = document.querySelector('.eqLogicAttr[data-l1key=configuration][data-l2key=type]').jeeValue()
+      window.open('http://' + username + ':' + password + '@' + ip + port + '/' + _typeid[type]['HTM'])
+    }
+    else {
+      jeedomUtils.showAlert({
+        message: "{{Veuillez renseigner les informations de connexion HTTP pour accéder à l'interface du serveur Wes}}",
+        level: 'danger'
+      })
+    }
+    return
+  }
+
+  if (_target = event.target.closest('#bt_openAllwescontrol')) {
+    document.querySelectorAll("div.panel-title > .accordion-toggle[aria-expanded='false']").forEach(function(toggle) {
+      toggle.click()
+    })
+    return
+  }
+
+  if (_target = event.target.closest('#bt_closeAllwescontrol')) {
+    document.querySelectorAll("div.panel-title > .accordion-toggle[aria-expanded='true']").forEach(function(toggle) {
+      toggle.click()
+    })
+    return
+  }
+
+  if (_target = event.target.closest('#bt_resetwescontrolSearch')) {
+    const search = document.getElementById('in_searchwescontrol')
+    search.value = ''
+    search.triggerEvent('keyup')
+    return
   }
 })
 
-$("#table_cmd").sortable({
-  axis: "y",
-  cursor: "move",
-  items: ".cmd",
-  placeholder: "ui-state-highlight",
-  tolerance: "intersect",
-  forcePlaceholderSize: true
+document.getElementById('in_searchwescontrol').addEventListener('keyup', function() {
+  const childEqLogics = document.querySelectorAll('.childEqLogic')
+  let search = this.jeeValue()
+
+  if (search == '') {
+    childEqLogics.seen()
+    return
+  }
+
+  search = jeedomUtils.normTextLower(search)
+  childEqLogics.unseen()
+  document.querySelectorAll('.panel-collapse').forEach(function(panel) {
+    panel.dataset.show = 0
+  })
+  childEqLogics.forEach(function(childEqLogic) {
+    childEqLogic.querySelectorAll('.name').forEach(function(name) {
+      if (jeedomUtils.normTextLower(name.textContent).indexOf(search) >= 0) {
+        name.closest('.childEqLogic').seen()
+        name.closest('.panel-collapse').dataset.show = 1
+      }
+    })
+  })
+
+  document.querySelectorAll('.panel-collapse[data-show="1"]').forEach(function(panel) {
+    panel.addClass('in')
+  })
+  document.querySelectorAll('.panel-collapse[data-show="0"]').forEach(function(panel) {
+    panel.removeClass('in')
+  })
+})
+
+document.querySelectorAll('.wesSortableMenu').forEach(function(wesChildsMenu) {
+  new Sortable(wesChildsMenu, {
+    delay: 100,
+    draggable: '.panel',
+    direction: 'vertical',
+    filter: '.eqLogicDisplayCard',
+    preventOnFilter: false,
+    chosenClass: 'dragSelected',
+    onUpdate: function(evt) {
+      var typeorder = []
+      wesChildsMenu.querySelectorAll('.panel').forEach(function(child) {
+        typeorder.push(child.dataset.type)
+      })
+      jeedom.eqLogic.byId({
+        id: wesChildsMenu.dataset.generalid,
+        success: function(data) {
+          data = (data.result) ? data.result : data
+          data.display = { menuorder: typeorder }
+          jeedom.eqLogic.simpleSave({
+            eqLogic: data
+          })
+        }
+      })
+    }
+  })
 })
 
 function addCmdToTable(_cmd) {
   if (!isset(_cmd)) {
-    var _cmd = { configuration: {} }
+    _cmd = { configuration: {} }
   }
   if (!isset(_cmd.configuration)) {
     _cmd.configuration = {}
   }
-  var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">'
-  tr += '<td class="hidden-xs">'
+
+  let tr = '<td class="hidden-xs">'
   tr += '<span class="cmdAttr" data-l1key="id"></span>'
   tr += '</td>'
   tr += '<td>'
@@ -211,31 +245,12 @@ function addCmdToTable(_cmd) {
   }
   tr += '<i class="fas fa-minus-circle pull-right cmdAction cursor" data-action="remove"></i>'
   tr += '</td>'
-  tr += '</tr>'
-  $('#table_cmd tbody').append(tr)
-  var tr = $('#table_cmd tbody tr').last()
-  jeedom.eqLogic.buildSelectCmd({
-    id: $('.eqLogicAttr[data-l1key=id]').value(),
-    filter: { type: 'info' },
-    error: function(error) {
-      $('#div_alert').showAlert({ message: error.message, level: 'danger' })
-    },
-    success: function(result) {
-      tr.find('.cmdAttr[data-l1key=value]').append(result)
-      tr.setValues(_cmd, '.cmdAttr')
-      jeedom.cmd.changeType(tr, init(_cmd.subType))
-    }
-  })
-}
 
-function refreshWesDevicePic(type, value) {
-  let src = 'plugins/wescontrol/core/config/' + type + '_' + value + '.png'
-  fetch(src, { method: 'HEAD' })
-    .then(res => {
-      if (res.ok) {
-        $('#icon_visu').attr('src', src)
-      } else {
-        $('#icon_visu').attr('src', 'plugins/wescontrol/core/config/' + type + '.png')
-      }
-    }).catch(err => console.log('Error : ', err))
+  let newRow = document.createElement('tr')
+  newRow.innerHTML = tr
+  newRow.className = 'cmd'
+  newRow.setAttribute('data-cmd_id', init(_cmd.id))
+  document.getElementById('table_cmd').querySelector('tbody').appendChild(newRow)
+  newRow.setJeeValues(_cmd, '.cmdAttr')
+  jeedom.cmd.changeType(newRow, init(_cmd.subType))
 }
