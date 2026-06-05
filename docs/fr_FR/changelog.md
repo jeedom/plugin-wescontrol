@@ -4,6 +4,15 @@
 >
 >Pour rappel, s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement la mise à jour de documentation, de traduction ou de texte.
 
+# 05/06/2026
+
+- Prise en charge des images personnalisées pour les tuiles d'équipements
+- Version Jeedom minimale requise : **4.4**
+
+# 01/06/2026
+
+- Correction de la gestion des messages de mise à jour CGX : création, mise à jour et suppression automatique selon l'état réel du serveur Wes
+
 # 25/05/2026
 
 - Nouvelle version du fichier CGX V1.0.6
