@@ -40,7 +40,10 @@ function printEqLogic(_eqLogic) {
 
     if (isset(_typeid[type]['alternateimg'])) {
       document.querySelector('.eqLogicAttr[data-l2key=' + _typeid[type]['alternateimg']['value'] + ']').addEventListener('change', function() {
-        document.getElementById('icon_visu').src = 'plugins/wescontrol/core/config/' + type + '_' + this.jeeValue() + '.png'
+        const val = this.jeeValue()
+        if (val !== '') {
+          document.getElementById('icon_visu').src = 'plugins/wescontrol/core/config/' + type + '_' + val + '.png'
+        }
       })
     }
   }
