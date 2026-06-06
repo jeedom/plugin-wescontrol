@@ -4,14 +4,14 @@
 >
 >As a reminder, if there is no information on the update, it is because it only concerns the update of documentation, translation or text.
 
-# 
+# 05/06/2026
 
-- 
--  : **4.4**
+- Prise en charge des images personnalisées pour les tuiles d'équipements
+- Version Jeedom minimale requise : **4.4**
 
-# 
+# 01/06/2026
 
-- X : 
+- Correction de la gestion des messages de mise à jour CGX : création, mise à jour et suppression automatique selon l'état réel du serveur Wes
 
 # 25/05/2026
 
