@@ -51,18 +51,19 @@ function printEqLogic(_eqLogic) {
   }
 }
 
-document.querySelector('.eqLogicAttr[data-l2key=usecustomcgx]').addEventListener('change', function() {
-  if (this.checked) {
-    // 4.5.4 mini: document.getElementById('CGXParams').seen()
-    document.getElementById('CGXParams').removeClass('hidden')
-  } else {
-    // 4.5.4 mini: document.getElementById('CGXParams').unseen()
-    document.getElementById('CGXParams').addClass('hidden')
-  }
-})
-
 document.getElementById('div_pageContainer').addEventListener('click', function(event) {
   let _target = null
+
+  if (_target = event.target.closest('.eqLogicAttr[data-l2key=usecustomcgx]')) {
+    if (_target.checked) {
+      // 4.5.4 mini: document.getElementById('CGXParams').seen()
+      document.getElementById('CGXParams').removeClass('hidden')
+    } else {
+      // 4.5.4 mini: document.getElementById('CGXParams').unseen()
+      document.getElementById('CGXParams').addClass('hidden')
+    }
+    return
+  }
 
   if (_target = event.target.closest('.eqLogicAction[data-action=sendCGX]')) {
     domUtils.ajax({
