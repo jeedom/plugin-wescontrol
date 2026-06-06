@@ -255,7 +255,7 @@ function addCmdToTable(_cmd) {
   let newRow = document.createElement('tr')
   newRow.innerHTML = tr
   newRow.className = 'cmd'
-  newRow.setAttribute('data-cmd_id', init(_cmd.id))
+  newRow.dataset.cmd_id = init(_cmd.id)
   document.getElementById('table_cmd').querySelector('tbody').appendChild(newRow)
   newRow.setJeeValues(_cmd, '.cmdAttr')
   jeedom.cmd.changeType(newRow, init(_cmd.subType))
