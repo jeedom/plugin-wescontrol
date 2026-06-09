@@ -460,6 +460,6 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 </div>
 
 <?php
-include_file('core', 'plugin.template', 'js');
 include_file('desktop', 'wescontrol', 'js', 'wescontrol');
+include_file('core', 'plugin.template', 'js');
 ?>
