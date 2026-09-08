@@ -7,6 +7,7 @@ on:
       - master
     paths:
       - docs/**
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -19,6 +20,7 @@ jobs:
       fr_fr: ${{ steps.filter.outputs.fr_fr }}
       translated: ${{ steps.filter.outputs.translated }}
       images: ${{ steps.filter.outputs.images }}
+      manual: ${{ github.event_name == 'workflow_dispatch' }}
     steps:
       - uses: actions/checkout@v7
       - uses: dorny/paths-filter@v3
@@ -46,7 +48,7 @@ jobs:
 
   publish:
     needs: changes
-    if: needs.changes.outputs.translated == 'true' || needs.changes.outputs.images == 'true'
+    if: needs.changes.outputs.translated == 'true' || needs.changes.outputs.images == 'true' || needs.changes.outputs.manual == 'true'
     uses: jeedom/workflows/.github/workflows/docs-publish.yml@main
     secrets:
       docs_repo_token: ${{ secrets.DOCS_REPO_TOKEN }}
