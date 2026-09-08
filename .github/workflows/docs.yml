@@ -39,7 +39,7 @@ jobs:
 
   translate:
     needs: changes
-    if: needs.changes.outputs.fr_fr == 'true'
+    if: needs.changes.outputs.fr_fr == 'true' || needs.changes.outputs.manual == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: jeedom/jeetranslate-docs@main

@@ -445,7 +445,7 @@ sendVarToJS(['eqType' => $plugin->getId(), '_typeid' => $typeArray]);
 						<tr>
 							<th class="hidden-xs" style="min-width:50px;width:70px;">ID</th>
 							<th style="min-width:200px;width:350px;">{{Nom}}</th>
-							<th>{{Type}}</th>
+							<th style="width:130px;">{{Type}}</th>
 							<th>{{Valeur}}</th>
 							<th style="min-width:260px;width:350px;">{{Options}}</th>
 							<th style="min-width:80px;width:200px;">{{Actions}}</th>
