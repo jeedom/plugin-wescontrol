@@ -1,7 +1,7 @@
 t <?xml version="1.0" encoding="UTF-8"?>
 t <data>
 t <jeedom>
-t <cgxversion>1.0.5</cgxversion>
+t <cgxversion>1.0.6</cgxversion>
 t </jeedom>
 t <info>
 c g d <date>%02d/%02d/%02d</date>
@@ -384,6 +384,38 @@ c Vv6 <VARIABLE6>%.02f</VARIABLE6>
 c Vv7 <VARIABLE7>%.02f</VARIABLE7>
 c Vv8 <VARIABLE8>%.02f</VARIABLE8>
 t </variables>
+t <mbval>
+c nx00 <MBVAL01>%.03f</MBVAL01>
+c nx01 <MBVAL02>%.03f</MBVAL02>
+c nx02 <MBVAL03>%.03f</MBVAL03>
+c nx03 <MBVAL04>%.03f</MBVAL04>
+c nx04 <MBVAL05>%.03f</MBVAL05>
+c nx05 <MBVAL06>%.03f</MBVAL06>
+c nx06 <MBVAL07>%.03f</MBVAL07>
+c nx07 <MBVAL08>%.03f</MBVAL08>
+c nx08 <MBVAL09>%.03f</MBVAL09>
+c nx09 <MBVAL10>%.03f</MBVAL10>
+c nx10 <MBVAL11>%.03f</MBVAL11>
+c nx11 <MBVAL12>%.03f</MBVAL12>
+c nx12 <MBVAL13>%.03f</MBVAL13>
+c nx13 <MBVAL14>%.03f</MBVAL14>
+c nx14 <MBVAL15>%.03f</MBVAL15>
+c nx15 <MBVAL16>%.03f</MBVAL16>
+c nx16 <MBVAL17>%.03f</MBVAL17>
+c nx17 <MBVAL18>%.03f</MBVAL18>
+c nx18 <MBVAL19>%.03f</MBVAL19>
+c nx19 <MBVAL20>%.03f</MBVAL20>
+c nx20 <MBVAL21>%.03f</MBVAL21>
+c nx21 <MBVAL22>%.03f</MBVAL22>
+c nx22 <MBVAL23>%.03f</MBVAL23>
+c nx23 <MBVAL24>%.03f</MBVAL24>
+c nx24 <MBVAL25>%.03f</MBVAL25>
+c nx25 <MBVAL26>%.03f</MBVAL26>
+c nx26 <MBVAL27>%.03f</MBVAL27>
+c nx27 <MBVAL28>%.03f</MBVAL28>
+c nx28 <MBVAL29>%.03f</MBVAL29>
+c nx29 <MBVAL30>%.03f</MBVAL30>
+t </mbval>
 c WRo
 t </data>
 .

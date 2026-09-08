@@ -77,12 +77,13 @@ if (!isConnect('admin')) {
 	</fieldset>
 </form>
 <script>
-	$('#bt_UpdateCGX').on('click', function() {
-		$('#div_alertPluginConfiguration').showAlert({
+	document.getElementById('bt_UpdateCGX')?.addEventListener('click', function() {
+		jeedomUtils.showAlert({
 			message: '{{En cours de mise à jour des fichiers CGX sur tous les serveurs Wes}}',
 			level: 'warning'
-		});
-		$.ajax({
+		})
+
+		domUtils.ajax({
 			type: "POST",
 			url: "plugins/wescontrol/core/ajax/wescontrol.ajax.php",
 			data: {
@@ -90,12 +91,13 @@ if (!isConnect('admin')) {
 			},
 			dataType: 'json',
 			error: function(error) {
-				$('#div_alertPluginConfiguration').showAlert({
+				jeedomUtils.showAlert({
 					message: error.message,
-					level: 'danger'
+					level: 'danger',
+					emptyBefore: true
 				})
 			},
-			success: function(data) {
+			success: function() {
 				window.location.reload()
 			}
 		})

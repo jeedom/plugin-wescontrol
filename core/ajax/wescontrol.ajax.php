@@ -32,7 +32,7 @@ try {
     $ftpUser = $generalEqLogic->getConfiguration('ftpusername', init('ftpUser'));
     $ftpPass = $generalEqLogic->getConfiguration('ftppassword', init('ftpPass'));
     if (!empty($ftpIp) && !empty($ftpUser) && !empty($ftpPass)) {
-      if (!$generalEqLogic->sendFtp($ftpIp, $ftpUser, $ftpPass)) {
+      if (!$generalEqLogic->sendCGXByFtp($ftpIp, $ftpUser, $ftpPass)) {
         throw new Exception(__("Échec d'envoi du fichier CGX personnalisé.", __FILE__));
       }
     } else {
@@ -46,7 +46,7 @@ try {
     $eqLogics = eqLogic::byType('wescontrol', true);
     foreach ($eqLogics as $eqLogic) {
       if ($eqLogic->getConfiguration('type') === 'general' && $eqLogic->getConfiguration('usecustomcgx', 0) == 1) {
-        $eqLogic->doCGXUpdate();
+        $eqLogic->checkAndUpdateCGX();
       }
     }
     ajax::success();

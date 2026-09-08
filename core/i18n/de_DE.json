@@ -68,7 +68,6 @@
         "Intensité maximum 3": "Maximale Intensität 3",
         "Intensité souscrite": "Abonnierte Intensität",
         "Interrogation du serveur Wes": "Wes-Server-Abfrage",
-        "Le fichier CGX sur le serveur est déjà en dernière version": "Die CGX-Datei auf dem Server ist bereits in der neuesten Version",
         "Le serveur Wes n'est pas joignable ou les données sont mal formatées : ": "Der Wes-Server ist nicht erreichbar oder die Daten sind falsch formatiert:",
         "Le serveur Wes n'est pas joignable.": "Server Wes kann nicht erreicht werden",
         "Les données sont mal formatées : ": "Die Daten sind falsch formatiert:",
@@ -77,8 +76,8 @@
         "Mise à jour CGX": "CGX-Update",
         "Mise à jour CGX impossible : informations de connexion FTP non renseignées": "CGX-Update nicht möglich: FTP-Verbindungsinformationen nicht ausgefüllt",
         "Mise à jour du fichier CGX Jeedom disponible. Version actuelle": "Update der Jeedom CGX-Datei verfügbar. Aktuelle Version",
+        "Modbus": "Modbus",
         "Nouvelle version": "Neue Version",
-        "Nouvelle version.": "Neue Version",
         "Numéro compteur": "Zählernummer",
         "Option tarif": "Tarifoption",
         "Pince": "Zange",
@@ -114,8 +113,7 @@
         "Tension 1": "Spannung 1",
         "Tension 2": "Spannung 2",
         "Tension 3": "Spannung 3",
-        "Tentative de mise à jour automatique du fichier CGX": "Versuch, die CGX-Datei automatisch zu aktualisieren",
-        "Tentative de mise à jour manuelle du fichier CGX": "Versuch, die CGX-Datei manuell zu aktualisieren",
+        "Tentative de mise à jour du fichier CGX": "Versuch, die CGX-Datei zu aktualisieren",
         "Tentative échouée, nouvelle interrogation du serveur Wes": "Versuch fehlgeschlagen, Wes-Server erneut abfragen",
         "Téléinfo": "Teleinfo",
         "Valeur": "Wert",
@@ -143,7 +141,7 @@
         "Nom de la commande": "Bestellname",
         "Tester": "Prüfung",
         "Unité": "Einheit",
-        "Veuillez renseigner les informations de connexion HTTP pour accéder à l'interface du serveur Wes.": "Bitte geben Sie die HTTP-Anmeldeinformationen ein, um auf die Wes-Serverschnittstelle zuzugreifen"
+        "Veuillez renseigner les informations de connexion HTTP pour accéder à l'interface du serveur Wes": "Bitte geben Sie die HTTP-Anmeldedaten ein, um auf die Benutzeroberfläche des Wes-Servers zuzugreifen"
     },
     "plugins\/wescontrol\/desktop\/php\/wescontrol.php": {
         "100 Ampères (100A)": "100 Ampere (100 A)",
